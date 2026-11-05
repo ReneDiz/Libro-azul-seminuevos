@@ -1,7 +1,7 @@
 {
  "modelo": "Kenworth T680",
  "motor_objetivo": "PACCAR MX-13",
- "corte": "2026-11-04",
+ "corte": "2026-11-05",
  "tipo_cambio_mxn_usd": 18.5,
  "fuentes": {
   "ML": {
@@ -23,7 +23,7 @@
   },
   "SCA": {
    "nombre": "Scania Seminuevos",
-   "url": "https://seminuevos.scania.com/p/kenworth-t680-2/"
+   "url": "https://seminuevos.scania.com/?s=kenworth&post_type=product"
   }
  },
  "anuncios": [
@@ -1417,7 +1417,89 @@
    "origen": "",
    "vend": "Scania Seminuevos",
    "url": "https://seminuevos.scania.com/p/kenworth-t680-2/",
-   "nota": "Más IVA"
+   "nota": "Más IVA · 450 hp"
+  },
+  {
+   "id": "SCA-t680-6x4-4",
+   "f": "SCA",
+   "anio": 2019,
+   "precio": 1400000,
+   "mon": "MXN",
+   "motor": "",
+   "trans": "",
+   "lugar": "México",
+   "tipo": "tracto",
+   "origen": "",
+   "vend": "Scania Seminuevos",
+   "km": 601126,
+   "url": "https://seminuevos.scania.com/p/kenworth-t680-6x4-4/",
+   "nota": "Más IVA · 450 hp"
+  },
+  {
+   "id": "SCA-t680-6x4-6",
+   "f": "SCA",
+   "anio": 2019,
+   "precio": 1400000,
+   "mon": "MXN",
+   "motor": "",
+   "trans": "",
+   "lugar": "México",
+   "tipo": "tracto",
+   "origen": "",
+   "vend": "Scania Seminuevos",
+   "km": 559261,
+   "url": "https://seminuevos.scania.com/p/kenworth-t680-6x4-6/",
+   "nota": "Más IVA · 448 hp"
+  },
+  {
+   "id": "SCA-t680",
+   "f": "SCA",
+   "anio": 2019,
+   "precio": 1400000,
+   "mon": "MXN",
+   "motor": "",
+   "trans": "",
+   "lugar": "México",
+   "tipo": "tracto",
+   "origen": "",
+   "vend": "Scania Seminuevos",
+   "km": 814124,
+   "url": "https://seminuevos.scania.com/p/kenworth-t680/",
+   "nota": "Más IVA · 450 hp"
+  },
+  {
+   "id": "SCA-t680-6x4-2",
+   "f": "SCA",
+   "anio": 2019,
+   "precio": 1400000,
+   "mon": "MXN",
+   "motor": "",
+   "trans": "",
+   "lugar": "México",
+   "tipo": "tracto",
+   "origen": "",
+   "vend": "Scania Seminuevos",
+   "km": 846515,
+   "url": "https://seminuevos.scania.com/p/kenworth-t680-6x4-2/",
+   "nota": "Más IVA · 450 hp",
+   "dup": "SCA-2019"
+  },
+  {
+   "id": "SCA-4080",
+   "f": "SCA",
+   "anio": 2019,
+   "precio": 1400000,
+   "mon": "MXN",
+   "motor": "",
+   "trans": "",
+   "lugar": "México",
+   "tipo": "tracto",
+   "origen": "",
+   "vend": "Scania Seminuevos",
+   "km": 601126,
+   "url": "https://seminuevos.scania.com/p/4080/",
+   "nota": "Más IVA · ficha dice 6,011,256 km",
+   "dup": "SCA-t680-6x4-4"
   }
  ]
 }
