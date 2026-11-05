@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Libro Azul de VC Seminuevos</title>
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Libro Azul de VC Seminuevos">
+<meta property="og:title" content="Libro Azul de VC Seminuevos · tractocamiones">
+<meta property="og:description" content="Valor de mercado, sensibilidad y precio de compra de vehículos comerciales seminuevos, con anuncios reales en México.">
+<meta property="og:url" content="__SITE__/">
+<meta property="og:image" content="__SITE__/og-libro-azul-t680-v3.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+__ROOT__
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums}
+a{color:var(--acc-ink)}
+button,select,input{font:inherit;color:inherit}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,#fff 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:9px 24px;display:flex;align-items:center;gap:14px 18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;flex-wrap:wrap}
+.brand img{height:40px;width:auto;display:block;margin:-6px 0}
+.brand small{color:var(--faint);font-weight:500}
+.prueba{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#8a5a00;background:#fff3d6;border:1px solid #f1d28a;border-radius:20px;padding:2px 8px}
+nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+nav button{border:1px solid transparent;background:none;color:var(--muted);padding:6px 12px;border-radius:9px;font-weight:500;cursor:pointer}
+nav button.on{background:var(--acc-soft);color:var(--text);box-shadow:inset 2px 0 0 var(--acc)}
+nav button small{color:var(--faint);margin-left:4px}
+main{max-width:1200px;margin:0 auto;padding:22px 24px 70px}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 18px}
+.grid2{display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px;margin-bottom:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:16px;margin:0 0 4px}
+.card h3{font-size:14px;margin:0 0 8px}
+.hint{color:var(--muted);font-size:13px;margin:0 0 14px}
+.field{margin:0 0 14px}
+.field .label{margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 6px;font-size:13px;min-width:46px;flex:1;cursor:pointer;color:var(--muted);font-weight:500;line-height:1.2}
+.seg button.on{background:var(--acc-soft);border-color:var(--acc-line);color:var(--text);font-weight:600}
+.seg button small{display:block;font-size:10.5px;color:var(--faint);font-weight:500}
+.seg.years button{flex:0 0 calc(20% - 3.2px);min-width:0}
+input[type=range]{width:100%;accent-color:var(--acc-ink);margin:6px 0 2px}
+.kmv{display:flex;justify-content:space-between;color:var(--muted);font-size:12.5px;align-items:center}
+.kmv b{color:var(--text);font-size:15px}
+.chk{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12.5px;margin-top:6px}
+.big{font-size:46px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:2px 0 4px}
+.big small{font-size:15px;color:var(--muted);font-weight:500;letter-spacing:0;margin-left:6px}
+.unit{color:var(--muted);margin-bottom:10px}
+.unit b{color:var(--text)}
+.conf{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:20px;padding:3px 10px;border:1px solid}
+.conf.alta{color:#1f7a49;background:#e6f5ec;border-color:#9fd6b5}.conf.media{color:#1d4fb8;background:#e8effe;border-color:#a9c2f5}
+.conf.baja{color:#8a5a00;background:#fff3d6;border-color:#f1d28a}.conf.insuficiente{color:#a12b2b;background:#fde8e8;border-color:#f1b0b0}
+.razones{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:12.5px}
+.bar{position:relative;height:14px;border-radius:7px;background:var(--track);margin:30px 0 8px}
+.bar .zona{position:absolute;top:0;bottom:0;background:var(--acc);opacity:.5;border-radius:7px}
+.bar .pin{position:absolute;top:-8px;width:4px;height:30px;background:var(--text);border-radius:2px;transform:translateX(-2px)}
+.bar .pin::after{content:attr(data-v);position:absolute;top:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:600;background:var(--text);color:#fff;padding:2px 7px;border-radius:6px}
+.barlbl{display:flex;justify-content:space-between;color:var(--faint);font-size:12px;gap:8px}
+.barlbl span b{display:block;color:var(--text);font-size:13px}
+.minis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+.mini{background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:10px 12px;min-width:0}
+.mini .v{font-size:18px;font-weight:650;letter-spacing:-.02em}
+.mini .label{margin:0 0 2px;font-size:10.5px;letter-spacing:.1em}
+.mini .d{color:var(--muted);font-size:12px}
+.aviso{margin-top:12px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:10px}
+.esc{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+.esc th{text-align:right;color:var(--faint);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;padding:6px 8px;border-bottom:1px solid var(--line)}
+.esc th:first-child,.esc td:first-child{text-align:left}
+.esc td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.esc td:first-child{white-space:normal}
+.esc tr.dest td{background:var(--acc-soft);font-weight:650}
+.esc td small{display:block;color:var(--faint);font-weight:400;font-size:11.5px}
+.sup{display:grid;grid-template-columns:1fr 120px;align-items:center;gap:6px 10px;margin-bottom:8px}
+.sup label{color:var(--muted);font-size:13px;line-height:1.25}
+.sup label small{display:block;color:var(--faint);font-size:11px}
+.in{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;background:#fff;padding:0 8px}
+.in:focus-within{border-color:var(--acc-line);box-shadow:0 0 0 3px var(--acc-soft)}
+.in input,.in select{border:0;outline:0;width:100%;padding:6px 0;font-weight:600;text-align:right;background:none}
+.in span{color:var(--faint);font-size:12px;margin-left:4px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 14px;cursor:pointer;color:var(--muted)}
+.link{border:0;background:none;color:var(--acc-ink);cursor:pointer;padding:0;font-size:12.5px;text-decoration:underline}
+.cr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:6px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:8px 0 18px;overflow-x:auto}
+.tabs button{border:0;background:none;padding:10px 14px;cursor:pointer;color:var(--muted);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs button.on{color:var(--text);border-color:var(--acc);font-weight:600}
+.pane{display:none}.pane.on{display:block}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cmp{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+.cmp .ph{aspect-ratio:16/10;background:var(--track) center/cover no-repeat;position:relative}
+.cmp .ph .tag{position:absolute;left:8px;top:8px;background:var(--tag);color:#fff;font-size:10.5px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:.04em}
+.cmp .ph .tag.dir{background:var(--acc);color:var(--acc-on)}
+.cmp .ph .tag.out{background:var(--crit)}
+.cmp .ph .src{position:absolute;right:8px;top:8px;background:rgba(255,255,255,.92);font-size:10.5px;padding:3px 8px;border-radius:20px;color:var(--muted);font-weight:600;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmp .b{padding:10px 12px}
+.cmp .p{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.cmp .p small{font-weight:500;color:var(--faint);font-size:11.5px;margin-left:4px}
+.cmp .t{font-weight:600;margin-top:2px}
+.cmp .m{color:var(--muted);font-size:12px;margin-top:2px}
+.cmp.dim{opacity:.55}
+.more{margin-top:14px;text-align:center}
+svg text{font-family:inherit}
+.grid-l{stroke:var(--track);stroke-width:1}
+.tick{fill:var(--faint);font-size:11px}
+.pt{cursor:pointer}
+.tip{position:absolute;pointer-events:none;background:var(--text);color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.35;display:none;max-width:260px;z-index:3}
+.tip b{display:block;font-size:13px}
+.chart{position:relative}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12.5px;margin:0 0 6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;color:var(--faint);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl .n{text-align:right;white-space:nowrap}
+.tbl tr.no td{color:var(--faint)}
+.pill{display:inline-block;font-size:11px;border-radius:20px;padding:1px 7px;background:var(--track);color:var(--muted);margin:1px 2px 1px 0}
+.pill.ok{background:#e6f5ec;color:#1f7a49}.pill.warn{background:#fff3d6;color:#8a5a00}
+.bars .row{display:grid;grid-template-columns:140px minmax(0,1fr) 104px 34px;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+.bars .row:last-child{border:0}
+.bars .row .bg{height:10px;border-radius:5px;background:var(--track);position:relative}
+.bars .row .bg i{position:absolute;left:0;top:0;bottom:0;background:var(--acc);border-radius:5px;opacity:.75}
+.bars .row .bg u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
+.bars .row .v{text-align:right;font-weight:600;line-height:1.2}.bars .row .n{text-align:right;color:var(--faint)}
+.grid3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.wrap{overflow-x:auto}
+.fuentes{margin-top:26px;color:var(--faint);font-size:12.5px;line-height:1.7}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.minis,.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.big{font-size:36px}main{padding:16px}.cr{grid-template-columns:minmax(0,1fr)}.bars .row{grid-template-columns:96px minmax(0,1fr) 92px 28px}.top{padding:8px 16px}nav{margin-left:0}}
+</style></head><body>
+<header class="top">
+  <div class="brand"><img src="sticker.png" alt="">Libro Azul de VC <small>· vehículos comerciales seminuevos</small> <span class="prueba">VERSIÓN 2 · PRUEBA</span></div>
+  <nav id="prods"></nav>
+</header>
+<main>
+  <p class="label" id="corte"></p>
+  <p class="sub">Elige la unidad: el valor de mercado se calcula con anuncios reales homologados sin IVA, con las reglas del Observatorio y Valuador 1.2.</p>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Tu unidad</h2>
+      <p class="hint">Cada cambio recalcula comparables, confianza y compra. El número chico es cuántos anuncios elegibles hay.</p>
+      <div class="field"><div class="label">Año modelo</div><div class="seg years" id="anio"></div></div>
+      <div class="field"><div class="label">Kilometraje</div>
+        <input type="range" id="km" min="0" max="2000000" step="25000" value="700000">
+        <div class="kmv"><span>0</span><b id="kmv">700 mil km</b><span>2 M</span></div>
+        <label class="chk"><input type="checkbox" id="kmf" checked> Directos solo con km ±25 %</label></div>
+      <div class="field"><div class="label">Motor</div><div class="seg" id="motor"></div></div>
+      <div class="field"><div class="label">Transmisión</div><div class="seg" id="trans"></div></div>
+      <div class="field"><div class="label">Anuncios con IVA desconocido</div><div class="seg" id="ivam">
+        <button data-v="suponer_incluido">Suponer incluido<small>simulación</small></button><button data-v="excluir">Excluir<small>Observatorio</small></button><button data-v="suponer_sin">Suponer sin IVA<small>simulación</small></button></div></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+        <div class="label">Valor de mercado · mediana neta sin IVA</div><span class="conf" id="conf"></span></div>
+      <div class="big" id="valor">—</div>
+      <div class="unit" id="unidad"></div>
+      <div class="bar"><div class="zona" id="zona"></div><div class="pin" id="pin" data-v=""></div></div>
+      <div class="barlbl"><span>Mínimo<b id="bmin"></b></span><span style="text-align:center">Rango intercuartil (Q1–Q3)<b id="biqr"></b></span><span style="text-align:right">Máximo<b id="bmax"></b></span></div>
+      <div class="minis">
+        <div class="mini"><div class="label">Comparables</div><div class="v" id="ncmp">—</div><div class="d" id="ncmpd"></div></div>
+        <div class="mini"><div class="label">Dispersión</div><div class="v" id="disp">—</div><div class="d">IQR ÷ mediana</div></div>
+        <div class="mini"><div class="label">Con IVA</div><div class="v" id="total">—</div><div class="d">mediana × 1.16</div></div>
+        <div class="mini"><div class="label">Fuentes</div><div class="v" id="nport">—</div><div class="d" id="nportd"></div></div>
+      </div>
+      <ul class="razones" id="razones"></ul>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Supuestos de compra y venta</h2>
+      <p class="hint">Valores iniciales del Observatorio (caso demostrativo). Ajústalos a tu operación; tu navegador los recuerda.</p>
+      <div class="sup"><label>Gastos fijos de la unidad<small id="gfd"></small></label><div class="in"><span style="margin:0 4px 0 0">$</span><input id="s-F" type="number" step="5000" min="0"></div></div>
+      <div class="sup"><label>Reserva conservadora<small>solo escenario conservador</small></label><div class="in"><span style="margin:0 4px 0 0">$</span><input id="s-R" type="number" step="5000" min="0"></div></div>
+      <div class="sup"><label>Comisiones variables<small>% de la venta neta</small></label><div class="in"><input id="s-v" type="number" step="0.5" min="0"><span>%</span></div></div>
+      <div class="sup"><label>Margen objetivo<small>sobre venta neta</small></label><div class="in"><input id="s-m" type="number" step="0.5" min="0"><span>%</span></div></div>
+      <div class="sup"><label>Margen mínimo<small>define el tope de compra</small></label><div class="in"><input id="s-mmin" type="number" step="0.5" min="0"><span>%</span></div></div>
+      <div class="sup"><label>Descuento al vender<small>de lo pedido a lo cerrado (probable)</small></label><div class="in"><input id="s-dp" type="number" step="0.5" min="0"><span>%</span></div></div>
+      <div class="sup"><label>Margen para un distribuidor<small>si le vendes a otro distribuidor</small></label><div class="in"><input id="s-md" type="number" step="0.5" min="0"><span>%</span></div></div>
+      <div class="sup"><label>IVA de la compra<small>lo valida Fiscal</small></label><div class="in"><select id="s-ivac"><option value="no_acreditable">No acreditable</option><option value="acreditable">Acreditable</option><option value="sin_desglose">Sin IVA desglosado</option></select></div></div>
+      <button class="link" id="s-reset">Volver a los supuestos del Observatorio</button>
+    </div>
+
+    <div class="card">
+      <div class="label">Precio de venta y de compra</div>
+      <div class="wrap"><table class="esc" id="esc"></table></div>
+      <div class="label" style="margin-top:16px">Datos para tu CR Sencillo V2</div>
+      <div class="cr">
+        <div class="mini"><div class="label">B41 · Venta con IVA</div><div class="v" id="cr-b41">—</div><div class="d">venta probable a cliente directo</div></div>
+        <div class="mini"><div class="label">B8 · Compra con IVA</div><div class="v" id="cr-b8">—</div><div class="d">compra objetivo</div></div>
+        <div class="mini"><div class="label">B38 · Margen objetivo</div><div class="v" id="cr-b38">—</div><div class="d"><button class="link" id="copiar">Copiar los tres</button></div></div>
+      </div>
+      <div class="aviso" id="aviso-compra"></div>
+    </div>
+  </section>
+
+  <div class="tabs" id="tabs">
+    <button class="on" data-t="cmp">Comparables</button>
+    <button data-t="sens">Sensibilidad del mercado</button>
+    <button data-t="rot">Oferta y rotación</button>
+    <button data-t="cob">Cobertura y fuentes</button>
+    <button data-t="todos">Todos los anuncios</button>
+  </div>
+
+  <section class="pane on" id="p-cmp"><div class="cards" id="cmpgrid"></div><div class="more"><button class="btn" id="masbtn">Ver más</button></div></section>
+
+  <section class="pane" id="p-sens">
+    <div class="kpis" id="sens-kpis"></div>
+    <div class="card chart" style="margin-bottom:18px"><h2>Precio neto por año modelo</h2><p class="hint">Mediana (línea) y rango intercuartil (banda) por año, solo anuncios elegibles. Cada punto es un anuncio; pasa el cursor para verlo.</p>
+      <div class="legend" id="leg-anio"></div><div id="ch-anio"></div><div class="tip" id="tip1"></div></div>
+    <div class="card chart" style="margin-bottom:18px"><h2>Precio neto contra kilometraje</h2><p class="hint" id="km-hint"></p><div id="ch-km"></div><div class="tip" id="tip2"></div></div>
+    <div class="grid3">
+      <div class="card"><h3>Por motor</h3><div class="bars" id="g-motor"></div></div>
+      <div class="card"><h3>Por transmisión</h3><div class="bars" id="g-trans"></div></div>
+      <div class="card"><h3>Distribuidor contra particular</h3><div class="bars" id="g-canal"></div></div>
+      <div class="card"><h3>Por estado</h3><div class="bars" id="g-plaza"></div></div>
+    </div>
+    <p class="aviso" id="sens-nota"></p>
+  </section>
+
+  <section class="pane" id="p-rot">
+    <div class="kpis" id="rot-kpis"></div>
+    <div class="grid3">
+      <div class="card"><h3>Días publicados (anuncios vigentes)</h3><div class="bars" id="r-dias"></div><p class="aviso">Mercado Libre informa «publicado hace N días» y SelecTrucks Zapata la fecha de alta; las demás fuentes no lo informan.</p></div>
+      <div class="card"><h3>Movimientos entre capturas</h3><div class="wrap"><table class="tbl" id="r-mov"></table></div></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-cob"><div class="card"><div class="wrap"><table class="tbl" id="cob"></table></div><p class="aviso" id="cob-nota"></p></div></section>
+
+  <section class="pane" id="p-todos"><div class="card"><div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+    <label class="chk" style="margin:0"><input type="checkbox" id="solo-el"> Solo elegibles</label><span class="hint" style="margin:0" id="todos-n"></span></div>
+    <div class="wrap"><table class="tbl" id="todos"></table></div></div></section>
+
+  <p class="fuentes" id="fuentes"></p>
+</main>
+<script>
+const DATA = __DATA__;
+const PAR = DATA.parametros, T = PAR.iva;
+const $ = id => document.getElementById(id);
+const fmt = n => n == null || !isFinite(n) ? '—' : (n < 0 ? '−$' : '$') + Math.round(Math.abs(n)).toLocaleString('es-MX');
+const fmtk = n => !n ? 'km s/d' : (n >= 1e6 ? (n/1e6).toFixed(2).replace(/0$/,'').replace(/\.0$/,'') + ' M km' : Math.round(n/1000).toLocaleString('es-MX') + ' mil km');
+const pct = (x, d=0) => x == null || !isFinite(x) ? '—' : (x*100).toFixed(d) + ' %';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const img = a => a.img ? `https://http2.mlstatic.com/D_NQ_NP_2X_${a.img}-O.webp` : (a.img_url || '');
+const fuenteN = f => (DATA.fuentes[f] || {}).nombre || f;
+const ESTADOS = {'jal':'Jalisco','jalisco':'Jalisco','n.l.':'Nuevo León','nl':'Nuevo León','nuevo león':'Nuevo León','nuevo leon':'Nuevo León','edo. méx.':'Estado de México','estado de méxico':'Estado de México','estado de mexico':'Estado de México','cdmx':'CDMX','distrito federal':'CDMX','qro.':'Querétaro','querétaro':'Querétaro','queretaro':'Querétaro','gto.':'Guanajuato','guanajuato':'Guanajuato','tamps.':'Tamaulipas','tamaulipas':'Tamaulipas','coah.':'Coahuila','coahuila':'Coahuila','chih.':'Chihuahua','chihuahua':'Chihuahua','pue.':'Puebla','puebla':'Puebla','hgo.':'Hidalgo','hidalgo':'Hidalgo','mich.':'Michoacán','michoacán':'Michoacán','b.c.':'Baja California','baja california':'Baja California','ver.':'Veracruz','veracruz':'Veracruz','sonora':'Sonora','son.':'Sonora','sinaloa':'Sinaloa','slp':'San Luis Potosí','san luis potosí':'San Luis Potosí','yucatán':'Yucatán','tabasco':'Tabasco','morelos':'Morelos','aguascalientes':'Aguascalientes','durango':'Durango','zacatecas':'Zacatecas'};
+const estado = a => { const partes = (a.lugar||'').toLowerCase().split(/,| - /).map(s => s.trim()).reverse(); for (const p of partes) if (ESTADOS[p]) return ESTADOS[p]; return 'Sin dato'; };
+const store = { get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e) { return null; } }, set(k,v){ try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} } };
+
+// ---------- estado de la consulta ----------
+const PRODS = Object.keys(DATA.productos);
+const st = Object.assign({ prod: 'kenworth-t680', anio: 2018, km: 700000, kmf: true, motor: '*', trans: '*', ivam: PAR.iva_desconocido }, store.get('lavc2-st') || {});
+if (!PRODS.includes(st.prod)) st.prod = PRODS[0];
+const SUP0 = { F: Object.values(PAR.gastos_fijos).reduce((s,x)=>s+x,0), R: PAR.reserva_conservadora, v: PAR.variable_venta*100, m: PAR.margen.objetivo*100,
+  mmin: PAR.margen.minimo*100, dp: PAR.descuento_venta.probable*100, md: PAR.margen_distribuidor*100, ivac: PAR.iva_compra };
+let sup = Object.assign({}, SUP0, store.get('lavc2-sup') || {});
+$('gfd').textContent = Object.entries(PAR.gastos_fijos).map(([k,v]) => `${k.toLowerCase()} ${fmt(v)}`).join(' · ');
+
+// precio neto homologado sin IVA; null si no se puede usar con el criterio de IVA elegido
+function neto(a){
+  const p = a.precio_mxn; if (!p) return null;
+  if (a.iva === 'Incluido') return p/(1+T);
+  if (a.iva === 'Más IVA') return p;
+  if (st.ivam === 'excluir') return null;
+  return st.ivam === 'suponer_incluido' ? p/(1+T) : p;
+}
+const elegible = a => !(a.no_elegible && a.no_elegible.length);
+// familia de motor para filtrar y comparar (el Observatorio compara PACCAR MX-13 contra Cummins ISX/ISX15/X15)
+const fam = a => { const m = a.motor || ''; return /PACCAR/i.test(m) ? 'PACCAR' : /cum+ing?s?/i.test(m) ? 'Cummins' : /Detroit DD15/i.test(m) ? 'Detroit DD15' : /Detroit DD13/i.test(m) ? 'Detroit DD13' : /Detroit/i.test(m) ? 'Detroit' : m; };
+const delProd = () => DATA.anuncios.filter(a => a.producto === st.prod);
+const universo = () => delProd().filter(a => elegible(a) && neto(a) != null);
+
+function quant(xs, q){ // igual que CUARTIL.INC de Excel
+  if (!xs.length) return null; const s = xs.slice().sort((a,b)=>a-b), pos = (s.length-1)*q, lo = Math.floor(pos), hi = Math.ceil(pos);
+  return s[lo] + (s[hi]-s[lo])*(pos-lo);
+}
+const median = xs => quant(xs, .5);
+
+// ---------- método A del Observatorio: directos, ajustables, atípicos y confianza ----------
+function valuar(){
+  const U = universo(), w = PAR.ventana_anios_ajustables, tol = PAR.tolerancia_km;
+  const esDirecto = a => a.anio === st.anio && (st.motor === '*' || fam(a) === st.motor) && (st.trans === '*' || a.trans === st.trans)
+    && (!st.kmf || (a.km && Math.abs(a.km - st.km) <= tol*st.km && Math.abs(a.km - st.km) <= tol*a.km));
+  const dir = U.filter(esDirecto);
+  const aju = U.filter(a => !esDirecto(a) && Math.abs(a.anio - st.anio) <= w);
+  let grupo = dir.length >= PAR.min_directos ? dir : dir.concat(aju);
+  let atip = [];
+  const v0 = grupo.map(neto), q1 = quant(v0,.25), q3 = quant(v0,.75);
+  if (grupo.length >= PAR.min_para_atipicos && q3 > q1){
+    const lo = q1 - PAR.iqr_factor*(q3-q1), hi = q3 + PAR.iqr_factor*(q3-q1);
+    atip = grupo.filter(a => neto(a) < lo || neto(a) > hi); grupo = grupo.filter(a => !atip.includes(a));
+  }
+  const vals = grupo.map(neto), A = median(vals), Q1 = quant(vals,.25), Q3 = quant(vals,.75);
+  const disp = A ? (Q3 - Q1)/A : null;
+  const nDir = grupo.filter(a => dir.includes(a)).length;
+  const portales = new Set(grupo.map(a => a.fuente)).size;
+  const supuestos = grupo.filter(a => a.iva === 'Desconocido').length;
+  const C = PAR.confianza, raz = [];
+  let conf;
+  if (!grupo.length) { conf = 'insuficiente'; raz.push(`No hay anuncios elegibles entre ${st.anio-w} y ${st.anio+w}.`); }
+  else {
+    if (grupo.length < 3) raz.push(`Solo ${grupo.length} comparable${grupo.length>1?'s':''}: se necesitan al menos 3.`);
+    if (supuestos) raz.push(`${supuestos} de ${grupo.length} con IVA desconocido, simulado como ${st.ivam==='suponer_incluido'?'incluido':'sin IVA'}: el Observatorio lo marca como confianza baja.`);
+    if (dir.length < PAR.min_directos) raz.push(`Solo ${dir.length} directo${dir.length===1?'':'s'} (mismo año${st.motor!=='*'?', motor':''}${st.trans!=='*'?', transmisión':''}${st.kmf?', km ±25 %':''}); se completó con años vecinos (±${w}) sin ajustar.`);
+    const altaOk = nDir >= C.alta_min_directos && disp <= C.alta_max_dispersion && portales >= C.alta_min_portales && st.motor !== '*' && st.trans !== '*' && st.kmf;
+    const mediaOk = nDir >= C.media_min_directos && disp <= C.media_max_dispersion;
+    if (grupo.length < 3 || supuestos) conf = 'baja';
+    else if (altaOk) conf = 'alta';
+    else if (mediaOk) conf = 'media';
+    else conf = 'baja';
+    if (disp > C.media_max_dispersion) raz.push(`Dispersión de ${pct(disp)}: arriba del 40 % que pide la confianza media.`);
+    if (conf === 'media') raz.push('Para confianza alta: 5 directos, dispersión ≤20 %, 2 o más portales y motor, transmisión y km definidos.');
+    const porVend = {}; grupo.forEach(a => { const k = a.vendedor || fuenteN(a.fuente); porVend[k] = (porVend[k]||0) + 1; });
+    const [vTop, nTop] = Object.entries(porVend).sort((x,y)=>y[1]-x[1])[0];
+    if (grupo.length >= 4 && nTop/grupo.length > .5) { raz.push(`${nTop} de ${grupo.length} comparables son del mismo vendedor (${vTop}): el mercado depende de un solo inventario.`); if (conf === 'alta') conf = 'media'; }
+    if (atip.length) raz.push(`${atip.length} atípico${atip.length>1?'s':''} fuera del rango Q1−1.5×IQR a Q3+1.5×IQR.`);
+  }
+  return { A, Q1, Q3, disp, grupo, dir, aju, atip, nDir, portales, supuestos, conf, raz, U };
+}
+
+// ---------- compra y venta (hoja Costos y márgenes del Observatorio) ----------
+function escenarios(A){
+  const v = sup.v/100, m = sup.m/100, mmin = sup.mmin/100, F = +sup.F || 0, R = +sup.R || 0, Ap = PAR.apoyo_confirmado || 0;
+  const Vc = A*(1-PAR.descuento_venta.conservador), Vp = A*(1-sup.dp/100), Vo = A*(1-PAR.descuento_venta.optimista), Vd = Vp*(1-sup.md/100);
+  const compra = (V, mm, FF) => V*(1-v-mm) - FF + Ap;
+  const total = e => sup.ivac === 'acreditable' ? e*(1+T) : e;
+  const filas = [
+    { k:'Conservador', d:`venta −${PAR.descuento_venta.conservador*100} %, margen objetivo, gastos + reserva`, V:Vc, C:compra(Vc, m, F+R), FF:F+R },
+    { k:'Objetivo', d:`venta probable (−${sup.dp} %), margen objetivo`, V:Vp, C:compra(Vp, m, F), FF:F, dest:true },
+    { k:'Máximo (tope)', d:'venta probable, margen mínimo', V:Vp, C:compra(Vp, mmin, F), FF:F },
+    { k:'Optimista', d:`venta −${PAR.descuento_venta.optimista*100} %, margen objetivo · sensibilidad`, V:Vo, C:compra(Vo, m, F), FF:F },
+    { k:'Venta a distribuidor', d:`venta probable −${sup.md} %, margen objetivo`, V:Vd, C:compra(Vd, m, F), FF:F },
+  ];
+  filas.forEach(f => { f.Ct = total(f.C); f.Vt = f.V*(1+T); f.U = f.V*(1-v) - f.C - f.FF + Ap; f.Mg = f.U/f.V; });
+  return filas;
+}
+
+// ---------- interfaz ----------
+function segs(id, values, cur, label){ $(id).innerHTML = values.map(v => `<button data-v="${esc(v)}" class="${String(v)===String(cur)?'on':''}">${label?label(v):esc(v)}</button>`).join(''); }
+function opciones(){
+  const P = delProd(), U = P.filter(elegible);
+  const hay = P.filter(a => a.anio >= 2010 && a.anio <= 2026 && a.tipo === 'tracto').map(a => a.anio);
+  const years = []; for (let y = Math.min(...hay); y <= Math.max(...hay); y++) years.push(y);  // años seguidos, aunque alguno no tenga anuncios
+  if (!years.includes(st.anio)) st.anio = years.includes(2023) ? 2023 : years[Math.floor(years.length/2)];
+  const cuenta = (k, v) => U.filter(a => (k === 'motor' ? fam(a) : a[k]) === v).length;
+  segs('anio', years, st.anio, y => `${y}<small>${U.filter(a=>a.anio===y).length}</small>`);
+  const motores = [...new Set(U.map(fam).filter(Boolean))].sort((a,b)=>cuenta('motor',b)-cuenta('motor',a)).slice(0,4);
+  if (st.motor !== '*' && !motores.includes(st.motor)) st.motor = '*';
+  segs('motor', ['*', ...motores], st.motor, v => v === '*' ? 'Todos' : `${esc(v)}<small>${cuenta('motor', v)}</small>`);
+  const trans = ['Manual','Automatizada','Automática'].filter(t => cuenta('trans', t));
+  if (st.trans !== '*' && !trans.includes(st.trans)) st.trans = '*';
+  segs('trans', ['*', ...trans], st.trans, v => v === '*' ? 'Todas' : `${v}<small>${cuenta('trans', v)}</small>`);
+  document.querySelectorAll('#ivam button').forEach(b => b.classList.toggle('on', b.dataset.v === st.ivam));
+  $('km').value = st.km; $('kmv').textContent = fmtk(st.km); $('kmf').checked = st.kmf;
+  $('prods').innerHTML = PRODS.map(p => `<button data-p="${p}" class="${p===st.prod?'on':''}">${DATA.productos[p]}<small>${DATA.anuncios.filter(a=>a.producto===p && elegible(a)).length}</small></button>`).join('');
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('.seg button'); if (b){ const id = b.parentElement.id; st[id] = id === 'anio' ? +b.dataset.v : b.dataset.v; render(); return; }
+  const p = e.target.closest('#prods button'); if (p){ st.prod = p.dataset.p; st.motor = '*'; st.trans = '*'; mostrar = 8; render(); }
+});
+$('km').addEventListener('input', e => { st.km = +e.target.value; $('kmv').textContent = fmtk(st.km); render(true); });
+$('kmf').addEventListener('change', e => { st.kmf = e.target.checked; render(); });
+const SUPK = ['F','R','v','m','mmin','dp','md','ivac'];
+function pintaSup(){ SUPK.forEach(k => $('s-'+k).value = sup[k]); }
+SUPK.forEach(k => $('s-'+k).addEventListener('input', e => { sup[k] = k === 'ivac' ? e.target.value : (parseFloat(e.target.value) || 0); store.set('lavc2-sup', sup); render(true); }));
+$('s-reset').addEventListener('click', () => { sup = Object.assign({}, SUP0); store.set('lavc2-sup', null); pintaSup(); render(true); });
+pintaSup();
+let mostrar = 8; $('masbtn').addEventListener('click', () => { mostrar += 8; render(true); });
+
+function card(a, rol){
+  const n = neto(a), usd = a.moneda === 'USD';
+  const tag = rol === 'dir' ? '<span class="tag dir">DIRECTO</span>' : rol === 'aju' ? '<span class="tag">AJUSTABLE</span>' : '<span class="tag out">ATÍPICO</span>';
+  return `<a class="cmp ${rol==='out'?'dim':''}" href="${esc(a.url)}" target="_blank" rel="noopener">
+    <div class="ph" style="background-image:url('${esc(img(a))}')">${tag}<span class="src">${esc(fuenteN(a.fuente))}</span></div>
+    <div class="b"><div class="p">${usd?'US$ '+a.precio.toLocaleString('es-MX'):fmt(a.precio)}<small>${a.iva==='Incluido'?'IVA incluido':a.iva==='Más IVA'?'+ IVA':'IVA s/d'}</small></div>
+    <div class="m">neto ${fmt(n)}${a.cambio_precio?` · <b style="color:${a.cambio_precio<0?'var(--good)':'var(--crit)'}">${a.cambio_precio<0?'bajó':'subió'} ${fmt(Math.abs(a.cambio_precio))}</b>`:''}</div>
+    <div class="t">${a.anio} · ${fmtk(a.km)}</div>
+    <div class="m">${esc(a.motor||'motor s/d')} · ${esc(a.trans||'transmisión s/d')}</div>
+    <div class="m">${esc(a.lugar||'')}${a.vendedor?' · '+esc(a.vendedor):''}</div></div></a>`;
+}
+
+let R = null;
+function render(rapido){
+  if (!rapido) opciones();
+  store.set('lavc2-st', st);
+  R = valuar();
+  const nombre = DATA.productos[st.prod];
+  $('valor').innerHTML = R.A ? fmt(R.A) + '<small>MXN sin IVA</small>' : 'Sin datos';
+  $('unidad').innerHTML = `${nombre} <b>${st.anio}</b> · <b>${st.motor==='*'?'cualquier motor':esc(st.motor)}</b> · <b>${st.trans==='*'?'cualquier transmisión':st.trans}</b> · <b>${fmtk(st.km)}</b>`;
+  $('conf').className = 'conf ' + R.conf; $('conf').textContent = 'Confianza ' + R.conf;
+  $('razones').innerHTML = R.raz.map(r => `<li>${r}</li>`).join('');
+  const vals = R.grupo.map(neto), mn = vals.length ? Math.min(...vals) : 0, mx = vals.length ? Math.max(...vals) : 1, span = (mx - mn) || 1, p = v => Math.max(0, Math.min(100, (v-mn)/span*100));
+  $('zona').style.display = $('pin').style.display = R.A ? '' : 'none';
+  if (R.A){ $('zona').style.left = p(R.Q1)+'%'; $('zona').style.width = Math.max(1, p(R.Q3)-p(R.Q1))+'%'; $('pin').style.left = p(R.A)+'%'; $('pin').dataset.v = fmt(R.A); }
+  $('bmin').textContent = fmt(vals.length?mn:null); $('bmax').textContent = fmt(vals.length?mx:null); $('biqr').textContent = R.A ? fmt(R.Q1)+' – '+fmt(R.Q3) : '—';
+  $('ncmp').textContent = R.grupo.length; $('ncmpd').textContent = `${R.nDir} directos · ${R.grupo.length-R.nDir} ajustables`;
+  $('disp').textContent = pct(R.disp); $('total').textContent = fmt(R.A ? R.A*(1+T) : null);
+  $('nport').textContent = R.portales; $('nportd').textContent = [...new Set(R.grupo.map(a => fuenteN(a.fuente)))].slice(0,3).join(', ');
+  if (R.A){
+    const E = escenarios(R.A);
+    $('esc').innerHTML = `<tr><th>Escenario</th><th>Venta neta</th><th>Venta con IVA</th><th>Compra máx.</th><th>Utilidad · margen</th></tr>` +
+      E.map(f => `<tr class="${f.dest?'dest':''}"><td>${f.k}<small>${f.d}</small></td><td>${fmt(f.V)}</td><td>${fmt(f.Vt)}</td><td>${fmt(f.Ct)}${sup.ivac==='acreditable'?'<small>económico '+fmt(f.C)+'</small>':''}</td><td>${fmt(f.U)}<small>${pct(f.Mg,1)}</small></td></tr>`).join('');
+    const o = E[1];
+    $('cr-b41').textContent = fmt(o.Vt); $('cr-b8').textContent = fmt(o.Ct); $('cr-b38').textContent = pct(sup.m/100, 1);
+    $('aviso-compra').innerHTML = `Comprar en <b>${fmt(o.Ct)}</b> y vender en <b>${fmt(o.Vt)}</b> con IVA deja ${fmt(o.U)} (${pct(o.Mg,1)} de la venta neta). El tope con margen mínimo es <b>${fmt(E[2].Ct)}</b>; si la unidad se venderá a otro distribuidor, no pagar más de <b>${fmt(E[4].Ct)}</b>. Ningún resultado es autorización; confianza del mercado: <b>${R.conf}</b>.`;
+  } else { $('esc').innerHTML = '<tr><td>Sin valor de mercado: no hay comparables elegibles.</td></tr>'; ['cr-b41','cr-b8','cr-b38'].forEach(k => $(k).textContent = '—'); $('aviso-compra').textContent = ''; }
+  const rol = a => R.dir.includes(a) ? 'dir' : 'aju', orden = [...R.grupo.map(a => [a, rol(a)]), ...R.atip.map(a => [a,'out'])]
+    .sort((x,y) => ({dir:0,aju:1,out:2}[x[1]] - {dir:0,aju:1,out:2}[y[1]]) || Math.abs(x[0].anio-st.anio)-Math.abs(y[0].anio-st.anio) || Math.abs((x[0].km||9e6)-st.km)-Math.abs((y[0].km||9e6)-st.km));
+  $('cmpgrid').innerHTML = orden.slice(0, mostrar).map(([a,r]) => card(a, r)).join('') || '<p class="hint">Sin comparables.</p>';
+  $('masbtn').style.display = mostrar >= orden.length ? 'none' : '';
+  sensibilidad(); rotacion(); cobertura(); todos();
+}
+$('copiar').addEventListener('click', () => { const t = `B41\t${$('cr-b41').textContent}\nB8\t${$('cr-b8').textContent}\nB38\t${$('cr-b38').textContent}`;
+  try { navigator.clipboard.writeText(t).then(() => { $('copiar').textContent = 'Copiado'; setTimeout(() => $('copiar').textContent = 'Copiar los tres', 1500); }); } catch(e) {} });
+
+// ---------- sensibilidad ----------
+function regresion(U){ // log(neto) = b0 + b1·año + b2·(km/100 mil), mínimos cuadrados
+  const xs = U.filter(a => a.km && a.km < 3e6);
+  if (xs.length < 8 || new Set(xs.map(a=>a.anio)).size < 3) return null;
+  const X = xs.map(a => [1, a.anio - 2018, a.km/1e5]), y = xs.map(a => Math.log(neto(a))), k = 3;
+  const M = Array.from({length:k}, () => Array(k+1).fill(0));
+  X.forEach((r,i) => { for (let a=0;a<k;a++){ M[a][k]+=r[a]*y[i]; for (let b=0;b<k;b++) M[a][b]+=r[a]*r[b]; } });
+  for (let c=0;c<k;c++){ let p=c; for (let r=c+1;r<k;r++) if (Math.abs(M[r][c])>Math.abs(M[p][c])) p=r; [M[c],M[p]]=[M[p],M[c]];
+    if (Math.abs(M[c][c])<1e-9) return null; for (let r=0;r<k;r++) if (r!==c){ const f=M[r][c]/M[c][c]; for (let j=c;j<=k;j++) M[r][j]-=f*M[c][j]; } }
+  const b = M.map((r,i) => r[k]/r[i]);
+  // error estándar: s² · diag((X'X)⁻¹), para decir si el efecto es claro (|t| ≥ 2)
+  const XtX = Array.from({length:k}, () => Array(k).fill(0)); X.forEach(r => { for (let a=0;a<k;a++) for (let c=0;c<k;c++) XtX[a][c]+=r[a]*r[c]; });
+  const inv = invertir(XtX); let sse = 0; X.forEach((r,i) => { const e = y[i] - r.reduce((t,x,j)=>t+x*b[j],0); sse += e*e; });
+  const s2 = sse/(X.length-k), t = j => inv ? b[j]/Math.sqrt(s2*inv[j][j]) : 0;
+  return { anio: Math.exp(b[1])-1, km: Math.exp(b[2])-1, n: xs.length, tAnio: t(1), tKm: t(2) };
+}
+function invertir(A){ const n = A.length, M = A.map((r,i) => [...r, ...Array.from({length:n}, (_,j) => +(i===j))]);
+  for (let c=0;c<n;c++){ let p=c; for (let r=c+1;r<n;r++) if (Math.abs(M[r][c])>Math.abs(M[p][c])) p=r; [M[c],M[p]]=[M[p],M[c]]; const d = M[c][c]; if (Math.abs(d)<1e-12) return null;
+    for (let j=0;j<2*n;j++) M[c][j]/=d; for (let r=0;r<n;r++) if (r!==c){ const f=M[r][c]; for (let j=0;j<2*n;j++) M[r][j]-=f*M[c][j]; } }
+  return M.map(r => r.slice(n)); }
+function barras(id, grupos, ref){
+  const rows = Object.entries(grupos).map(([k, xs]) => ({k, n: xs.length, med: median(xs)})).filter(r => r.n).sort((a,b) => b.n - a.n).slice(0, 8);
+  if (!rows.length){ $(id).innerHTML = '<p class="hint">Sin datos.</p>'; return; }
+  const mx = Math.max(...rows.map(r => r.med), ref || 0);
+  $(id).innerHTML = rows.map(r => `<div class="row"><span>${esc(r.k)}</span><div class="bg"><i style="width:${r.med/mx*100}%"></i>${ref?`<u style="left:${ref/mx*100}%"></u>`:''}</div><span class="v">${fmt(r.med)}${ref?`<br><small style="color:${r.med>=ref?'var(--good)':'var(--crit)'};font-weight:500">${r.med>=ref?'+':''}${pct(r.med/ref-1)}</small>`:''}</span><span class="n">${r.n}</span></div>`).join('');
+}
+const agrupa = (xs, f) => xs.reduce((g, a) => { const k = f(a); (g[k] = g[k] || []).push(neto(a)); return g; }, {});
+function sensibilidad(){
+  const U = universo(), reg = regresion(U), cerca = U.filter(a => Math.abs(a.anio - st.anio) <= 1), ref = median(cerca.map(neto));
+  $('sens-kpis').innerHTML = [
+    ['Un año modelo más nuevo', reg ? (reg.anio>=0?'+':'') + pct(reg.anio,1) : '—', reg ? (Math.abs(reg.tAnio) >= 2 ? `efecto claro · ${reg.n} anuncios con km` : `sin efecto claro (t=${reg.tAnio.toFixed(1)}) · ${reg.n} anuncios`) : 'muestra insuficiente'],
+    ['Cada 100 mil km más', reg ? (reg.km>=0?'+':'') + pct(reg.km,1) : '—', reg ? (Math.abs(reg.tKm) >= 2 ? 'efecto claro, controlando el año' : `sin efecto claro (t=${reg.tKm.toFixed(1)}): los anuncios no reflejan bien el km`) : 'muestra insuficiente'],
+    [`Mediana ${st.anio-1}–${st.anio+1}`, fmt(ref), `${cerca.length} anuncios elegibles`],
+    ['Anuncios elegibles', U.length, `de ${delProd().length} registrados`],
+  ].map(([l,v,d]) => `<div class="mini"><div class="label">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('');
+  barras('g-motor', agrupa(cerca, a => fam(a) || 'Sin dato'), ref);
+  barras('g-trans', agrupa(cerca, a => a.trans || 'Sin dato'), ref);
+  barras('g-canal', agrupa(cerca, a => a.tipo_vendedor === 'particular' ? 'Particular' : 'Distribuidor'), ref);
+  barras('g-plaza', agrupa(cerca, estado), ref);
+  $('sens-nota').textContent = `Las barras comparan la mediana de cada grupo (años ${st.anio-1} a ${st.anio+1}) contra la mediana general de esos años (línea negra). Son diferencias observadas en anuncios, no ajustes autorizados: el Observatorio pide evidencia de cierres para convertirlas en primas o castigos.`;
+  drawAnio(U); drawKm(cerca, reg);
+}
+const COLF = {ML:'#f2a541',STZ:'#2f6fed',GOON:'#1d4fb8',PANA:'#7a5cf0',NASTRAC:'#2e9b5f',QT:'#0f8a84',SCA:'#d63b3b',SEM:'#c9820b',TRACTOS:'#14213d',TTM:'#9b6b3a',DN:'#5d6a4f',DICAM:'#8590a6',ECC:'#b3bccb'};
+const colorFuente = f => COLF[f] || '#8590a6';
+function puntos(svgEl, tipEl){
+  svgEl.querySelectorAll('.pt').forEach(c => { const a = DATA.anuncios.find(x => x.id === c.dataset.id);
+    c.addEventListener('mousemove', ev => { tipEl.style.display='block'; tipEl.innerHTML = `<b>${a.anio} · neto ${fmt(neto(a))}</b>${esc(a.motor||'motor s/d')} · ${fmtk(a.km)}<br>${esc(fuenteN(a.fuente))} · ${esc(a.lugar||'')}`;
+      const rc = svgEl.parentElement.getBoundingClientRect(); tipEl.style.left = Math.min(ev.clientX-rc.left+14, rc.width-200)+'px'; tipEl.style.top = (ev.clientY-rc.top-10)+'px'; });
+    c.addEventListener('mouseleave', () => tipEl.style.display='none'); c.addEventListener('click', () => window.open(a.url, '_blank')); });
+}
+function ejeY(W,PL,PR,pmax,sy){ let s=''; const paso = pmax > 2.5e6 ? 500000 : 250000;
+  for (let p=0;p<=pmax;p+=paso) s += `<line class="grid-l" x1="${PL}" x2="${W-PR}" y1="${sy(p)}" y2="${sy(p)}"/><text class="tick" x="${PL-8}" y="${sy(p)+4}" text-anchor="end">${p?(p/1e6).toFixed(2).replace(/0$/,'')+' M':'0'}</text>`; return s; }
+function drawAnio(U){
+  const fuentes = [...new Set(U.map(a=>a.fuente))];
+  $('leg-anio').innerHTML = fuentes.map(f => `<span><i style="background:${colorFuente(f)}"></i>${esc(fuenteN(f))}</span>`).join('') + '<span><i style="background:var(--text);border-radius:2px;height:3px;width:14px;vertical-align:3px"></i>Mediana</span>';
+  if (!U.length){ $('ch-anio').innerHTML = '<p class="hint">Sin datos.</p>'; return; }
+  const ys = [...new Set(U.map(a=>a.anio))].sort(), y0 = ys[0]-.6, y1 = ys[ys.length-1]+.6, W=1000,H=360,PL=64,PR=16,PT=22,PB=36;
+  const pmax = Math.ceil(Math.max(...U.map(neto))/250000)*250000, sx = y => PL+(y-y0)/(y1-y0)*(W-PL-PR), sy = p => PT+(1-p/pmax)*(H-PT-PB);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Precio neto por año">` + ejeY(W,PL,PR,pmax,sy);
+  ys.forEach(y => s += `<text class="tick" x="${sx(y)}" y="${H-12}" text-anchor="middle" ${y===st.anio?'font-weight="700" style="fill:var(--text)"':''}>${y}</text>`);
+  const g = ys.map(y => { const v = U.filter(a=>a.anio===y).map(neto); return {y, m:median(v), q1:quant(v,.25), q3:quant(v,.75), n:v.length}; });
+  g.forEach(r => s += `<rect x="${sx(r.y)-18}" y="${sy(r.q3)}" width="36" height="${Math.max(2,sy(r.q1)-sy(r.q3))}" rx="4" fill="var(--acc)" opacity=".14"/>`);
+  s += `<path d="M${g.map(r=>sx(r.y)+','+sy(r.m)).join(' L')}" fill="none" stroke="var(--text)" stroke-width="2"/>`;
+  let seed = 7; const rnd = () => (seed = (seed*9301+49297)%233280)/233280;
+  U.forEach(a => s += `<circle class="pt" data-id="${esc(a.id)}" cx="${sx(a.anio)+(rnd()-.5)*28}" cy="${sy(neto(a))}" r="${a.anio===st.anio?6:4.5}" fill="${colorFuente(a.fuente)}" fill-opacity=".85" stroke="#fff" stroke-width="1"/>`);
+  g.forEach(r => s += `<text x="${sx(r.y)}" y="${Math.max(12, sy(r.q3)-6)}" text-anchor="middle" font-size="10.5" fill="var(--faint)">n=${r.n}</text>`);
+  if (R && R.A) s += `<circle cx="${sx(st.anio)}" cy="${sy(R.A)}" r="9" fill="none" stroke="var(--acc-ink)" stroke-width="2.5"/>`;
+  $('ch-anio').innerHTML = s + '</svg>'; puntos($('ch-anio').firstChild, $('tip1'));
+}
+function drawKm(cerca, reg){
+  const xs = cerca.filter(a => a.km && a.km < 3e6);
+  $('km-hint').textContent = `Anuncios elegibles del ${st.anio-1} al ${st.anio+1} con kilometraje (más fuertes los del ${st.anio}). ${reg && R && R.A ? 'La línea parte del valor de mercado y sigue la tendencia del modelo: ' + (reg.km>=0?'+':'') + pct(reg.km,1) + ' cada 100 mil km' + (Math.abs(reg.tKm) < 2 ? ', un efecto que la muestra todavía no distingue del ruido.' : '.') : ''}`;
+  if (xs.length < 2){ $('ch-km').innerHTML = '<p class="hint">Muy pocos anuncios con kilometraje para estos años.</p>'; return; }
+  const W=1000,H=320,PL=64,PR=16,PT=16,PB=36, kmax = Math.ceil(Math.max(...xs.map(a=>a.km), st.km)/250000)*250000, pmax = Math.ceil(Math.max(...xs.map(neto))/250000)*250000;
+  const sx = k => PL+k/kmax*(W-PL-PR), sy = p => PT+(1-p/pmax)*(H-PT-PB);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Precio contra kilometraje">` + ejeY(W,PL,PR,pmax,sy);
+  for (let k=0;k<=kmax;k+=250000) s += `<text class="tick" x="${sx(k)}" y="${H-12}" text-anchor="middle">${k?fmtk(k):'0'}</text>`;
+  s += `<line x1="${sx(st.km)}" x2="${sx(st.km)}" y1="${PT}" y2="${H-PB}" stroke="var(--acc-ink)" stroke-dasharray="4 4"/><text class="tick" x="${sx(st.km)+6}" y="${PT+12}" style="fill:var(--acc-ink)">tu kilometraje</text>`;
+  if (reg && R && R.A){ const f = k => R.A*Math.pow(1+reg.km, (k-st.km)/1e5); s += `<path d="M${sx(0)},${sy(Math.min(pmax,f(0)))} L${sx(kmax)},${sy(f(kmax))}" stroke="var(--acc)" stroke-width="2" fill="none" opacity=".7"/>`; }
+  xs.forEach(a => s += `<circle class="pt" data-id="${esc(a.id)}" cx="${sx(a.km)}" cy="${sy(neto(a))}" r="${a.anio===st.anio?6:4.5}" fill="${colorFuente(a.fuente)}" fill-opacity="${a.anio===st.anio?.9:.4}" stroke="#fff"/>`);
+  $('ch-km').innerHTML = s + '</svg>'; puntos($('ch-km').firstChild, $('tip2'));
+}
+
+// ---------- oferta y rotación ----------
+function rotacion(){
+  const P = delProd(), vig = P.filter(a => a.estado === 'vigente' && a.tipo === 'tracto' && !a.dup_de);
+  const dias = a => a.dias_publicado != null ? a.dias_publicado : (a.publicado ? Math.round((new Date(DATA.corte) - new Date(a.publicado))/864e5) : null);
+  const conD = vig.filter(a => dias(a) != null), ret = P.filter(a => a.estado === 'retirado'), baj = P.filter(a => a.cambio_precio < 0), sub = P.filter(a => a.cambio_precio > 0);
+  $('rot-kpis').innerHTML = [['Anuncios vigentes', vig.length, 'tractos sin duplicados'], ['Días publicados', conD.length ? Math.round(median(conD.map(dias))) : '—', `mediana de ${conD.length} con fecha`],
+    ['Bajaron de precio', baj.length, 'entre capturas'], ['Ya no aparecen', ret.length, 'posible venta o retiro']]
+    .map(([l,v,d]) => `<div class="mini"><div class="label">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('');
+  const tramos = {'0–15 días':[0,15],'16–30':[16,30],'31–60':[31,60],'61–120':[61,120],'Más de 120':[121,1e6]};
+  const g = Object.entries(tramos).map(([k,[a,b]]) => [k, conD.filter(x => dias(x)>=a && dias(x)<=b).length]);
+  const mx = Math.max(1, ...g.map(x=>x[1]));
+  $('r-dias').innerHTML = g.map(([k,n]) => `<div class="row"><span>${k}</span><div class="bg"><i style="width:${n/mx*100}%"></i></div><span class="v">${n}</span><span class="n"></span></div>`).join('');
+  const mov = [...baj, ...sub, ...ret].slice(0, 30);
+  $('r-mov').innerHTML = mov.length ? '<tr><th>Anuncio</th><th>Movimiento</th><th class="n">Precio</th></tr>' + mov.map(a => `<tr><td><a href="${esc(a.url)}" target="_blank" rel="noopener">${a.anio} · ${fmtk(a.km)}</a><br><small>${esc(fuenteN(a.fuente))}</small></td><td>${a.estado==='retirado'?'Ya no aparece':a.cambio_precio<0?'Bajó '+fmt(-a.cambio_precio):'Subió '+fmt(a.cambio_precio)}</td><td class="n">${fmt(a.precio_mxn)}</td></tr>`).join('')
+    : `<tr><td>Todavía no hay movimientos: aparecen al comparar capturas de días distintos. Capturas automáticas hasta hoy: ${DATA.capturas.length}. Con una captura semanal se arma el índice de precios y la rotación.</td></tr>`;
+}
+
+// ---------- cobertura ----------
+function cobertura(){
+  const P = delProd(), por = {};
+  P.forEach(a => { const f = por[a.fuente] = por[a.fuente] || {n:0, el:0, iva:0}; f.n++; if (elegible(a)) f.el++; if (a.iva !== 'Desconocido') f.iva++; });
+  $('cob').innerHTML = '<tr><th>Fuente</th><th>Tipo</th><th class="n">Registros</th><th class="n">Elegibles</th><th class="n">IVA conocido</th><th>Lectura</th></tr>' +
+    Object.entries(por).sort((a,b)=>b[1].n-a[1].n).map(([k,f]) => { const F = DATA.fuentes[k] || {nombre:k};
+      return `<tr><td><a href="${esc(F.url||'#')}" target="_blank" rel="noopener">${esc(F.nombre)}</a></td><td>${esc(F.tipo||'')}</td><td class="n">${f.n}</td><td class="n">${f.el}</td><td class="n">${f.iva}</td><td>${F.leida_automatica?'<span class="pill ok">automática · '+F.ultima_lectura+'</span>':'<span class="pill warn">captura previa (Observatorio o v1)</span>'}</td></tr>`; }).join('');
+  $('cob-nota').innerHTML = `Capturas automáticas: ${DATA.capturas.join(', ') || 'ninguna'}. Sin lectura automática: Tractos (catálogo por aplicación), Ritchie Bros (montos solo con cuenta), Facebook Marketplace, TruckPaper y transportistas como Castores o Tresguerras; se integran con captura manual.`;
+}
+
+// ---------- todos ----------
+$('solo-el').addEventListener('change', () => todos());
+function todos(){
+  const P = delProd().filter(a => !$('solo-el').checked || elegible(a));
+  $('todos-n').textContent = `${P.length} anuncios de ${DATA.productos[st.prod]}`;
+  $('todos').innerHTML = '<tr><th>Año</th><th class="n">Km</th><th>Motor · transmisión</th><th class="n">Publicado</th><th>IVA</th><th class="n">Neto</th><th>Fuente · lugar</th><th>Estado</th></tr>' +
+    P.slice().sort((a,b) => b.anio-a.anio || (a.precio_mxn||0)-(b.precio_mxn||0)).map(a => `<tr class="${elegible(a)?'':'no'}"><td><a href="${esc(a.url)}" target="_blank" rel="noopener">${a.anio}</a></td><td class="n">${a.km?a.km.toLocaleString('es-MX'):'s/d'}</td><td>${esc(a.motor||'s/d')} · ${esc(a.trans||'s/d')}</td><td class="n">${a.moneda==='USD'?'US$ '+a.precio.toLocaleString('es-MX'):fmt(a.precio)}</td><td>${esc(a.iva)}</td><td class="n">${fmt(neto(a))}</td><td>${esc(fuenteN(a.fuente))}<br><small>${esc(a.lugar||'')}</small></td><td>${elegible(a)?'<span class="pill ok">elegible</span>':(a.no_elegible||[]).map(m=>`<span class="pill">${esc(m)}</span>`).join('')}${a.nota?`<br><small>${esc(a.nota)}</small>`:''}</td></tr>`).join('');
+}
+
+$('tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === 'p-' + b.dataset.t)); });
+const nEl = DATA.anuncios.filter(elegible).length;
+$('corte').textContent = `Corte ${DATA.corte} · ${DATA.anuncios.length} anuncios registrados · ${nEl} elegibles · ${Object.values(DATA.fuentes).filter(f=>f.leida_automatica).length} fuentes leídas automáticamente · parámetros ${PAR.version}`;
+$('fuentes').innerHTML = 'Fuentes · ' + Object.values(DATA.fuentes).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.nombre)}</a>`).join(' · ') + ` · Dólares a ${PAR.tipo_cambio_mxn_usd.toFixed(2)} MXN · IVA ${pct(T)}.`;
+render();
+</script>
+</body></html>

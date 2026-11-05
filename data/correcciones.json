@@ -1,0 +1,89 @@
+{
+ "_explicacion": "Correcciones manuales por ID de anuncio. Se aplican al homologar y ganan sobre lo que diga la fuente. Campos: excluir (motivo), tipo, dup_de, nota, iva, motor, km.",
+ "MLM-2993064883": {
+  "tipo": "volteo"
+ },
+ "MLM-3603223981": {
+  "dup_de": "MLM-6444093402"
+ },
+ "MLM-3208538267": {
+  "tipo": "torton"
+ },
+ "MLM-3314569145": {
+  "tipo": "volteo"
+ },
+ "MLM-2967750149": {
+  "dup_de": "MLM-5997010380"
+ },
+ "MLM-3675578105": {
+  "tipo": "volteo"
+ },
+ "MLM-3726526211": {
+  "tipo": "volteo"
+ },
+ "MLM-6477123726": {
+  "excluir": "El anuncio vende una caja seca, no el tracto"
+ },
+ "MLM-3613504339": {
+  "tipo": "volteo"
+ },
+ "MLM-3711555243": {
+  "tipo": "volteo"
+ },
+ "MLM-3717193933": {
+  "nota": "Next Gen"
+ },
+ "MLM-3631111259": {
+  "tipo": "torton"
+ },
+ "MLM-4496362774": {
+  "tipo": "torton"
+ },
+ "MLM-2850324027": {
+  "nota": "Título dice 2017, ficha 2015"
+ },
+ "MLM-3630366025": {
+  "excluir": "Accidentado"
+ },
+ "MLM-5904408764": {
+  "dup_de": "MLM-6409829604"
+ },
+ "MLM-3380068881": {
+  "excluir": "Precio inconsistente (23,500)"
+ },
+ "MLM-3595015807": {
+  "tipo": "volteo"
+ },
+ "MLM-5675936764": {
+  "tipo": "torton"
+ },
+ "MLM-3548489055": {
+  "nota": "Dormitorio 76"
+ },
+ "SEM-4609828": {
+  "nota": "Garantía de casa"
+ },
+ "TTM-471232": {
+  "nota": "Lote de 8 unidades 2018 iguales entre 1,437,000 y 1,460,000"
+ },
+ "SCA-2019": {
+  "nota": "Más IVA · 450 hp"
+ },
+ "SCA-t680-6x4-4": {
+  "nota": "Más IVA · 450 hp"
+ },
+ "SCA-t680-6x4-6": {
+  "nota": "Más IVA · 448 hp"
+ },
+ "SCA-t680": {
+  "nota": "Más IVA · 450 hp"
+ },
+ "SCA-t680-6x4-2": {
+  "dup_de": "SCA-2019",
+  "nota": "Más IVA · 450 hp"
+ },
+ "SCA-4080": {
+  "dup_de": "SCA-t680-6x4-4",
+  "nota": "Más IVA · ficha dice 6,011,256 km"
+ }
+}

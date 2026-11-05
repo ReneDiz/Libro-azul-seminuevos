@@ -1,20 +1,30 @@
-# Libro Azul de VC Seminuevos · Kenworth T680
+# Libro Azul de VC Seminuevos
 
-Cotizador interactivo de vehículos comerciales (VC) seminuevos: valor de referencia por año, motor y kilometraje, a partir de anuncios reales en venta en México, y un precio propuesto de compra.
+Guía de mercado de vehículos comerciales seminuevos en México: valor de mercado con anuncios reales homologados, confianza, sensibilidad y precio de compra con margen.
 
-## Estructura
+- **Versión 1 (fija):** rama `version-1-fija`, también en `main`. No se modifica.
+- **Versión 2 (prueba):** rama `v2-prueba`. Productos: Kenworth T680, Freightliner Cascadia e International LT.
 
-- `data/kenworth-t680.json`: anuncios, fuentes, tipo de cambio y fecha de corte.
-- `build.py`: plantilla HTML, CSS y JS. Genera `index.html` y `site/index.html`.
-- Al inicio de `build.py`: la paleta de colores (`PALETA = "azul"`, `"acero"` o `"petroleo"`), los supuestos de compra (`COMPRA`) y la dirección del sitio (`SITE_URL`).
-- `site/`: carpeta que se publica (Netlify), con la imagen OG, el sticker y `_headers`.
-
-## Uso
-
-Edita los datos o la plantilla y regenera:
+## Cómo se actualiza
 
 ```bash
-python3 build.py
+python3 -m recolectar   # lee las fuentes y guarda data/capturas/AAAA-MM-DD.json
+python3 homologar.py    # junta capturas + Observatorio + correcciones en data/base.json
+python3 build.py        # genera index.html y site/index.html
 ```
 
-No edites `index.html` a mano: se sobrescribe en cada build.
+GitHub Actions corre estos tres pasos cada lunes (`.github/workflows/captura-semanal.yml`).
+
+## Archivos
+
+| Archivo | Qué es |
+|---|---|
+| `data/parametros.json` | Supuestos (IVA, vigencia, ventanas, descuentos, márgenes, gastos). Vienen del Observatorio 1.2. |
+| `data/correcciones.json` | Correcciones manuales por anuncio: excluir, duplicado, tipo, nota, IVA. |
+| `data/previas/` | Evidencia previa: Base de mercado del Observatorio 1.2 y captura de la versión 1. |
+| `data/capturas/` | Una foto del mercado por fecha. No se borran: sirven para medir cambios de precio y rotación. |
+| `recolectar/` | Un lector por fuente. |
+| `plantilla.html` | Diseño y cálculos de la página. |
+| `CAMBIOS.md` | Bitácora de cambios de método, parámetros y fuentes. |
+
+Ningún resultado es una autorización de compra: se lleva al CR Sencillo V2 y sigue el procedimiento.
