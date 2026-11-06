@@ -95,6 +95,7 @@ def leer(log=print):
             "lugar": a["lugar"], "vendedor": vend.group(1) if vend else "",
             "tipo_vendedor": "distribuidor" if vend and re.search(r"Agencia|Concesionaria|Tienda|Profesional", vend.group(2), re.I) else "particular",
             "tipo": _tipo(a["titulo"], desc), "dias_publicado": dias, "consulta": HOY, "img": a["img"],
+            "texto": (a["titulo"] + " · " + motor_raw + " · " + trans_raw + " · " + desc)[:1500],
         })
         log(f"  ML ficha {salida[-1]['id']} {prod} {anio} {salida[-1]['precio']}")
     return salida

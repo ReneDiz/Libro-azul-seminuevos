@@ -28,7 +28,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Ficha individual del LT HiRise; confirmar base de IVA."
+   "nota": "Ficha individual del LT HiRise; confirmar base de IVA.",
+   "cabina": "Dormitorio",
+   "hp": 450,
+   "texto": "Ficha individual del LT HiRise; confirmar base de IVA."
   },
   {
    "id": "OBS-M004",
@@ -56,7 +59,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": ""
+   "nota": "",
+   "cabina": "Dormitorio",
+   "hp": 450,
+   "texto": ""
   },
   {
    "id": "OBS-M005",
@@ -84,7 +90,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": ""
+   "nota": "",
+   "cabina": "Dormitorio",
+   "hp": 450,
+   "texto": ""
   },
   {
    "id": "OBS-M008",
@@ -112,7 +121,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Ficha individual con Fuller 18; un encabezado agregado difiere. Verificar la unidad por VIN."
+   "nota": "Ficha individual con Fuller 18; un encabezado agregado difiere. Verificar la unidad por VIN.",
+   "traccion": "6x4",
+   "hp": 455,
+   "texto": "Ficha individual con Fuller 18; un encabezado agregado difiere. Verificar la unidad por VIN."
   },
   {
    "id": "OBS-M015",
@@ -140,7 +152,9 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": ""
+   "nota": "",
+   "hp": 450,
+   "texto": ""
   },
   {
    "id": "OBS-M019",
@@ -168,7 +182,9 @@
    "tipo": "tracto",
    "stock": "NAS-033",
    "consulta": "2026-11-04",
-   "nota": "Origen anunciado por el vendedor. Verificar por expediente."
+   "nota": "Origen anunciado por el vendedor. Verificar por expediente.",
+   "cabina": "Dormitorio",
+   "texto": "Origen anunciado por el vendedor. Verificar por expediente."
   },
   {
    "id": "OBS-M020",
@@ -196,7 +212,9 @@
    "tipo": "tracto",
    "stock": "NAS-032",
    "consulta": "2026-11-04",
-   "nota": "Origen anunciado por el vendedor. Verificar por expediente."
+   "nota": "Origen anunciado por el vendedor. Verificar por expediente.",
+   "cabina": "Dormitorio",
+   "texto": "Origen anunciado por el vendedor. Verificar por expediente."
   },
   {
    "id": "OBS-M024",
@@ -224,7 +242,9 @@
    "tipo": "tracto",
    "stock": "NAS-026",
    "consulta": "2026-11-04",
-   "nota": "Origen anunciado por el vendedor. Verificar por expediente."
+   "nota": "Origen anunciado por el vendedor. Verificar por expediente.",
+   "cabina": "Dormitorio",
+   "texto": "Origen anunciado por el vendedor. Verificar por expediente."
   },
   {
    "id": "OBS-M026",
@@ -252,7 +272,9 @@
    "tipo": "tracto",
    "stock": "NAS-023",
    "consulta": "2026-11-04",
-   "nota": "Origen anunciado por el vendedor. Verificar por expediente."
+   "nota": "Origen anunciado por el vendedor. Verificar por expediente.",
+   "cabina": "Dormitorio",
+   "texto": "Origen anunciado por el vendedor. Verificar por expediente."
   },
   {
    "id": "OBS-M029",
@@ -280,7 +302,9 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Origen anunciado por el vendedor. Verificar por expediente."
+   "nota": "Origen anunciado por el vendedor. Verificar por expediente.",
+   "cabina": "Dormitorio",
+   "texto": "Origen anunciado por el vendedor. Verificar por expediente."
   },
   {
    "id": "OBS-M030",
@@ -308,7 +332,9 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Origen anunciado por el vendedor. Verificar por expediente."
+   "nota": "Origen anunciado por el vendedor. Verificar por expediente.",
+   "cabina": "Dormitorio",
+   "texto": "Origen anunciado por el vendedor. Verificar por expediente."
   },
   {
    "id": "OBS-M031",
@@ -336,7 +362,8 @@
    "tipo": "tracto",
    "stock": "776",
    "consulta": "2026-11-04",
-   "nota": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología."
+   "nota": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología.",
+   "texto": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología."
   },
   {
    "id": "OBS-M037",
@@ -364,7 +391,8 @@
    "tipo": "tracto",
    "stock": "795",
    "consulta": "2026-11-04",
-   "nota": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología."
+   "nota": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología.",
+   "texto": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología."
   },
   {
    "id": "OBS-M038",
@@ -392,7 +420,8 @@
    "tipo": "tracto",
    "stock": "799",
    "consulta": "2026-11-04",
-   "nota": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología."
+   "nota": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología.",
+   "texto": "Precio desde; no se usa en estadísticas de comparables. Si dice automática sin modelo, confirmar tecnología."
   },
   {
    "id": "OBS-M048",
@@ -420,7 +449,8 @@
    "tipo": "volteo",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Comparar únicamente contra carrocería y capacidad equivalentes."
+   "nota": "Comparar únicamente contra carrocería y capacidad equivalentes.",
+   "texto": "Comparar únicamente contra carrocería y capacidad equivalentes."
   },
   {
    "id": "OBS-M049",
@@ -448,7 +478,8 @@
    "tipo": "volteo",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "El título muestra 2018 y la URL 2025: confirmar año por VIN."
+   "nota": "El título muestra 2018 y la URL 2025: confirmar año por VIN.",
+   "texto": "El título muestra 2018 y la URL 2025: confirmar año por VIN."
   },
   {
    "id": "OBS-M075",
@@ -476,7 +507,9 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Texto “Paccar X13”; identificación del motor y base de IVA por confirmar. No se normaliza a MX-13."
+   "nota": "Texto “Paccar X13”; identificación del motor y base de IVA por confirmar. No se normaliza a MX-13.",
+   "cabina": "Dormitorio",
+   "texto": "Texto “Paccar X13”; identificación del motor y base de IVA por confirmar. No se normaliza a MX-13."
   },
   {
    "id": "OBS-M085",
@@ -504,7 +537,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Anuncio + IVA. Motor y transmisión exactos por confirmar."
+   "nota": "Anuncio + IVA. Motor y transmisión exactos por confirmar.",
+   "traccion": "6x4",
+   "hp": 450,
+   "texto": "Euro V · Neumática · Anuncio + IVA. Motor y transmisión exactos por confirmar."
   },
   {
    "id": "OBS-M086",
@@ -532,7 +568,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Anuncio + IVA. Motor y transmisión exactos por confirmar."
+   "nota": "Anuncio + IVA. Motor y transmisión exactos por confirmar.",
+   "traccion": "6x4",
+   "hp": 448,
+   "texto": "Euro V · Neumática · Anuncio + IVA. Motor y transmisión exactos por confirmar."
   },
   {
    "id": "OBS-M087",
@@ -560,7 +599,10 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Kilometraje atípico publicado: excluido hasta reconfirmar."
+   "nota": "Kilometraje atípico publicado: excluido hasta reconfirmar.",
+   "traccion": "6x4",
+   "hp": 450,
+   "texto": "Euro V · Neumática · Kilometraje atípico publicado: excluido hasta reconfirmar."
   },
   {
    "id": "OBS-M119",
@@ -588,7 +630,9 @@
    "tipo": "tracto",
    "stock": "FN-750585",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV5NSNG9338 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M120",
@@ -616,7 +660,9 @@
    "tipo": "tracto",
    "stock": "FN-375724",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV8NSNG9334 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M122",
@@ -644,7 +690,9 @@
    "tipo": "tracto",
    "stock": "FN-864863",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV0NSNG9330 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M124",
@@ -672,7 +720,9 @@
    "tipo": "tracto",
    "stock": "FN-964774",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV3NSNG9337 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M133",
@@ -700,7 +750,9 @@
    "tipo": "tracto",
    "stock": "FN-146676",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV4NSNG9332 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M134",
@@ -728,7 +780,9 @@
    "tipo": "tracto",
    "stock": "FN-83121",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV5NSNG9324 · Euro 5 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M135",
@@ -756,7 +810,9 @@
    "tipo": "tracto",
    "stock": "FN-956758",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV7NSNG9325 · Euro 5 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M136",
@@ -784,7 +840,9 @@
    "tipo": "tracto",
    "stock": "FN-286291",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV3NSNG9323 · Euro 5 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M153",
@@ -812,7 +870,10 @@
    "tipo": "tracto",
    "stock": "KT-482818",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "cabina": "Dormitorio",
+   "hp": 450,
+   "texto": "VIN 3WKYD49XXJF504882 · Euro 6 · Cabina Sleeper cab · Clase Tractocamión · Facturación Refacturado · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M155",
@@ -840,7 +901,9 @@
    "tipo": "tracto",
    "stock": "FN-979133",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV2NSNG9328 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M156",
@@ -868,7 +931,9 @@
    "tipo": "tracto",
    "stock": "FN-226674",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDVXNSNG9321 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M184",
@@ -896,7 +961,9 @@
    "tipo": "tracto",
    "stock": "FN-327246",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV0NSNG9327 · Euro 6 · Clase Tractocamión · Facturación Refacturado · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M186",
@@ -924,7 +991,9 @@
    "tipo": "tracto",
    "stock": "KT-459605",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 450,
+   "texto": "VIN 3WKYD49X5JF501761 · Euro 6 · Clase Tractocamión · Facturación Refacturado · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M191",
@@ -952,7 +1021,9 @@
    "tipo": "tracto",
    "stock": "FN-424809",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV9NSNG9343 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M201",
@@ -980,7 +1051,9 @@
    "tipo": "tracto",
    "stock": "FN-544505",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 445,
+   "texto": "New Cascadia · VIN 3AKJHPDV9NSNG9326 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M203",
@@ -1008,7 +1081,9 @@
    "tipo": "tracto",
    "stock": "FN-585138",
    "consulta": "2026-11-04",
-   "nota": "La ficha publica el precio; no explicita IVA."
+   "nota": "La ficha publica el precio; no explicita IVA.",
+   "hp": 455,
+   "texto": "New Cascadia · VIN 3AKJHPDV8NSNG9320 · Euro 6 · Cabina Mid roof · Clase Tractocamión · Facturación Refacturado · Transmisión DT12 · La ficha publica el precio; no explicita IVA."
   },
   {
    "id": "OBS-M225",
@@ -1036,7 +1111,8 @@
    "tipo": "tracto",
    "stock": "3AKJHHDR5MSMP2491",
    "consulta": "2026-11-04",
-   "nota": "Ficha de sucursal con precio de contado e IVA incluido. Reconfirmar vigencia de ficha."
+   "nota": "Ficha de sucursal con precio de contado e IVA incluido. Reconfirmar vigencia de ficha.",
+   "texto": "CASCADIA 125 · VIN 3AKJHHDR5MSMP2491 · Sucursal: GUADALAJARA OTERO · Ficha de sucursal con precio de contado e IVA incluido. Reconfirmar vigencia de ficha."
   },
   {
    "id": "OBS-M264",
@@ -1064,7 +1140,9 @@
    "tipo": "tracto",
    "stock": "3AKJHHDR2MSMP4652",
    "consulta": "2026-11-04",
-   "nota": "Ficha de sucursal con precio de contado e IVA incluido."
+   "nota": "Ficha de sucursal con precio de contado e IVA incluido.",
+   "cabina": "Dormitorio",
+   "texto": "NEWCASEPA10 DD15 · VIN 3AKJHHDR2MSMP4652 · Sucursal: GUADALAJARA OTERO · Ficha de sucursal con precio de contado e IVA incluido."
   },
   {
    "id": "OBS-M268",
@@ -1092,7 +1170,9 @@
    "tipo": "tracto",
    "stock": null,
    "consulta": "2026-11-04",
-   "nota": "Ficha en catálogo Go On sin VIN visible, liga individual ni IVA aclarado; confirmar en sucursal."
+   "nota": "Ficha en catálogo Go On sin VIN visible, liga individual ni IVA aclarado; confirmar en sucursal.",
+   "cabina": "Dormitorio",
+   "texto": "CASCADIA · Ficha en catálogo Go On sin VIN visible, liga individual ni IVA aclarado; confirmar en sucursal."
   },
   {
    "id": "MLM-5865688014",
@@ -1120,7 +1200,8 @@
    "tipo": "tracto",
    "stock": "MLM-5865688014",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   },
   {
    "id": "MLM-3409416217",
@@ -1148,7 +1229,8 @@
    "tipo": "tracto",
    "stock": "MLM-3409416217",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   },
   {
    "id": "MLM-3380938777",
@@ -1176,7 +1258,8 @@
    "tipo": "tracto",
    "stock": "MLM-3380938777",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   },
   {
    "id": "MLM-3197639659",
@@ -1204,7 +1287,8 @@
    "tipo": "tracto",
    "stock": "MLM-3197639659",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   },
   {
    "id": "MLM-6477123726",
@@ -1232,7 +1316,8 @@
    "tipo": "tracto",
    "stock": "MLM-6477123726",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   },
   {
    "id": "MLM-6444093402",
@@ -1260,7 +1345,8 @@
    "tipo": "tracto",
    "stock": "MLM-6444093402",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   },
   {
    "id": "MLM-5997010380",
@@ -1288,7 +1374,8 @@
    "tipo": "tracto",
    "stock": "MLM-5997010380",
    "consulta": "2026-11-04",
-   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
+   "nota": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad.",
+   "texto": "Anuncio indexado; verificar disponibilidad, precio completo y fiscalidad."
   }
  ]
 }

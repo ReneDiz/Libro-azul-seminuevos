@@ -9,19 +9,15 @@
  "min_directos": 3,
  "min_para_atipicos": 5,
  "iqr_factor": 1.5,
- "confianza": {"media_min_directos": 3, "media_max_dispersion": 0.40, "alta_min_directos": 5, "alta_max_dispersion": 0.20, "alta_min_portales": 2},
- "iva_desconocido": "suponer_incluido",
- "descuento_venta": {"conservador": 0.10, "probable": 0.06, "optimista": 0.02},
- "margen": {"objetivo": 0.12, "minimo": 0.08},
- "variable_venta": 0.02,
- "gastos_fijos": {"Documentos y trámites": 5000, "Traslado / grúa": 10000, "Reacondicionamiento": 65000, "Publicidad": 3000, "Almacenaje": 8000, "Garantía / contingencia": 15000},
- "reserva_conservadora": 20000,
- "apoyo_confirmado": 0,
- "iva_compra": "no_acreditable",
- "margen_distribuidor": 0.08,
+ "confianza": {
+  "media_min_directos": 3,
+  "media_max_dispersion": 0.4,
+  "alta_min_directos": 5,
+  "alta_max_dispersion": 0.2,
+  "alta_min_portales": 2
+ },
+ "iva_desconocido": "presuncion",
  "_notas": {
-  "gastos_fijos": "Caso demostrativo del Observatorio (Scania R620 DEMO-001); no son universales.",
-  "margen_distribuidor": "Supuesto nuevo de la web, no viene del Observatorio: lo que se descuenta al vender a otro distribuidor.",
-  "iva_desconocido": "El Observatorio excluye por defecto el IVA desconocido. La web permite simularlo como incluido y entonces baja la confianza a 'baja'."
+  "iva_desconocido": "Si el anuncio no declara el IVA: 'presuncion' trata al particular como exento (LIVA art. 9 fr. IV) y al distribuidor con IVA incluido (LFPC art. 7 Bis). Es una presunción para validar con Fiscal; baja la confianza a 'baja' como pide el Observatorio. Otras opciones: 'excluir' (criterio del Observatorio) o 'suponer_incluido'."
  }
 }

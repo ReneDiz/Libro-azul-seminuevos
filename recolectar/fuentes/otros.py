@@ -48,7 +48,7 @@ def leer_nastrac(log=print):
             "motor": motor_normalizado(g(r"Motor (.+?) Transmisión")), "trans_raw": g(r"Transmisión (\S+)"), "trans": transmision_tipo(g(r"Transmisión (\S+)")),
             "precio": numero(g(r"\$([\d,]+)")), "moneda": "MXN", "iva": iva_de_texto(s), "tipo_precio": "Contado publicado",
             "evidencia": "Ficha individual", "stock": g(r"Stock # (\S+)"), "lugar": "Zapopan, Jal.", "vendedor": "NASTRAC",
-            "tipo_vendedor": "distribuidor", "tipo": "tracto", "consulta": HOY})
+            "tipo_vendedor": "distribuidor", "tipo": "tracto", "consulta": HOY, "texto": s[:1500]})
     log(f"  NASTRAC: {len(out)} de interés")
     return out
 
@@ -77,7 +77,8 @@ def leer_quality(log=print):
             "precio": numero(oferta.get("price")), "moneda": oferta.get("priceCurrency", "MXN"), "iva": iva_de_texto(texto(s)),
             "tipo_precio": "Contado publicado", "evidencia": "Ficha individual", "lugar": "Querétaro, Qro.", "vendedor": "Quality Trucks",
             "tipo_vendedor": "distribuidor", "tipo": "tracto" if (ld.get("category") or "Tracto").lower().startswith("tracto") else ld.get("category", "").lower(),
-            "consulta": HOY, "img_url": (ld.get("image") or [""])[0]})
+            "consulta": HOY, "img_url": (ld.get("image") or [""])[0],
+            "texto": " · ".join([ld.get("name", ""), ld.get("description", ""), ld.get("driveWheelConfiguration", ""), eng])})
     log(f"  Quality Trucks: {len(out)} de interés")
     return out
 
@@ -96,7 +97,8 @@ def leer_scania(log=print):
             "modelo": "T680", "anio": anio, "km": numero(g(r"Kilometraje: (\d+)")), "motor_raw": (hp + " hp") if hp else "", "motor": "",
             "trans_raw": "", "trans": "", "precio": numero(g(r"\$ ?([\d,]+)(?:\.00)? \+ ?IVA")), "moneda": "MXN",
             "iva": "Más IVA" if "+ IVA" in s or "+IVA" in s else "Desconocido", "tipo_precio": "Contado publicado", "evidencia": "Ficha individual",
-            "lugar": "México", "vendedor": "Scania Seminuevos", "tipo_vendedor": "distribuidor", "tipo": "tracto", "consulta": HOY})
+            "lugar": "México", "vendedor": "Scania Seminuevos", "tipo_vendedor": "distribuidor", "tipo": "tracto", "consulta": HOY,
+            "texto": g(r"(Características .+?) Contacta")})
     log(f"  Scania Seminuevos: {len(out)} de interés")
     return out
 
@@ -129,6 +131,7 @@ def leer_seminuevos(log=print):
             "precio": numero(g(r"\$([\d,’']+) (?:Negociable|Precio|Este)")) or numero(g(r"\$([\d,’']+)")), "moneda": "MXN", "iva": iva_de_texto(desc),
             "tipo_precio": "Contado publicado", "evidencia": "Ficha individual", "lugar": g(r"Ciudad (.+?) Recorrido"),
             "vendedor": vend, "tipo_vendedor": "distribuidor" if vend else "particular",
-            "tipo": "tracto" if re.search(r"Subtipo (Trailer|Tracto)", s) else "otro", "consulta": HOY})
+            "tipo": "tracto" if re.search(r"Subtipo (Trailer|Tracto)", s) else "otro", "consulta": HOY,
+            "texto": g(r"(Acerca de este vehículo .+?) Este auto se encuentra")[:1500]})
     log(f"  Seminuevos.com: {len(out)} de interés")
     return out

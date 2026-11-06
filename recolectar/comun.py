@@ -78,3 +78,23 @@ def producto(marca, modelo):
 def guardar(ruta, datos):
     with open(ruta, "w", encoding="utf-8") as f:
         json.dump(datos, f, ensure_ascii=False, indent=1)
+
+def configuracion(texto, previo=None):
+    """Saca cabina, tracción y potencia del texto de la ficha. Solo marca lo que el anuncio dice."""
+    t = (texto or "").lower()
+    c = dict(previo or {})
+    if not c.get("cabina"):
+        if re.search(r"day ?cab|cabina (corta|sencilla|de d[ií]a)|sin dormitorio|cab(ina)? de d[ií]a", t): c["cabina"] = "Cabina corta"
+        elif re.search(r"sleeper|dormitorio|camarote|litera|aero ?cab|hi ?rise|mid ?roof|raised roof|\b(36|38|40|42|48|52|60|62|64|70|72|76|78|80|86)\s*(\"|”|''|pulg|in\b|inch)", t): c["cabina"] = "Dormitorio"
+    if not c.get("dormitorio_pulg"):
+        m = re.search(r"\b(36|38|40|42|48|52|60|62|64|70|72|76|78|80|86)\s*(\"|”|''|pulg|in\b|inch)", t)
+        if m: c["dormitorio_pulg"] = int(m.group(1))
+    if not c.get("traccion"):
+        m = re.search(r"\b([468])\s*x\s*([24])\b", t)
+        if m:
+            a, b = sorted([int(m.group(1)), int(m.group(2))], reverse=True)
+            c["traccion"] = f"{a}x{b}"
+    if not c.get("hp"):
+        m = re.search(r"\b(3[5-9]\d|4\d\d|5\d\d|6[0-2]\d)\s*(hp|h\.p\.?|caballos|hp\b)", t)
+        if m: c["hp"] = int(m.group(1))
+    return c

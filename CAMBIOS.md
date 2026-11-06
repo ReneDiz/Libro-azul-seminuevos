@@ -2,6 +2,15 @@
 
 Cada cambio de método, parámetro o fuente se registra aquí: fecha, qué cambió, valor anterior, valor nuevo y por qué.
 
+## v2-prueba · 2026-11-05 (revisión 2)
+
+- **Se quitó la sección de compra y los datos para el CR.** La página queda solo como guía de mercado; el margen se mide en el CR Sencillo V2.
+- **Configuración:** se extraen cabina (dormitorio o cabina corta, y pulgadas), tracción (6x4, 6x2, 4x2) y potencia del texto de cada ficha, sin suponer lo que el anuncio no dice. Nuevos filtros de cabina y tracción, y la tabla «Qué tan parecidos son los comparables», que cuenta cuántos coinciden, cuántos difieren y cuántos no traen el dato.
+- **Motor por familia:** PACCAR (MX-13), Cummins (ISX, ISX15, X15), Detroit DD13 y DD15.
+- **IVA:** lo que declare el anuncio manda. Si no lo declara: particular = exento (LIVA art. 9 fr. IV; neto = publicado) y distribuidor = IVA incluido (LFPC art. 7 Bis; neto = publicado ÷ 1.16). Antes se dividía todo entre 1.16. Presunción por validar con Fiscal; la confianza sigue en «baja» cuando se usa.
+- **Prueba de IVA:** regresión del precio publicado con modelo, año, km y tipo de vendedor. Al corte: distribuidores +22.3 % sobre particulares (t = 3.2), consistente con que los distribuidores publiquen con IVA incluido.
+- **Colores:** paleta «marino» (azul marino sobre fondo cálido con acento dorado).
+
 ## v2-prueba · 2026-11-05
 
 **Base y fuentes**

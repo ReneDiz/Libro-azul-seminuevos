@@ -24,7 +24,8 @@ def leer_selectrucks(log=print):
             "tipo_precio": "Contado publicado", "evidencia": "Ficha individual", "vin": a["vin"],
             "lugar": (a.get("id_location") or "").title(), "vendedor": "SelecTrucks Zapata", "tipo_vendedor": "distribuidor",
             "tipo": "tracto", "publicado": (a.get("created_at") or "")[:10], "actualizado": (a.get("updated_at") or "")[:10],
-            "consulta": HOY, "img_url": (a.get("cover_image") or {}).get("picture", "")})
+            "consulta": HOY, "img_url": (a.get("cover_image") or {}).get("picture", ""),
+            "texto": " · ".join(str(a.get(k) or "") for k in ("id_model", "engine_type", "id_transmision", "sleeper_cab", "rear_axle", "description"))})
     log(f"  SelecTrucks Zapata: {len(out)} de interés")
     return out
 
@@ -41,6 +42,7 @@ def leer_goon(log=print):
             "trans_raw": a.get("transmission") or "", "trans": transmision_tipo(a.get("transmission")),
             "precio": a.get("price"), "moneda": "MXN", "iva": "Desconocido", "tipo_precio": "Contado publicado",
             "evidencia": "Ficha individual", "vin": a.get("vin"), "lugar": a.get("location") or "", "vendedor": "Go On Zapata",
-            "tipo_vendedor": "distribuidor", "tipo": "tracto", "consulta": HOY})
+            "tipo_vendedor": "distribuidor", "tipo": "tracto", "consulta": HOY,
+            "texto": " · ".join(str(a.get(k) or "") for k in ("title", "engine", "transmission", "sleeperCab", "type"))})
     log(f"  Go On Zapata: {len(out)} de interés")
     return out

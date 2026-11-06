@@ -88,10 +88,21 @@ def main():
     dcorte = datetime.date.fromisoformat(corte)
     salida = []
     for a in base.values():
-        from recolectar.comun import motor_normalizado
+        from recolectar.comun import motor_normalizado, configuracion
         if a.get("motor_raw") or a.get("motor"): a["motor"] = motor_normalizado(a.get("motor_raw") or a.get("motor"))
+        # configuración: cabina, tracción, potencia (solo lo que diga la ficha)
+        previo = {k: a.get(k) for k in ("cabina", "traccion", "hp", "dormitorio_pulg") if a.get(k)}
+        a.update(configuracion(" · ".join(str(a.get(k) or "") for k in ("texto", "titulo", "modelo", "motor_raw", "trans_raw", "nota")), previo))
+        # IVA: lo que declare el anuncio manda; si no declara, presunción por tipo de vendedor
+        #  - particular: venta de bien usado por persona física, exenta (LIVA art. 9 fr. IV) -> el precio es neto
+        #  - empresa/distribuidor: precio al público con impuestos incluidos (LFPC art. 7 Bis) -> neto = precio / 1.16
+        if a.get("iva") in ("Incluido", "Más IVA"):
+            a["iva_origen"] = "fuente" if a["fuente"] == "STZ" else "anuncio"
+        else:
+            a["iva"] = "Desconocido"; a["iva_origen"] = "presunto"
+            a["iva_presunto"] = "Exento" if a.get("tipo_vendedor") == "particular" else "Incluido"
         c = corr.get(a["id"], {})
-        for k in ("tipo", "nota", "iva", "motor", "km"):
+        for k in ("tipo", "nota", "iva", "motor", "km", "cabina", "traccion", "tipo_vendedor"):
             if k in c: a[k] = c[k]
         h = historia[a["id"]]
         precios = [x["precio"] for x in h if x["precio"]]

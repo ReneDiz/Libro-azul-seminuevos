@@ -24,7 +24,7 @@ button,select,input{font:inherit;color:inherit}
 .prueba{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#8a5a00;background:#fff3d6;border:1px solid #f1d28a;border-radius:20px;padding:2px 8px}
 nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
 nav button{border:1px solid transparent;background:none;color:var(--muted);padding:6px 12px;border-radius:9px;font-weight:500;cursor:pointer}
-nav button.on{background:var(--acc-soft);color:var(--text);box-shadow:inset 2px 0 0 var(--acc)}
+nav button.on{background:var(--acc-soft);color:var(--text);box-shadow:inset 0 -2px 0 var(--alt)}
 nav button small{color:var(--faint);margin-left:4px}
 main{max-width:1200px;margin:0 auto;padding:22px 24px 70px}
 .label{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);margin:0 0 8px}
@@ -54,7 +54,7 @@ input[type=range]{width:100%;accent-color:var(--acc-ink);margin:6px 0 2px}
 .conf.baja{color:#8a5a00;background:#fff3d6;border-color:#f1d28a}.conf.insuficiente{color:#a12b2b;background:#fde8e8;border-color:#f1b0b0}
 .razones{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:12.5px}
 .bar{position:relative;height:14px;border-radius:7px;background:var(--track);margin:30px 0 8px}
-.bar .zona{position:absolute;top:0;bottom:0;background:var(--acc);opacity:.5;border-radius:7px}
+.bar .zona{position:absolute;top:0;bottom:0;background:var(--alt);opacity:.55;border-radius:7px}
 .bar .pin{position:absolute;top:-8px;width:4px;height:30px;background:var(--text);border-radius:2px;transform:translateX(-2px)}
 .bar .pin::after{content:attr(data-v);position:absolute;top:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:600;background:var(--text);color:#fff;padding:2px 7px;border-radius:6px}
 .barlbl{display:flex;justify-content:space-between;color:var(--faint);font-size:12px;gap:8px}
@@ -84,7 +84,7 @@ input[type=range]{width:100%;accent-color:var(--acc-ink);margin:6px 0 2px}
 .cr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:6px}
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:8px 0 18px;overflow-x:auto}
 .tabs button{border:0;background:none;padding:10px 14px;cursor:pointer;color:var(--muted);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
-.tabs button.on{color:var(--text);border-color:var(--acc);font-weight:600}
+.tabs button.on{color:var(--text);border-color:var(--alt);font-weight:600}
 .pane{display:none}.pane.on{display:block}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .cmp{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
@@ -123,6 +123,8 @@ svg text{font-family:inherit}
 .bars .row .bg i{position:absolute;left:0;top:0;bottom:0;background:var(--acc);border-radius:5px;opacity:.75}
 .bars .row .bg u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
 .bars .row .v{text-align:right;font-weight:600;line-height:1.2}.bars .row .n{text-align:right;color:var(--faint)}
+.tbl.par td,.tbl.par th{padding:5px 8px}.tbl.par td.n b{color:var(--text)}
+.ok{color:var(--good)}.ko{color:var(--crit)}
 .grid3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .wrap{overflow-x:auto}
 .fuentes{margin-top:26px;color:var(--faint);font-size:12.5px;line-height:1.7}
@@ -135,12 +137,12 @@ svg text{font-family:inherit}
 </header>
 <main>
   <p class="label" id="corte"></p>
-  <p class="sub">Elige la unidad: el valor de mercado se calcula con anuncios reales homologados sin IVA, con las reglas del Observatorio y Valuador 1.2.</p>
+  <p class="sub">Elige la unidad: el valor de mercado se calcula con anuncios reales llevados a precio neto sin IVA, con las reglas del Observatorio y Valuador 1.2.</p>
 
   <section class="grid2">
     <div class="card">
       <h2>Tu unidad</h2>
-      <p class="hint">Cada cambio recalcula comparables, confianza y compra. El número chico es cuántos anuncios elegibles hay.</p>
+      <p class="hint">Cada cambio recalcula el valor, la confianza y los comparables. El número chico es cuántos anuncios elegibles hay.</p>
       <div class="field"><div class="label">Año modelo</div><div class="seg years" id="anio"></div></div>
       <div class="field"><div class="label">Kilometraje</div>
         <input type="range" id="km" min="0" max="2000000" step="25000" value="700000">
@@ -148,8 +150,10 @@ svg text{font-family:inherit}
         <label class="chk"><input type="checkbox" id="kmf" checked> Directos solo con km ±25 %</label></div>
       <div class="field"><div class="label">Motor</div><div class="seg" id="motor"></div></div>
       <div class="field"><div class="label">Transmisión</div><div class="seg" id="trans"></div></div>
-      <div class="field"><div class="label">Anuncios con IVA desconocido</div><div class="seg" id="ivam">
-        <button data-v="suponer_incluido">Suponer incluido<small>simulación</small></button><button data-v="excluir">Excluir<small>Observatorio</small></button><button data-v="suponer_sin">Suponer sin IVA<small>simulación</small></button></div></div>
+      <div class="field"><div class="label">Cabina</div><div class="seg" id="cabina"></div></div>
+      <div class="field"><div class="label">Tracción</div><div class="seg" id="traccion"></div></div>
+      <div class="field"><div class="label">Si el anuncio no dice el IVA</div><div class="seg" id="ivam">
+        <button data-v="presuncion">Según vendedor<small>particular exento</small></button><button data-v="excluir">Excluir<small>Observatorio</small></button><button data-v="suponer_incluido">Todo incluido<small>÷ 1.16</small></button></div></div>
     </div>
 
     <div class="card">
@@ -162,44 +166,19 @@ svg text{font-family:inherit}
       <div class="minis">
         <div class="mini"><div class="label">Comparables</div><div class="v" id="ncmp">—</div><div class="d" id="ncmpd"></div></div>
         <div class="mini"><div class="label">Dispersión</div><div class="v" id="disp">—</div><div class="d">IQR ÷ mediana</div></div>
-        <div class="mini"><div class="label">Con IVA</div><div class="v" id="total">—</div><div class="d">mediana × 1.16</div></div>
+        <div class="mini"><div class="label">Con IVA</div><div class="v" id="total">—</div><div class="d">si vende una empresa</div></div>
         <div class="mini"><div class="label">Fuentes</div><div class="v" id="nport">—</div><div class="d" id="nportd"></div></div>
       </div>
       <ul class="razones" id="razones"></ul>
-    </div>
-  </section>
-
-  <section class="grid2">
-    <div class="card">
-      <h2>Supuestos de compra y venta</h2>
-      <p class="hint">Valores iniciales del Observatorio (caso demostrativo). Ajústalos a tu operación; tu navegador los recuerda.</p>
-      <div class="sup"><label>Gastos fijos de la unidad<small id="gfd"></small></label><div class="in"><span style="margin:0 4px 0 0">$</span><input id="s-F" type="number" step="5000" min="0"></div></div>
-      <div class="sup"><label>Reserva conservadora<small>solo escenario conservador</small></label><div class="in"><span style="margin:0 4px 0 0">$</span><input id="s-R" type="number" step="5000" min="0"></div></div>
-      <div class="sup"><label>Comisiones variables<small>% de la venta neta</small></label><div class="in"><input id="s-v" type="number" step="0.5" min="0"><span>%</span></div></div>
-      <div class="sup"><label>Margen objetivo<small>sobre venta neta</small></label><div class="in"><input id="s-m" type="number" step="0.5" min="0"><span>%</span></div></div>
-      <div class="sup"><label>Margen mínimo<small>define el tope de compra</small></label><div class="in"><input id="s-mmin" type="number" step="0.5" min="0"><span>%</span></div></div>
-      <div class="sup"><label>Descuento al vender<small>de lo pedido a lo cerrado (probable)</small></label><div class="in"><input id="s-dp" type="number" step="0.5" min="0"><span>%</span></div></div>
-      <div class="sup"><label>Margen para un distribuidor<small>si le vendes a otro distribuidor</small></label><div class="in"><input id="s-md" type="number" step="0.5" min="0"><span>%</span></div></div>
-      <div class="sup"><label>IVA de la compra<small>lo valida Fiscal</small></label><div class="in"><select id="s-ivac"><option value="no_acreditable">No acreditable</option><option value="acreditable">Acreditable</option><option value="sin_desglose">Sin IVA desglosado</option></select></div></div>
-      <button class="link" id="s-reset">Volver a los supuestos del Observatorio</button>
-    </div>
-
-    <div class="card">
-      <div class="label">Precio de venta y de compra</div>
-      <div class="wrap"><table class="esc" id="esc"></table></div>
-      <div class="label" style="margin-top:16px">Datos para tu CR Sencillo V2</div>
-      <div class="cr">
-        <div class="mini"><div class="label">B41 · Venta con IVA</div><div class="v" id="cr-b41">—</div><div class="d">venta probable a cliente directo</div></div>
-        <div class="mini"><div class="label">B8 · Compra con IVA</div><div class="v" id="cr-b8">—</div><div class="d">compra objetivo</div></div>
-        <div class="mini"><div class="label">B38 · Margen objetivo</div><div class="v" id="cr-b38">—</div><div class="d"><button class="link" id="copiar">Copiar los tres</button></div></div>
-      </div>
-      <div class="aviso" id="aviso-compra"></div>
+      <div class="label" style="margin-top:16px">Qué tan parecidos son los comparables a tu unidad</div>
+      <div class="wrap"><table class="tbl par" id="parecido"></table></div>
     </div>
   </section>
 
   <div class="tabs" id="tabs">
     <button class="on" data-t="cmp">Comparables</button>
     <button data-t="sens">Sensibilidad del mercado</button>
+    <button data-t="iva">IVA y precios</button>
     <button data-t="rot">Oferta y rotación</button>
     <button data-t="cob">Cobertura y fuentes</button>
     <button data-t="todos">Todos los anuncios</button>
@@ -219,6 +198,20 @@ svg text{font-family:inherit}
       <div class="card"><h3>Por estado</h3><div class="bars" id="g-plaza"></div></div>
     </div>
     <p class="aviso" id="sens-nota"></p>
+  </section>
+
+  <section class="pane" id="p-iva">
+    <div class="kpis" id="iva-kpis"></div>
+    <div class="grid3">
+      <div class="card"><h3>¿Los distribuidores publican con IVA?</h3><div id="iva-prueba"></div></div>
+      <div class="card"><h3>Cómo se trata el IVA en cada anuncio</h3>
+        <table class="tbl"><tr><th>Caso</th><th>Precio neto sin IVA</th></tr>
+        <tr><td>El anuncio dice «IVA incluido» (o la fuente lo confirma)</td><td>publicado ÷ 1.16</td></tr>
+        <tr><td>El anuncio dice «más IVA»</td><td>publicado</td></tr>
+        <tr><td>No lo dice y vende un <b>particular</b></td><td>publicado: la venta de un bien usado por persona física está exenta (LIVA art. 9, fr. IV)</td></tr>
+        <tr><td>No lo dice y vende un <b>distribuidor</b></td><td>publicado ÷ 1.16: el precio al público debe incluir impuestos (LFPC art. 7 Bis)</td></tr></table>
+        <p class="aviso">Las dos últimas son presunciones para validar con Fiscal, y por eso la confianza baja. Para volverlas datos: pedir al vendedor la cotización con el IVA desglosado y anotarlo en <code>data/correcciones.json</code> (campo <code>iva</code>).</p></div>
+    </div>
   </section>
 
   <section class="pane" id="p-rot">
@@ -253,21 +246,19 @@ const store = { get(k){ try { return JSON.parse(localStorage.getItem(k)); } catc
 
 // ---------- estado de la consulta ----------
 const PRODS = Object.keys(DATA.productos);
-const st = Object.assign({ prod: 'kenworth-t680', anio: 2018, km: 700000, kmf: true, motor: '*', trans: '*', ivam: PAR.iva_desconocido }, store.get('lavc2-st') || {});
+const st = Object.assign({ prod: 'kenworth-t680', anio: 2018, km: 700000, kmf: true, motor: '*', trans: '*', cabina: '*', traccion: '*', ivam: PAR.iva_desconocido }, store.get('lavc3-st') || {});
+if (!['presuncion','excluir','suponer_incluido'].includes(st.ivam)) st.ivam = 'presuncion';
 if (!PRODS.includes(st.prod)) st.prod = PRODS[0];
-const SUP0 = { F: Object.values(PAR.gastos_fijos).reduce((s,x)=>s+x,0), R: PAR.reserva_conservadora, v: PAR.variable_venta*100, m: PAR.margen.objetivo*100,
-  mmin: PAR.margen.minimo*100, dp: PAR.descuento_venta.probable*100, md: PAR.margen_distribuidor*100, ivac: PAR.iva_compra };
-let sup = Object.assign({}, SUP0, store.get('lavc2-sup') || {});
-$('gfd').textContent = Object.entries(PAR.gastos_fijos).map(([k,v]) => `${k.toLowerCase()} ${fmt(v)}`).join(' · ');
-
 // precio neto homologado sin IVA; null si no se puede usar con el criterio de IVA elegido
 function neto(a){
   const p = a.precio_mxn; if (!p) return null;
   if (a.iva === 'Incluido') return p/(1+T);
   if (a.iva === 'Más IVA') return p;
   if (st.ivam === 'excluir') return null;
-  return st.ivam === 'suponer_incluido' ? p/(1+T) : p;
+  if (st.ivam === 'suponer_incluido') return p/(1+T);
+  return a.iva_presunto === 'Exento' ? p : p/(1+T);
 }
+const ivaTxt = a => a.iva === 'Incluido' ? 'IVA incluido' : a.iva === 'Más IVA' ? '+ IVA' : st.ivam === 'excluir' ? 'IVA s/d' : (st.ivam === 'suponer_incluido' || a.iva_presunto !== 'Exento') ? 'IVA incl. (presunto)' : 'exento (presunto)';
 const elegible = a => !(a.no_elegible && a.no_elegible.length);
 // familia de motor para filtrar y comparar (el Observatorio compara PACCAR MX-13 contra Cummins ISX/ISX15/X15)
 const fam = a => { const m = a.motor || ''; return /PACCAR/i.test(m) ? 'PACCAR' : /cum+ing?s?/i.test(m) ? 'Cummins' : /Detroit DD15/i.test(m) ? 'Detroit DD15' : /Detroit DD13/i.test(m) ? 'Detroit DD13' : /Detroit/i.test(m) ? 'Detroit' : m; };
@@ -284,6 +275,7 @@ const median = xs => quant(xs, .5);
 function valuar(){
   const U = universo(), w = PAR.ventana_anios_ajustables, tol = PAR.tolerancia_km;
   const esDirecto = a => a.anio === st.anio && (st.motor === '*' || fam(a) === st.motor) && (st.trans === '*' || a.trans === st.trans)
+    && (st.cabina === '*' || a.cabina === st.cabina) && (st.traccion === '*' || a.traccion === st.traccion)
     && (!st.kmf || (a.km && Math.abs(a.km - st.km) <= tol*st.km && Math.abs(a.km - st.km) <= tol*a.km));
   const dir = U.filter(esDirecto);
   const aju = U.filter(a => !esDirecto(a) && Math.abs(a.anio - st.anio) <= w);
@@ -299,44 +291,28 @@ function valuar(){
   const nDir = grupo.filter(a => dir.includes(a)).length;
   const portales = new Set(grupo.map(a => a.fuente)).size;
   const supuestos = grupo.filter(a => a.iva === 'Desconocido').length;
+  const declarados = grupo.length - supuestos;
   const C = PAR.confianza, raz = [];
   let conf;
   if (!grupo.length) { conf = 'insuficiente'; raz.push(`No hay anuncios elegibles entre ${st.anio-w} y ${st.anio+w}.`); }
   else {
     if (grupo.length < 3) raz.push(`Solo ${grupo.length} comparable${grupo.length>1?'s':''}: se necesitan al menos 3.`);
-    if (supuestos) raz.push(`${supuestos} de ${grupo.length} con IVA desconocido, simulado como ${st.ivam==='suponer_incluido'?'incluido':'sin IVA'}: el Observatorio lo marca como confianza baja.`);
-    if (dir.length < PAR.min_directos) raz.push(`Solo ${dir.length} directo${dir.length===1?'':'s'} (mismo año${st.motor!=='*'?', motor':''}${st.trans!=='*'?', transmisión':''}${st.kmf?', km ±25 %':''}); se completó con años vecinos (±${w}) sin ajustar.`);
-    const altaOk = nDir >= C.alta_min_directos && disp <= C.alta_max_dispersion && portales >= C.alta_min_portales && st.motor !== '*' && st.trans !== '*' && st.kmf;
+    if (supuestos) raz.push(`${supuestos} de ${grupo.length} no declaran el IVA y se usó una presunción (${st.ivam==='presuncion'?'particular exento, distribuidor con IVA incluido':'todo incluido'}): el Observatorio lo marca como confianza baja. Con IVA declarado: ${declarados}.`);
+    if (dir.length < PAR.min_directos) raz.push(`Solo ${dir.length} directo${dir.length===1?'':'s'} (mismo año${st.motor!=='*'?', motor':''}${st.trans!=='*'?', transmisión':''}${st.cabina!=='*'?', cabina':''}${st.traccion!=='*'?', tracción':''}${st.kmf?', km ±25 %':''}); se completó con años vecinos (±${w}) sin ajustar.`);
+    const altaOk = nDir >= C.alta_min_directos && disp <= C.alta_max_dispersion && portales >= C.alta_min_portales && st.motor !== '*' && st.trans !== '*' && st.traccion !== '*' && st.kmf;
     const mediaOk = nDir >= C.media_min_directos && disp <= C.media_max_dispersion;
     if (grupo.length < 3 || supuestos) conf = 'baja';
     else if (altaOk) conf = 'alta';
     else if (mediaOk) conf = 'media';
     else conf = 'baja';
     if (disp > C.media_max_dispersion) raz.push(`Dispersión de ${pct(disp)}: arriba del 40 % que pide la confianza media.`);
-    if (conf === 'media') raz.push('Para confianza alta: 5 directos, dispersión ≤20 %, 2 o más portales y motor, transmisión y km definidos.');
+    if (conf === 'media') raz.push('Para confianza alta: 5 directos, dispersión ≤20 %, 2 o más portales y motor, transmisión, tracción y km definidos.');
     const porVend = {}; grupo.forEach(a => { const k = a.vendedor || fuenteN(a.fuente); porVend[k] = (porVend[k]||0) + 1; });
     const [vTop, nTop] = Object.entries(porVend).sort((x,y)=>y[1]-x[1])[0];
     if (grupo.length >= 4 && nTop/grupo.length > .5) { raz.push(`${nTop} de ${grupo.length} comparables son del mismo vendedor (${vTop}): el mercado depende de un solo inventario.`); if (conf === 'alta') conf = 'media'; }
     if (atip.length) raz.push(`${atip.length} atípico${atip.length>1?'s':''} fuera del rango Q1−1.5×IQR a Q3+1.5×IQR.`);
   }
   return { A, Q1, Q3, disp, grupo, dir, aju, atip, nDir, portales, supuestos, conf, raz, U };
-}
-
-// ---------- compra y venta (hoja Costos y márgenes del Observatorio) ----------
-function escenarios(A){
-  const v = sup.v/100, m = sup.m/100, mmin = sup.mmin/100, F = +sup.F || 0, R = +sup.R || 0, Ap = PAR.apoyo_confirmado || 0;
-  const Vc = A*(1-PAR.descuento_venta.conservador), Vp = A*(1-sup.dp/100), Vo = A*(1-PAR.descuento_venta.optimista), Vd = Vp*(1-sup.md/100);
-  const compra = (V, mm, FF) => V*(1-v-mm) - FF + Ap;
-  const total = e => sup.ivac === 'acreditable' ? e*(1+T) : e;
-  const filas = [
-    { k:'Conservador', d:`venta −${PAR.descuento_venta.conservador*100} %, margen objetivo, gastos + reserva`, V:Vc, C:compra(Vc, m, F+R), FF:F+R },
-    { k:'Objetivo', d:`venta probable (−${sup.dp} %), margen objetivo`, V:Vp, C:compra(Vp, m, F), FF:F, dest:true },
-    { k:'Máximo (tope)', d:'venta probable, margen mínimo', V:Vp, C:compra(Vp, mmin, F), FF:F },
-    { k:'Optimista', d:`venta −${PAR.descuento_venta.optimista*100} %, margen objetivo · sensibilidad`, V:Vo, C:compra(Vo, m, F), FF:F },
-    { k:'Venta a distribuidor', d:`venta probable −${sup.md} %, margen objetivo`, V:Vd, C:compra(Vd, m, F), FF:F },
-  ];
-  filas.forEach(f => { f.Ct = total(f.C); f.Vt = f.V*(1+T); f.U = f.V*(1-v) - f.C - f.FF + Ap; f.Mg = f.U/f.V; });
-  return filas;
 }
 
 // ---------- interfaz ----------
@@ -354,21 +330,20 @@ function opciones(){
   const trans = ['Manual','Automatizada','Automática'].filter(t => cuenta('trans', t));
   if (st.trans !== '*' && !trans.includes(st.trans)) st.trans = '*';
   segs('trans', ['*', ...trans], st.trans, v => v === '*' ? 'Todas' : `${v}<small>${cuenta('trans', v)}</small>`);
+  const cabs = ['Dormitorio','Cabina corta'].filter(t => cuenta('cabina', t)); if (st.cabina !== '*' && !cabs.includes(st.cabina)) st.cabina = '*';
+  segs('cabina', ['*', ...cabs], st.cabina, v => v === '*' ? 'Todas' : `${v}<small>${cuenta('cabina', v)}</small>`);
+  const tracs = ['6x4','6x2','4x2'].filter(t => cuenta('traccion', t)); if (st.traccion !== '*' && !tracs.includes(st.traccion)) st.traccion = '*';
+  segs('traccion', ['*', ...tracs], st.traccion, v => v === '*' ? 'Todas' : `${v}<small>${cuenta('traccion', v)}</small>`);
   document.querySelectorAll('#ivam button').forEach(b => b.classList.toggle('on', b.dataset.v === st.ivam));
   $('km').value = st.km; $('kmv').textContent = fmtk(st.km); $('kmf').checked = st.kmf;
   $('prods').innerHTML = PRODS.map(p => `<button data-p="${p}" class="${p===st.prod?'on':''}">${DATA.productos[p]}<small>${DATA.anuncios.filter(a=>a.producto===p && elegible(a)).length}</small></button>`).join('');
 }
 document.addEventListener('click', e => {
   const b = e.target.closest('.seg button'); if (b){ const id = b.parentElement.id; st[id] = id === 'anio' ? +b.dataset.v : b.dataset.v; render(); return; }
-  const p = e.target.closest('#prods button'); if (p){ st.prod = p.dataset.p; st.motor = '*'; st.trans = '*'; mostrar = 8; render(); }
+  const p = e.target.closest('#prods button'); if (p){ st.prod = p.dataset.p; st.motor = st.trans = st.cabina = st.traccion = '*'; mostrar = 8; render(); }
 });
 $('km').addEventListener('input', e => { st.km = +e.target.value; $('kmv').textContent = fmtk(st.km); render(true); });
 $('kmf').addEventListener('change', e => { st.kmf = e.target.checked; render(); });
-const SUPK = ['F','R','v','m','mmin','dp','md','ivac'];
-function pintaSup(){ SUPK.forEach(k => $('s-'+k).value = sup[k]); }
-SUPK.forEach(k => $('s-'+k).addEventListener('input', e => { sup[k] = k === 'ivac' ? e.target.value : (parseFloat(e.target.value) || 0); store.set('lavc2-sup', sup); render(true); }));
-$('s-reset').addEventListener('click', () => { sup = Object.assign({}, SUP0); store.set('lavc2-sup', null); pintaSup(); render(true); });
-pintaSup();
 let mostrar = 8; $('masbtn').addEventListener('click', () => { mostrar += 8; render(true); });
 
 function card(a, rol){
@@ -376,17 +351,18 @@ function card(a, rol){
   const tag = rol === 'dir' ? '<span class="tag dir">DIRECTO</span>' : rol === 'aju' ? '<span class="tag">AJUSTABLE</span>' : '<span class="tag out">ATÍPICO</span>';
   return `<a class="cmp ${rol==='out'?'dim':''}" href="${esc(a.url)}" target="_blank" rel="noopener">
     <div class="ph" style="background-image:url('${esc(img(a))}')">${tag}<span class="src">${esc(fuenteN(a.fuente))}</span></div>
-    <div class="b"><div class="p">${usd?'US$ '+a.precio.toLocaleString('es-MX'):fmt(a.precio)}<small>${a.iva==='Incluido'?'IVA incluido':a.iva==='Más IVA'?'+ IVA':'IVA s/d'}</small></div>
+    <div class="b"><div class="p">${usd?'US$ '+a.precio.toLocaleString('es-MX'):fmt(a.precio)}<small>${ivaTxt(a)}</small></div>
     <div class="m">neto ${fmt(n)}${a.cambio_precio?` · <b style="color:${a.cambio_precio<0?'var(--good)':'var(--crit)'}">${a.cambio_precio<0?'bajó':'subió'} ${fmt(Math.abs(a.cambio_precio))}</b>`:''}</div>
     <div class="t">${a.anio} · ${fmtk(a.km)}</div>
     <div class="m">${esc(a.motor||'motor s/d')} · ${esc(a.trans||'transmisión s/d')}</div>
+    <div class="m">${esc(a.cabina ? a.cabina + (a.dormitorio_pulg ? ' ' + a.dormitorio_pulg + '"' : '') : 'cabina s/d')} · ${esc(a.traccion||'tracción s/d')}${a.hp?' · '+a.hp+' hp':''}</div>
     <div class="m">${esc(a.lugar||'')}${a.vendedor?' · '+esc(a.vendedor):''}</div></div></a>`;
 }
 
 let R = null;
 function render(rapido){
   if (!rapido) opciones();
-  store.set('lavc2-st', st);
+  store.set('lavc3-st', st);
   R = valuar();
   const nombre = DATA.productos[st.prod];
   $('valor').innerHTML = R.A ? fmt(R.A) + '<small>MXN sin IVA</small>' : 'Sin datos';
@@ -400,22 +376,30 @@ function render(rapido){
   $('ncmp').textContent = R.grupo.length; $('ncmpd').textContent = `${R.nDir} directos · ${R.grupo.length-R.nDir} ajustables`;
   $('disp').textContent = pct(R.disp); $('total').textContent = fmt(R.A ? R.A*(1+T) : null);
   $('nport').textContent = R.portales; $('nportd').textContent = [...new Set(R.grupo.map(a => fuenteN(a.fuente)))].slice(0,3).join(', ');
-  if (R.A){
-    const E = escenarios(R.A);
-    $('esc').innerHTML = `<tr><th>Escenario</th><th>Venta neta</th><th>Venta con IVA</th><th>Compra máx.</th><th>Utilidad · margen</th></tr>` +
-      E.map(f => `<tr class="${f.dest?'dest':''}"><td>${f.k}<small>${f.d}</small></td><td>${fmt(f.V)}</td><td>${fmt(f.Vt)}</td><td>${fmt(f.Ct)}${sup.ivac==='acreditable'?'<small>económico '+fmt(f.C)+'</small>':''}</td><td>${fmt(f.U)}<small>${pct(f.Mg,1)}</small></td></tr>`).join('');
-    const o = E[1];
-    $('cr-b41').textContent = fmt(o.Vt); $('cr-b8').textContent = fmt(o.Ct); $('cr-b38').textContent = pct(sup.m/100, 1);
-    $('aviso-compra').innerHTML = `Comprar en <b>${fmt(o.Ct)}</b> y vender en <b>${fmt(o.Vt)}</b> con IVA deja ${fmt(o.U)} (${pct(o.Mg,1)} de la venta neta). El tope con margen mínimo es <b>${fmt(E[2].Ct)}</b>; si la unidad se venderá a otro distribuidor, no pagar más de <b>${fmt(E[4].Ct)}</b>. Ningún resultado es autorización; confianza del mercado: <b>${R.conf}</b>.`;
-  } else { $('esc').innerHTML = '<tr><td>Sin valor de mercado: no hay comparables elegibles.</td></tr>'; ['cr-b41','cr-b8','cr-b38'].forEach(k => $(k).textContent = '—'); $('aviso-compra').textContent = ''; }
+  parecido();
   const rol = a => R.dir.includes(a) ? 'dir' : 'aju', orden = [...R.grupo.map(a => [a, rol(a)]), ...R.atip.map(a => [a,'out'])]
     .sort((x,y) => ({dir:0,aju:1,out:2}[x[1]] - {dir:0,aju:1,out:2}[y[1]]) || Math.abs(x[0].anio-st.anio)-Math.abs(y[0].anio-st.anio) || Math.abs((x[0].km||9e6)-st.km)-Math.abs((y[0].km||9e6)-st.km));
   $('cmpgrid').innerHTML = orden.slice(0, mostrar).map(([a,r]) => card(a, r)).join('') || '<p class="hint">Sin comparables.</p>';
   $('masbtn').style.display = mostrar >= orden.length ? 'none' : '';
-  sensibilidad(); rotacion(); cobertura(); todos();
+  sensibilidad(); pruebaIVA(); rotacion(); cobertura(); todos();
 }
-$('copiar').addEventListener('click', () => { const t = `B41\t${$('cr-b41').textContent}\nB8\t${$('cr-b8').textContent}\nB38\t${$('cr-b38').textContent}`;
-  try { navigator.clipboard.writeText(t).then(() => { $('copiar').textContent = 'Copiado'; setTimeout(() => $('copiar').textContent = 'Copiar los tres', 1500); }); } catch(e) {} });
+function parecido(){
+  const G = R.grupo, n = G.length;
+  if (!n){ $('parecido').innerHTML = ''; return; }
+  const filas = [
+    ['Año', a => a.anio, st.anio, null],
+    ['Motor', fam, st.motor, a => !a.motor],
+    ['Transmisión', a => a.trans, st.trans, a => !a.trans],
+    ['Cabina', a => a.cabina, st.cabina, a => !a.cabina],
+    ['Tracción', a => a.traccion, st.traccion, a => !a.traccion],
+    ['Km ±25 %', a => a.km && Math.abs(a.km - st.km) <= PAR.tolerancia_km*st.km ? 'sí' : 'no', 'sí', a => !a.km],
+  ];
+  const mezcla = (f, sd) => { const c = {}; G.forEach(a => { const k = sd && sd(a) ? 'sin dato' : f(a); c[k] = (c[k]||0)+1; }); return Object.entries(c).sort((x,y)=>y[1]-x[1]).map(([k,v]) => `${esc(k)} ${v}`).join(' · '); };
+  $('parecido').innerHTML = '<tr><th>Atributo</th><th class="n">Igual a tu unidad</th><th class="n">Distinto</th><th class="n">Sin dato</th><th>Mezcla</th></tr>' + filas.map(([k, f, v, sd]) => {
+    const sinDato = sd ? G.filter(sd).length : 0, iguales = v === '*' ? null : G.filter(a => !(sd && sd(a)) && String(f(a)) === String(v)).length;
+    const dist = iguales == null ? null : n - sinDato - iguales;
+    return `<tr><td>${k}</td><td class="n">${iguales == null ? '<span class="pill">no elegido</span>' : `<b class="ok">${iguales}</b>`}</td><td class="n">${dist == null ? '' : dist ? `<b class="ko">${dist}</b>` : '0'}</td><td class="n">${sinDato || 0}</td><td><small>${mezcla(f, sd)}</small></td></tr>`; }).join('');
+}
 
 // ---------- sensibilidad ----------
 function regresion(U){ // log(neto) = b0 + b1·año + b2·(km/100 mil), mínimos cuadrados
@@ -459,7 +443,7 @@ function sensibilidad(){
   $('sens-nota').textContent = `Las barras comparan la mediana de cada grupo (años ${st.anio-1} a ${st.anio+1}) contra la mediana general de esos años (línea negra). Son diferencias observadas en anuncios, no ajustes autorizados: el Observatorio pide evidencia de cierres para convertirlas en primas o castigos.`;
   drawAnio(U); drawKm(cerca, reg);
 }
-const COLF = {ML:'#f2a541',STZ:'#2f6fed',GOON:'#1d4fb8',PANA:'#7a5cf0',NASTRAC:'#2e9b5f',QT:'#0f8a84',SCA:'#d63b3b',SEM:'#c9820b',TRACTOS:'#14213d',TTM:'#9b6b3a',DN:'#5d6a4f',DICAM:'#8590a6',ECC:'#b3bccb'};
+const COLF = {ML:'#d9a23f',STZ:'#24507a',GOON:'#5b84b1',PANA:'#8a6fb3',NASTRAC:'#4f9a6e',QT:'#2f8f8a',SCA:'#c0504d',SEM:'#b07d3a',TRACTOS:'#1b2a41',TTM:'#9b6b3a',DN:'#6f7b5a',DICAM:'#8b93a3',ECC:'#b9c0cb'};
 const colorFuente = f => COLF[f] || '#8590a6';
 function puntos(svgEl, tipEl){
   svgEl.querySelectorAll('.pt').forEach(c => { const a = DATA.anuncios.find(x => x.id === c.dataset.id);
@@ -483,7 +467,7 @@ function drawAnio(U){
   let seed = 7; const rnd = () => (seed = (seed*9301+49297)%233280)/233280;
   U.forEach(a => s += `<circle class="pt" data-id="${esc(a.id)}" cx="${sx(a.anio)+(rnd()-.5)*28}" cy="${sy(neto(a))}" r="${a.anio===st.anio?6:4.5}" fill="${colorFuente(a.fuente)}" fill-opacity=".85" stroke="#fff" stroke-width="1"/>`);
   g.forEach(r => s += `<text x="${sx(r.y)}" y="${Math.max(12, sy(r.q3)-6)}" text-anchor="middle" font-size="10.5" fill="var(--faint)">n=${r.n}</text>`);
-  if (R && R.A) s += `<circle cx="${sx(st.anio)}" cy="${sy(R.A)}" r="9" fill="none" stroke="var(--acc-ink)" stroke-width="2.5"/>`;
+  if (R && R.A) s += `<circle cx="${sx(st.anio)}" cy="${sy(R.A)}" r="9" fill="none" stroke="var(--alt)" stroke-width="3"/>`;
   $('ch-anio').innerHTML = s + '</svg>'; puntos($('ch-anio').firstChild, $('tip1'));
 }
 function drawKm(cerca, reg){
@@ -498,6 +482,34 @@ function drawKm(cerca, reg){
   if (reg && R && R.A){ const f = k => R.A*Math.pow(1+reg.km, (k-st.km)/1e5); s += `<path d="M${sx(0)},${sy(Math.min(pmax,f(0)))} L${sx(kmax)},${sy(f(kmax))}" stroke="var(--acc)" stroke-width="2" fill="none" opacity=".7"/>`; }
   xs.forEach(a => s += `<circle class="pt" data-id="${esc(a.id)}" cx="${sx(a.km)}" cy="${sy(neto(a))}" r="${a.anio===st.anio?6:4.5}" fill="${colorFuente(a.fuente)}" fill-opacity="${a.anio===st.anio?.9:.4}" stroke="#fff"/>`);
   $('ch-km').innerHTML = s + '</svg>'; puntos($('ch-km').firstChild, $('tip2'));
+}
+
+// ---------- IVA ----------
+function ols(X, y){ const k = X[0].length, M = Array.from({length:k}, () => Array(k).fill(0)), v = Array(k).fill(0);
+  X.forEach((r,i) => { for (let a=0;a<k;a++){ v[a]+=r[a]*y[i]; for (let b=0;b<k;b++) M[a][b]+=r[a]*r[b]; } });
+  const inv = invertir(M); if (!inv) return null; const b = inv.map(r => r.reduce((t,x,j)=>t+x*v[j],0));
+  let sse = 0; X.forEach((r,i) => { const e = y[i] - r.reduce((t,x,j)=>t+x*b[j],0); sse += e*e; });
+  const s2 = sse/Math.max(1, X.length-k); return { b, t: b.map((x,j) => x/Math.sqrt(s2*inv[j][j])), n: X.length }; }
+function pruebaIVA(){
+  const P = delProd().filter(elegible), cuenta = f => P.filter(f).length;
+  $('iva-kpis').innerHTML = [['Declarado en el anuncio', cuenta(a => a.iva_origen === 'anuncio'), 'dice «IVA incluido» o «más IVA»'], ['Confirmado por la fuente', cuenta(a => a.iva_origen === 'fuente'), 'SelecTrucks Zapata: contado con IVA'],
+    ['Presunto: particular', cuenta(a => a.iva === 'Desconocido' && a.iva_presunto === 'Exento'), 'sin IVA (exento)'], ['Presunto: distribuidor', cuenta(a => a.iva === 'Desconocido' && a.iva_presunto !== 'Exento'), 'IVA incluido']]
+    .map(([l,v,d]) => `<div class="mini"><div class="label">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('');
+  // todos los productos juntos: log(precio publicado) = modelo + año + km + distribuidor
+  const U = DATA.anuncios.filter(a => elegible(a) && a.precio_mxn && a.km && a.km < 3e6 && a.iva !== 'Más IVA');
+  const prods = [...new Set(U.map(a => a.producto))];
+  const X = U.map(a => [1, a.anio - 2018, a.km/1e5, a.tipo_vendedor === 'particular' ? 0 : 1, ...prods.slice(1).map(p => +(a.producto === p))]);
+  const r = U.length >= 15 ? ols(X, U.map(a => Math.log(a.precio_mxn))) : null;
+  const nP = U.filter(a => a.tipo_vendedor === 'particular').length, nD = U.length - nP;
+  if (!r || nP < 5 || nD < 5){ $('iva-prueba').innerHTML = `<p class="hint">Faltan anuncios para la prueba (${nD} de distribuidores y ${nP} de particulares con km).</p>`; return; }
+  const dif = Math.exp(r.b[3]) - 1, t = r.t[3];
+  const lectura = Math.abs(t) < 2 ? 'La diferencia no se distingue del ruido: con estos datos no se puede afirmar si los distribuidores publican con IVA.'
+    : dif > .10 ? 'Es cercano al 16 % del IVA: coincide con que los distribuidores publiquen con IVA incluido y los particulares sin IVA. Parte de la diferencia también puede ser garantía y reacondicionamiento.'
+    : dif > 0 ? 'Es menor que el 16 % del IVA: algunos distribuidores podrían publicar sin IVA, o vender más barato que los particulares en neto.'
+    : 'Los distribuidores publican más barato que los particulares: es probable que varios publiquen sin IVA.';
+  $('iva-prueba').innerHTML = `<div class="big" style="font-size:34px">${dif>=0?'+':''}${pct(dif,1)}</div>
+    <p class="hint">Diferencia de precio publicado entre distribuidores y particulares, con el mismo modelo, año y kilometraje (${nD} anuncios de distribuidores y ${nP} de particulares; t = ${t.toFixed(1)}).</p>
+    <p>${lectura}</p><p class="aviso">Si los distribuidores incluyen el IVA y los particulares no, la diferencia esperada es de alrededor de +16 % con el mismo valor neto. La prueba es indicativa: no sustituye la cotización con IVA desglosado.</p>`;
 }
 
 // ---------- oferta y rotación ----------
@@ -532,8 +544,8 @@ $('solo-el').addEventListener('change', () => todos());
 function todos(){
   const P = delProd().filter(a => !$('solo-el').checked || elegible(a));
   $('todos-n').textContent = `${P.length} anuncios de ${DATA.productos[st.prod]}`;
-  $('todos').innerHTML = '<tr><th>Año</th><th class="n">Km</th><th>Motor · transmisión</th><th class="n">Publicado</th><th>IVA</th><th class="n">Neto</th><th>Fuente · lugar</th><th>Estado</th></tr>' +
-    P.slice().sort((a,b) => b.anio-a.anio || (a.precio_mxn||0)-(b.precio_mxn||0)).map(a => `<tr class="${elegible(a)?'':'no'}"><td><a href="${esc(a.url)}" target="_blank" rel="noopener">${a.anio}</a></td><td class="n">${a.km?a.km.toLocaleString('es-MX'):'s/d'}</td><td>${esc(a.motor||'s/d')} · ${esc(a.trans||'s/d')}</td><td class="n">${a.moneda==='USD'?'US$ '+a.precio.toLocaleString('es-MX'):fmt(a.precio)}</td><td>${esc(a.iva)}</td><td class="n">${fmt(neto(a))}</td><td>${esc(fuenteN(a.fuente))}<br><small>${esc(a.lugar||'')}</small></td><td>${elegible(a)?'<span class="pill ok">elegible</span>':(a.no_elegible||[]).map(m=>`<span class="pill">${esc(m)}</span>`).join('')}${a.nota?`<br><small>${esc(a.nota)}</small>`:''}</td></tr>`).join('');
+  $('todos').innerHTML = '<tr><th>Año</th><th class="n">Km</th><th>Motor · transmisión · cabina · tracción</th><th class="n">Publicado</th><th>IVA</th><th class="n">Neto</th><th>Fuente · lugar</th><th>Estado</th></tr>' +
+    P.slice().sort((a,b) => b.anio-a.anio || (a.precio_mxn||0)-(b.precio_mxn||0)).map(a => `<tr class="${elegible(a)?'':'no'}"><td><a href="${esc(a.url)}" target="_blank" rel="noopener">${a.anio}</a></td><td class="n">${a.km?a.km.toLocaleString('es-MX'):'s/d'}</td><td>${esc(a.motor||'s/d')} · ${esc(a.trans||'s/d')} · ${esc(a.cabina||'s/d')} · ${esc(a.traccion||'s/d')}</td><td class="n">${a.moneda==='USD'?'US$ '+a.precio.toLocaleString('es-MX'):fmt(a.precio)}</td><td>${esc(ivaTxt(a))}</td><td class="n">${fmt(neto(a))}</td><td>${esc(fuenteN(a.fuente))}<br><small>${esc(a.lugar||'')}</small></td><td>${elegible(a)?'<span class="pill ok">elegible</span>':(a.no_elegible||[]).map(m=>`<span class="pill">${esc(m)}</span>`).join('')}${a.nota?`<br><small>${esc(a.nota)}</small>`:''}</td></tr>`).join('');
 }
 
 $('tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
