@@ -6,8 +6,10 @@ def _lista(h, var):
     m = re.search(var + r"\s*=\s*(\[.*?\]);\s*\n", h, re.S)
     return json.loads(m.group(1)) if m else []
 
+ANIO_MIN, ANIO_MAX = 2021, 2025
+
 def _rango(prod, anio):
-    return prod == "kenworth-t680" or (anio and 2021 <= anio <= 2025)
+    return prod == "kenworth-t680" or (anio and ANIO_MIN <= anio <= ANIO_MAX)
 
 def leer_selectrucks(log=print):
     h = get("https://www.selectruckszapata.com/catalogo")

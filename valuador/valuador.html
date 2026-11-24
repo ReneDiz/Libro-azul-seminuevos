@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Valuador de tractocamiones</title>
+<style>
+:root{--bg:#f6f4ef;--sf:#fff;--sf2:#faf8f4;--tx:#1b2a41;--mu:#5a6478;--fa:#8b93a3;--bd:#e2ddd2;--ac:#24507a;--ac-s:rgba(36,80,122,.10);--au:#b8892c;--au-s:rgba(198,154,60,.16);--ok:#1f7a49;--ok-s:#e6f4ec;--wr:#a65a0b;--wr-s:#fdf1e2;--bad:#b42318;--bad-s:#fdecea}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181f;--sf:#1d232c;--sf2:#222a35;--tx:#e9edf3;--mu:#a4adbb;--fa:#7d8796;--bd:#323a46;--ac:#7fb0e6;--ac-s:rgba(127,176,230,.14);--au:#d9b25e;--au-s:rgba(217,178,94,.16);--ok:#58c487;--ok-s:rgba(88,196,135,.14);--wr:#e8a05a;--wr-s:rgba(232,160,90,.14);--bad:#f07167;--bad-s:rgba(240,113,103,.14);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14181f;--sf:#1d232c;--sf2:#222a35;--tx:#e9edf3;--mu:#a4adbb;--fa:#7d8796;--bd:#323a46;--ac:#7fb0e6;--ac-s:rgba(127,176,230,.14);--au:#d9b25e;--au-s:rgba(217,178,94,.16);--ok:#58c487;--ok-s:rgba(88,196,135,.14);--wr:#e8a05a;--wr-s:rgba(232,160,90,.14);--bad:#f07167;--bad-s:rgba(240,113,103,.14);color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums;padding-bottom:env(safe-area-inset-bottom,0px)}
+main{max-width:1120px;margin:0 auto;padding:16px 16px 60px}
+h1{font-size:21px;margin:6px 0 2px;letter-spacing:-.01em}
+h2{font-size:15px;margin:0 0 10px}
+h3{font-size:13px;margin:14px 0 6px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em}
+.sub{color:var(--mu);margin:0 0 14px}
+a{color:var(--ac)}
+section.card,.card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px;min-width:0}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+label{display:flex;flex-direction:column;font-size:11.5px;color:var(--mu);gap:3px;min-width:0}
+input,select,textarea{font:inherit;font-size:13.5px;color:var(--tx);background:var(--sf2);border:1px solid var(--bd);border-radius:7px;padding:6px 8px;min-width:0;width:100%}
+textarea{resize:vertical;min-height:38px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ac-s);border-color:var(--ac)}
+button{font:inherit;font-size:13px;cursor:pointer;border:1px solid var(--bd);background:var(--sf);color:var(--tx);border-radius:7px;padding:6px 11px;white-space:nowrap}
+button:hover{border-color:var(--ac)}
+button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+:root[data-theme="dark"] button.p{color:#0d1520}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.p{color:#0d1520}}
+button.l{border:0;background:none;color:var(--ac);padding:2px 4px;text-decoration:underline}
+button.x{color:var(--bad)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+.bar>label{flex:1 1 160px}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--bd);margin:4px 0 14px;overflow-x:auto}
+.tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--mu);padding:9px 12px;font-weight:500}
+.tabs button.on{color:var(--tx);border-color:var(--au);font-weight:650}
+.pane{display:none}.pane.on{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chips button{border-radius:20px}
+.chips button.on{background:var(--ac-s);border-color:var(--ac);font-weight:600}
+.chips button small{color:var(--fa);margin-left:4px;font-weight:400}
+.kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.k{border:1px solid var(--bd);border-radius:10px;padding:10px 12px;background:var(--sf2);min-width:0}
+.k.main{border-color:var(--au);background:var(--au-s)}
+.k .lb{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em}
+.k .v{font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-top:2px}
+.k .s{font-size:12.5px;color:var(--mu)}
+.k .s b{color:var(--tx);font-weight:600}
+.rng{display:flex;justify-content:space-between;gap:6px;margin-top:4px}
+.rng div{text-align:center;flex:1}.rng div b{display:block;font-size:15px}.rng small{color:var(--fa);font-size:11px}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:20px;padding:2px 9px;border:1px solid}
+.badge.alta{color:var(--ok);background:var(--ok-s);border-color:var(--ok)}
+.badge.media{color:var(--ac);background:var(--ac-s);border-color:var(--ac)}
+.badge.baja{color:var(--wr);background:var(--wr-s);border-color:var(--wr)}
+.pill{display:inline-block;font-size:11px;border-radius:20px;padding:1px 8px;background:var(--sf2);border:1px solid var(--bd);color:var(--mu);margin:2px 3px 2px 0}
+.pill.w{background:var(--wr-s);border-color:var(--wr);color:var(--wr)}
+.pill.b{background:var(--bad-s);border-color:var(--bad);color:var(--bad)}
+.pill.o{background:var(--ok-s);border-color:var(--ok);color:var(--ok)}
+.reasons{margin:8px 0 0;padding-left:18px;color:var(--mu);font-size:12.5px}
+.sc{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th{text-align:left;font-size:11px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:6px;border-bottom:1px solid var(--bd);white-space:nowrap;vertical-align:bottom}
+td{padding:6px;border-bottom:1px solid var(--bd);vertical-align:top;font-size:13px}
+td.n,th.n{text-align:right;white-space:nowrap}
+td small,.mut{color:var(--fa);font-size:11.5px}
+.pos{color:var(--ok);font-weight:600}.neg{color:var(--bad);font-weight:600}.zero{color:var(--fa)}
+.wf{margin-top:6px}
+.wf .r{display:grid;grid-template-columns:170px minmax(0,1fr) 120px;gap:10px;align-items:center;padding:4px 0}
+.wf .r .t{font-size:12.5px;line-height:1.2}
+.wf .r .t small{display:block;color:var(--fa);font-size:11px}
+.wf .r .trk{position:relative;height:18px;background:var(--sf2);border-radius:4px}
+.wf .r .trk i{position:absolute;top:2px;bottom:2px;border-radius:3px}
+.wf .r .vv{text-align:right;font-size:12.5px;font-weight:600;white-space:nowrap}
+.wf .r .vv small{display:block;font-weight:500;font-size:11px}
+.wf .r.tot .t{font-weight:700}
+.wf .why{grid-column:1/-1;font-size:11.5px;color:var(--mu);margin:-2px 0 2px 180px}
+.comp{border:1px solid var(--bd);border-radius:10px;padding:10px;margin-bottom:10px;background:var(--sf2)}
+.comp.out{opacity:.6}
+.comp .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:8px}
+.comp .hd b{font-size:14px}
+.comp .hd .adj{margin-left:auto;font-weight:700}
+.comp .g{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.comp label{font-size:10.5px}
+.comp input,.comp select{padding:5px 6px;font-size:12.5px;background:var(--sf)}
+.note{font-size:12px;color:var(--wr);margin-top:6px}
+.fx td input{width:84px}
+.fx td textarea{min-height:32px;font-size:12.5px}
+.src li{margin-bottom:6px}
+.src .st{font-size:11px}
+.hint{color:var(--mu);font-size:12.5px;margin:0 0 10px}
+.lib td b{font-size:13.5px}
+.empty{color:var(--mu);padding:14px;text-align:center;border:1px dashed var(--bd);border-radius:10px}
+#print{display:none}
+@media (max-width:760px){.kpi{grid-template-columns:minmax(0,1fr)}.g2{grid-template-columns:minmax(0,1fr)}.wf .r{grid-template-columns:110px minmax(0,1fr) 96px}.wf .why{margin-left:0}main{padding:12px 12px 50px}h1{font-size:18px}}
+@media print{
+  @page{size:letter;margin:12mm}
+  body{background:#fff;color:#111;font-size:11px}
+  main{display:none}
+  #print{display:block}
+  #print h1{font-size:17px}#print h2{font-size:13px;margin:12px 0 6px}
+  #print table{font-size:10px}#print th,#print td{padding:3px 4px;border-bottom:1px solid #ccc;color:#111}
+  #print .k{border:1px solid #bbb;background:#fff;padding:7px 8px}#print .k.main{border-color:#8a6a1e}
+  #print .kpi{grid-template-columns:1fr 1fr 1.5fr;gap:6px}#print .k .v{font-size:17px}#print .rng div b{font-size:12px}#print .rng small{font-size:9px}
+  #print .sc{overflow:visible}#print th{font-size:8px;white-space:normal;letter-spacing:.03em}#print .lib td{font-size:9.5px}#print .lib td b{font-size:10.5px}#print .lib small{font-size:8.5px}
+  #print .card{padding:8px;border-color:#ccc}#print .badge{color:#111;background:#fff;border-color:#555}
+  #print .wf .r .trk{background:#eee}
+  #print .sheet{page-break-after:always}
+  #print .sheet:last-child{page-break-after:auto}
+  #print a{color:#111;text-decoration:none}
+}
+</style></head><body><main>
+<h1>Valuador de camiones y tractocamiones usados · Libro azul</h1>
+<p class="sub">Valores de mercado y de compra por subproyecto, con comparables normalizados a la unidad y premios o penalizaciones justificados.</p>
+
+<section class="card">
+  <div class="bar">
+    <label style="flex:2 1 220px">Subproyecto<select id="pSel"></select></label>
+    <button id="pNew">Nuevo</button><button id="pDup">Duplicar</button><button id="pDel" class="x">Eliminar</button>
+    <button id="pExp">Exportar JSON</button><button id="pImp">Importar JSON</button><input type="file" id="pFile" accept="application/json,.json" hidden>
+  </div>
+  <div class="g" style="margin-top:10px">
+    <label>Nombre<input id="pName"></label><label>Cliente<input id="pClient"></label><label>Fecha<input type="date" id="pDate"></label>
+    <label style="grid-column:span 2">Notas<input id="pNotes" placeholder="Alcance, contacto, condiciones"></label>
+  </div>
+</section>
+
+<div class="tabs" id="tabs">
+  <button data-t="units" class="on">Unidades</button><button data-t="book">Libro azul</button><button data-t="cfg">Factores y justificaciones</button><button data-t="src">Fuentes de consulta</button>
+</div>
+
+<div class="pane on" id="t-units">
+  <div class="chips" id="uChips"></div>
+  <div id="uBody"></div>
+</div>
+<div class="pane" id="t-book"><div id="book"></div></div>
+<div class="pane" id="t-cfg"><div id="cfg"></div></div>
+<div class="pane" id="t-src"><div id="srcs"></div></div>
+</main>
+<div id="print"></div>
+<script>
+(function(){
+"use strict";
+var KEY = "valuador-libroazul-v2", OLD = "valcam1";
+var YR = new Date().getFullYear();
+var SUP = "supuesto, calibrar";
+
+/* ---------- catálogos con factor (%), justificación y fuente ---------- */
+function o(f, why, src){ return {f:f, why:why, src:src||SUP}; }
+var DEF = {
+  iva: 16, fx: 18.5, trim: 30, margen: 10, recon: 0,
+  dep: o(7, "Depreciación anual típica de tracto carretero en México; varía por marca y demanda."),
+  km: o(1.5, "Desgaste de motor y tren motriz; el comprador castiga el km alto aunque haya reparaciones."),
+  newDrop: o(15, "Pérdida al salir de agencia (descuentos, garantía, financiamiento) al usar el precio de lista nuevo como ancla."),
+  cats: {
+    motor: { lab: "Motor", opts: {
+      "Cummins X15 / ISX": o(100, "Referencia: el más común en tractos usados; refacciones y talleres en todo el país; mejor reventa."),
+      "International S13": o(95, "Motor nuevo en México (2022 en adelante): historial corto y refacciones solo en red International."),
+      "Detroit DD13": o(96, "13 litros: menos torque para full y montaña; menor demanda que los motores de 15 litros."),
+      "Detroit DD15": o(100, "15 litros con buena aceptación en flotillas; red Daimler extendida."),
+      "Detroit DD16": o(101, "Mayor potencia para carga pesada; poca oferta en usados."),
+      "Paccar MX-13": o(98, "Bien aceptado en Kenworth; refacciones sobre todo en red Kenworth."),
+      "Volvo D13": o(95, "Red de servicio más concentrada; menor aceptación fuera de flotillas Volvo."),
+      "Cummins ISM / ISL": o(92, "Generación anterior o menor cilindrada para tracto carretero."),
+      "International A26": o(94, "Motor propio anterior al S13; aceptación media."),
+      "Navistar MaxxForce / N13": o(80, "Historial de fallas (EGR); castigo fuerte en reventa."),
+      "Otro": o(92, "Motor poco común: refacciones y reventa inciertas.")
+    }},
+    trans: { lab: "Transmisión", opts: {
+      "Fuller manual 18 vel.": o(100, "Referencia en México para full y montaña; operadores la conocen; reparación barata en cualquier taller."),
+      "Fuller manual 13 vel.": o(98, "Versátil; algo menos buscada que la de 18 para doble remolque."),
+      "Fuller manual 10 vel.": o(94, "Menos pasos: limita el desempeño cargado en montaña."),
+      "International T14 (automatizada)": o(96, "Automatizada nueva con historial corto en México; reparación en red International."),
+      "Detroit DT12 (automatizada)": o(98, "Automatizada con buena aceptación en flotillas; ahorra combustible; reparación especializada."),
+      "Eaton Endurant (automatizada)": o(98, "Automatizada moderna bien aceptada; reparación especializada."),
+      "Eaton UltraShift / UltraShift PLUS": o(94, "Generación anterior; reparaciones de embrague y actuadores costosas."),
+      "Volvo I-Shift": o(96, "Buena en flotillas Volvo; reparación en red Volvo."),
+      "Allison (automática)": o(93, "Automática de convertidor, más vocacional; poco buscada en tracto carretero."),
+      "Otra": o(92, "Transmisión poco común: reventa incierta.")
+    }},
+    hp: { lab: "Potencia", opts: {
+      "Menos de 400 HP": o(92, "Insuficiente para full cargado en montaña."),
+      "400–449 HP": o(97, "Suficiente en plano; limitada con full en montaña."),
+      "450–474 HP": o(100, "Referencia: rango más común en tracto carretero mexicano."),
+      "475–499 HP": o(101, "Mejor desempeño cargado y en montaña."),
+      "500 HP o más": o(102, "Premio por desempeño; el mayor consumo limita el premio.")
+    }},
+    ratio: { lab: "Relación de diferencial", opts: {
+      "3.08 o menos": o(95, "Muy rápida (downspeed): ahorra combustible en plano, limitada en montaña y con full."),
+      "3.09–3.42": o(97, "Orientada a carretera plana y consumo."),
+      "3.43–3.70": o(99, "Equilibrio entre carretera y montaña."),
+      "3.71–4.10": o(100, "Referencia: versátil para full y montaña; la más buscada en usados en México."),
+      "Más de 4.10": o(98, "Carga pesada o vocacional; más consumo en carretera.")
+    }},
+    diff: { lab: "Capacidad del diferencial", opts: {
+      "Menos de 40,000 lb": o(90, "Limita el peso bruto; poco apto para full."),
+      "40,000 lb": o(96, "Limita la carga con full; el comprador mexicano prefiere 46,000 lb."),
+      "44,000–46,000 lb": o(100, "Referencia: estándar de tracto para full en México."),
+      "Más de 46,000 lb": o(100, "Pesado o vocacional; sin premio en carretera.")
+    }},
+    rims: { lab: "Rines", opts: {
+      "24.5": o(100, "Referencia: estándar carretero en México (llanta 11R24.5)."),
+      "22.5": o(98, "Llanta de perfil bajo: menos altura y peso; algo menos aceptada por compradores de carga pesada."),
+      "19.5": o(90, "Medida de camión mediano; no usual en tracto.")
+    }},
+    cab: { lab: "Cabina", opts: {
+      "Day cab (sin dormitorio)": o(90, "No apta para largo recorrido con operador a bordo; demanda regional."),
+      "Dormitorio hasta 48\"": o(97, "Dormitorio corto: comodidad limitada en viajes largos."),
+      "Dormitorio 52–60\"": o(100, "Referencia: medida más común en tracto carretero mexicano."),
+      "Dormitorio 62–72\"": o(102, "Más comodidad para viajes largos y relevo; más peso y consumo."),
+      "Dormitorio 76\" o más": o(102, "Alta comodidad; más peso; premio limitado.")
+    }},
+    config: { lab: "Configuración", opts: {
+      "6x4": o(100, "Referencia: estándar para full y montaña."),
+      "6x2": o(92, "Menos tracción en montaña; poca aceptación en México."),
+      "4x2": o(88, "Solo para sencillo y carga ligera; demanda menor."),
+      "8x4": o(95, "Vocacional; mercado distinto al tracto carretero.")
+    }},
+    cond: { lab: "Estado general", opts: {
+      "Excelente": o(103, "Sin reparaciones pendientes y llantas con más de 70 %."),
+      "Bueno": o(100, "Referencia: lista para trabajar."),
+      "Regular": o(92, "Reparaciones menores y llantas por cambiar."),
+      "Para reparar": o(80, "Reparación mayor pendiente.")
+    }}
+  },
+  srcTypes: {
+    "Anuncio México": {w:1.0, why:"Precio pedido en portal; puede bajar al negociar."},
+    "Distribuidor / seminuevo certificado": {w:1.0, why:"Unidad revisada con ficha; precio pedido."},
+    "Venta de flotilla": {w:0.9, why:"Lote homogéneo; puede traer descuento por volumen."},
+    "Redes sociales": {w:0.8, why:"Información incompleta y verificación limitada."},
+    "Subasta / remate": {w:0.8, why:"Precio de liquidación: referencia de piso."},
+    "Guía de precios": {w:0.7, why:"Valor estadístico de un portal o guía; no es una unidad concreta."},
+    "Referencia EUA / extranjera": {w:0.6, why:"Otro mercado: sin IVA mexicano, importación ni adecuaciones."},
+    "Precio de lista nuevo": {w:1.0, why:"Ancla del valor; se le aplica la pérdida inicial de unidad nueva."}
+  }
+};
+var FACT = ["motor","trans","hp","ratio","diff","rims","cab","config"];
+var ESTADOS = ["Verificado","Por verificar","Captura manual"];
+
+/* ---------- bandas ---------- */
+function hpBand(h){ h=+h; if(!h) return ""; return h<400?"Menos de 400 HP":h<450?"400–449 HP":h<475?"450–474 HP":h<500?"475–499 HP":"500 HP o más"; }
+function ratioBand(r){ r=+r; if(!r) return ""; return r<=3.08?"3.08 o menos":r<=3.42?"3.09–3.42":r<=3.70?"3.43–3.70":r<=4.10?"3.71–4.10":"Más de 4.10"; }
+function diffBand(d){ d=+d; if(!d) return ""; return d<40000?"Menos de 40,000 lb":d<44000?"40,000 lb":d<=46000?"44,000–46,000 lb":"Más de 46,000 lb"; }
+function cabBand(t, s){ if(!t) return ""; if(t==="day") return "Day cab (sin dormitorio)"; s=+s; if(!s) return ""; return s<=48?"Dormitorio hasta 48\"":s<=60?"Dormitorio 52–60\"":s<=72?"Dormitorio 62–72\"":"Dormitorio 76\" o más"; }
+function key(x, k){
+  if(!x) return "";
+  if(k==="hp") return hpBand(x.hp); if(k==="ratio") return ratioBand(x.ratio); if(k==="diff") return diffBand(x.diff);
+  if(k==="cab") return cabBand(x.cabType, x.cabSize); return x[k] || "";
+}
+
+/* ---------- estado ---------- */
+var S = null;
+function clone(v){ return JSON.parse(JSON.stringify(v)); }
+function uid(){ return Math.random().toString(36).slice(2,10); }
+function today(){ var d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function blankUnit(n){ return {id:uid(), name:n||"Unidad nueva", year:YR-3, yearNote:"", km:500000, config:"6x4", cabType:"dorm", cabSize:56, hp:450, motor:"Cummins X15 / ISX", trans:"Fuller manual 18 vel.", ratio:3.73, diff:46000, rims:"24.5", cond:"Bueno", margen:null, recon:null, refYears:"", comps:[]}; }
+function blankProject(n){ return {id:uid(), name:n||"Subproyecto nuevo", client:"", date:today(), notes:"", units:[blankUnit("Unidad 1")], active:null}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+var SEED = {"projects": [{"id": "fde25pra", "name": "Traxión", "client": "Traxión", "date": "2026-11-24", "notes": "Tres unidades recientes. Años modelo 2027 y 2028 por confirmar con factura; kilometrajes supuestos.", "units": [{"id": "we2b54ee", "name": "International LT625", "year": 2025, "yearNote": "Kilometraje supuesto (150,000 km): capturar el real.", "km": 150000, "config": "6x4", "cabType": "dorm", "cabSize": 56, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": 4.1, "diff": 46000, "rims": "24.5", "cond": "Bueno", "margen": null, "recon": null, "refYears": "2022–2026. Casi no hay LT625 2025 usados: se usan LT con Cummins X15/ISX y Fuller 18 de 2022 a 2025 publicados en México (Quality Trucks, Camiones Rivera, SelecTrucks Zapata, Seminuevos.com), llevados a 2025 con la depreciación por año; las unidades 2026 de 1 km anclan el valor de unidad nueva; EUA 2025 solo como referencia.", "comps": [{"id": "mi9gse73", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Quality Trucks (Querétaro)", "url": "https://qualitytrucks.com.mx/seminuevos/international/lt-hirise-2025/", "date": "2026-11-24", "status": "Verificado", "price": 2620000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2025, "km": 200000, "config": "6x4", "cabType": "dorm", "cabSize": null, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "24.5", "note": "LT HiRise; quedan 4 unidades. Llantas 11R24.5, ejes 14k/46k lb."}, {"id": "85mvejov", "srcType": "Anuncio México", "srcName": "Camiones Rivera Seminuevos (Puebla) · Mercado Libre", "url": "https://vehiculo.mercadolibre.com.mx/MLM-3263849645-international-lt-motor-x15-46lbs-2025-color-blanco-_JM", "date": "2026-11-24", "status": "Verificado", "price": 2400000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2025, "km": 198000, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "", "note": "Diferencial de 46,000 lb; no indica cabina ni relación."}, {"id": "rgfprmxn", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Quality Trucks (Querétaro)", "url": "https://qualitytrucks.com.mx/seminuevos/international/lt-hirise-2024/", "date": "2026-11-24", "status": "Verificado", "price": 2300000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2024, "km": 400000, "config": "6x4", "cabType": "dorm", "cabSize": null, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "24.5", "note": "LT HiRise. Ejes 14k/46k lb."}, {"id": "nurrsxvr", "srcType": "Anuncio México", "srcName": "Seminuevos.com (Tepotzotlán, Edo. Méx.)", "url": "https://www.seminuevos.com/vehicle/camiones-international-lt_625-tepotzotlan-2023/4833157", "date": "2026-11-24", "status": "Por verificar", "price": 2280000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2023, "km": 340000, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Dato del resultado de búsqueda: el sitio bloquea la lectura automática. Confirmar precio y especificación."}, {"id": "5u988zpy", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Quality Trucks (Querétaro)", "url": "https://qualitytrucks.com.mx/seminuevos/international/lt-hirise-2022/", "date": "2026-11-24", "status": "Verificado", "price": 1780000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2022, "km": 850000, "config": "6x4", "cabType": "dorm", "cabSize": null, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "24.5", "note": ""}, {"id": "3ct9an2t", "srcType": "Venta de flotilla", "srcName": "SelecTrucks Zapata (lote de 11)", "url": "https://www.selectruckszapata.com/detalle/international/lt-hi-rise-euro/2022/3HSDZAPT5NN887436", "date": "2026-11-24", "status": "Verificado", "price": 1850000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2022, "km": 675773, "config": "", "cabType": "dorm", "cabSize": null, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": null, "rims": "", "note": "Contado con IVA incluido. Lote de 11 LT Hi Rise Euro 2022 iguales (676 mil a 1.04 M km); las mismas unidades aparecen en Go On Zapata a $1,990,000."}, {"id": "e32jb0tp", "srcType": "Precio de lista nuevo", "srcName": "Seminuevos.com · LT 625 2026, 1 km (Tepotzotlán)", "url": "https://www.seminuevos.com/vehicle/camiones-international-lt-tepotzotlan-2024/4360184", "date": "2026-11-24", "status": "Por verificar", "price": 3380000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2026, "km": 1, "config": "6x4", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Unidad nueva (1 km), «precio fijo». Dato del resultado de búsqueda; confirmar motor y transmisión."}, {"id": "wj9pxnh8", "srcType": "Referencia EUA / extranjera", "srcName": "International Used Trucks (EUA)", "url": "https://www.internationalusedtrucks.com/inventory/used-2025-international-lt625-6x4-sleeper-3hsdzapr5sn504398/", "date": "2026-11-24", "status": "Por verificar", "price": 113500, "cur": "USD", "ivaMode": "mas", "w": null, "year": 2025, "km": 291443, "config": "6x4", "cabType": "dorm", "cabSize": null, "hp": 500, "motor": "Cummins X15 / ISX", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Precio EUA sin IVA mexicano ni importación: se sumó 16 %. 181,094 millas. Dato del resultado de búsqueda."}, {"id": "xokx9nqa", "srcType": "Anuncio México", "srcName": "Seminuevos.com · LT 625 2025 (Mexicali)", "url": "https://seminuevos.com/vehicle/international-lt-625-mexicali-2025/4794108", "date": "2026-11-24", "status": "Captura manual", "price": 0, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2025, "km": 192510, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Ficha confirmada por buscador (192,510 km); el precio no se pudo leer: capturarlo a mano."}, {"id": "sdc56915", "srcType": "Precio de lista nuevo", "srcName": "Cotización de distribuidor", "url": "", "date": "2026-11-24", "status": "Captura manual", "price": 0, "cur": "MXN", "ivaMode": "con", "w": null, "year": null, "km": 0, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Precio de lista LT625 X15 nuevo: pedir cotización a un distribuidor International."}]}, {"id": "uxe0wod3", "name": "International LT625", "year": 2026, "yearNote": "Factura por confirmar: año modelo 2027. Sin referencias 2027 en México al corte: se valúa como 2026. Kilometraje supuesto (20,000 km).", "km": 20000, "config": "6x4", "cabType": "dorm", "cabSize": 56, "hp": 475, "motor": "International S13", "trans": "International T14 (automatizada)", "ratio": 3.58, "diff": 46000, "rims": "24.5", "cond": "Bueno", "margen": null, "recon": null, "refYears": "2024–2026. Referencia principal: LT S13 2025 con T14 (Quality Trucks); LT 625 2026 nuevos publicados en Seminuevos.com y su guía de precios como ancla; LT X15 2024–2025 ajustados por motor y transmisión para ampliar la muestra.", "comps": [{"id": "ubrgnitn", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Quality Trucks (Querétaro) · LT S13", "url": "https://qualitytrucks.com.mx/seminuevos/international/lt-s13-2025/", "date": "2026-11-24", "status": "Verificado", "price": 3050000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2025, "km": 40000, "config": "6x4", "cabType": "", "cabSize": null, "hp": 450, "motor": "International S13", "trans": "International T14 (automatizada)", "ratio": null, "diff": 46000, "rims": "22.5", "note": "Automatizada 14 vel. (T14), llantas 11R22.5, ejes 14k/46k lb; quedan 2 unidades."}, {"id": "omiagavr", "srcType": "Precio de lista nuevo", "srcName": "Seminuevos.com · LT 625 2026, 1 km (Tepotzotlán)", "url": "https://www.seminuevos.com/vehicle/camiones-international-lt-tepotzotlan-2024/4360184", "date": "2026-11-24", "status": "Por verificar", "price": 3380000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2026, "km": 1, "config": "6x4", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Unidad nueva (1 km), «precio fijo». Dato del resultado de búsqueda; confirmar motor y transmisión."}, {"id": "4vxz5jko", "srcType": "Precio de lista nuevo", "srcName": "Seminuevos.com · LT 625 2026 nuevo (filtro automática)", "url": "https://www.seminuevos.com/nuevos/estado+de+mexico-/camiones/-/international/lt+625/2026?type_camiones_transmission=automatica", "date": "2026-11-24", "status": "Por verificar", "price": 3430000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2026, "km": 0, "config": "6x4", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Aparece en el listado de LT 625 2026 con transmisión automática. Dato del resultado de búsqueda."}, {"id": "zwiovhsn", "srcType": "Guía de precios", "srcName": "Seminuevos.com · guía de precios LT 625 2026", "url": "https://www.seminuevos.com/precio/camiones/international/lt+625/2026", "date": "2026-11-24", "status": "Por verificar", "price": 3480000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2026, "km": 0, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "«Precio ideal» que el portal calcula con sus publicaciones. Dato del resultado de búsqueda."}, {"id": "cwgai6p6", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Quality Trucks (Querétaro)", "url": "https://qualitytrucks.com.mx/seminuevos/international/lt-hirise-2025/", "date": "2026-11-24", "status": "Verificado", "price": 2620000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2025, "km": 200000, "config": "6x4", "cabType": "dorm", "cabSize": null, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "24.5", "note": "LT HiRise; quedan 4 unidades. Llantas 11R24.5, ejes 14k/46k lb."}, {"id": "o0t8751o", "srcType": "Anuncio México", "srcName": "Camiones Rivera Seminuevos (Puebla) · Mercado Libre", "url": "https://vehiculo.mercadolibre.com.mx/MLM-3263849645-international-lt-motor-x15-46lbs-2025-color-blanco-_JM", "date": "2026-11-24", "status": "Verificado", "price": 2400000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2025, "km": 198000, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "", "note": "Diferencial de 46,000 lb; no indica cabina ni relación."}, {"id": "tuk79ghc", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Quality Trucks (Querétaro)", "url": "https://qualitytrucks.com.mx/seminuevos/international/lt-hirise-2024/", "date": "2026-11-24", "status": "Verificado", "price": 2300000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2024, "km": 400000, "config": "6x4", "cabType": "dorm", "cabSize": null, "hp": 450, "motor": "Cummins X15 / ISX", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "24.5", "note": "LT HiRise. Ejes 14k/46k lb."}, {"id": "95biz92u", "srcType": "Precio de lista nuevo", "srcName": "Cotización de distribuidor", "url": "", "date": "2026-11-24", "status": "Captura manual", "price": 0, "cur": "MXN", "ivaMode": "con", "w": null, "year": null, "km": 0, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Precio de lista LT625 S13 475 HP con T14: pedir cotización a un distribuidor International."}]}, {"id": "nxvb395o", "name": "Freightliner Cascadia 126", "year": 2026, "yearNote": "Factura: año modelo 2028. El año más reciente con referencias en México al corte es 2026: se valúa como 2026. Kilometraje supuesto (10,000 km).", "km": 10000, "config": "6x4", "cabType": "dorm", "cabSize": 72, "hp": 450, "motor": "Detroit DD13", "trans": "Detroit DT12 (automatizada)", "ratio": 3.08, "diff": 40000, "rims": "22.5", "cond": "Bueno", "margen": null, "recon": null, "refYears": "2022–2026. Cascadia nuevos 2026 (remate Zapata León) como ancla; Cascadia 2023–2024 con DD13/DD15 y DT12 o Fuller 18 publicados en México; New Cascadia 2022 DD13 automatizada (Tractos) para la combinación DD13 + automatizada; EUA 2024 DT12 como referencia.", "comps": [{"id": "5zhxzlou", "srcType": "Precio de lista nuevo", "srcName": "Zapata Camiones León · Mercado Libre (remate, 16 unidades)", "url": "https://vehiculo.mercadolibre.com.mx/MLM-3263847967-remato-tracto-cascadia-full-freightliner-eur10-cam48-dd15-_JM", "date": "2026-11-24", "status": "Verificado", "price": 3265000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2026, "km": 0, "config": "6x4", "cabType": "dorm", "cabSize": 48, "hp": 505, "motor": "Detroit DD15", "trans": "Fuller manual 18 vel.", "ratio": 4.1, "diff": 46000, "rims": "24.5", "note": "Unidad nueva en remate (16 disponibles); camarote 48\". Precio de distribuidor de unidad nueva: se aplica la pérdida inicial."}, {"id": "cpwytra4", "srcType": "Anuncio México", "srcName": "Mercado Libre (Tepotzotlán, Edo. Méx.)", "url": "https://vehiculo.mercadolibre.com.mx/MLM-3791068475-tractocamion-freightliner-cascadia-2024-12-velocidades-automatica-_JM", "date": "2026-11-24", "status": "Verificado", "price": 2700000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2024, "km": 128017, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "Detroit DT12 (automatizada)", "ratio": null, "diff": null, "rims": "24.5", "note": "Automática de 12 velocidades (DT12); no indica motor."}, {"id": "yln8wppz", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Zapata Camiones Aeropuerto · Mercado Libre", "url": "https://vehiculo.mercadolibre.com.mx/MLM-3836009769-freightliner-cascadia-2024-fuller-18-vel-manual-_JM", "date": "2026-11-24", "status": "Verificado", "price": 2650000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2024, "km": 233458, "config": "", "cabType": "dorm", "cabSize": 42, "hp": 505, "motor": "Detroit DD13", "trans": "Fuller manual 18 vel.", "ratio": 3.42, "diff": 46000, "rims": "24.5", "note": "Precio con IVA incluido (lo dice la publicación)."}, {"id": "nib2yjxw", "srcType": "Anuncio México", "srcName": "Trucksandcars Multimarcas · Mercado Libre", "url": "https://vehiculo.mercadolibre.com.mx/MLM-5675935496-tractocamion-freightliner-cascadia-evolution-man-2024-_JM", "date": "2026-11-24", "status": "Verificado", "price": 2180000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2024, "km": 300000, "config": "", "cabType": "", "cabSize": null, "hp": 469, "motor": "Detroit DD13", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": 46000, "rims": "22.5", "note": "Cascadia Evolution; rines de aluminio 22.5."}, {"id": "po3a998x", "srcType": "Venta de flotilla", "srcName": "Zapata Camiones Aeropuerto · Mercado Libre (lote)", "url": "https://vehiculo.mercadolibre.com.mx/MLM-6457781420-freightliner-cascadia-2023-dt12-_JM", "date": "2026-11-24", "status": "Verificado", "price": 1890000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2023, "km": 847114, "config": "", "cabType": "dorm", "cabSize": 72, "hp": 455, "motor": "Detroit DD15", "trans": "Detroit DT12 (automatizada)", "ratio": 3.42, "diff": 46000, "rims": "24.5", "note": "Precio con IVA incluido. Lote: 6 publicaciones iguales en Mercado Libre y 20 más en Go On Zapata a $1,890,000 (680 mil a 1 M km)."}, {"id": "8krzxvpe", "srcType": "Anuncio México", "srcName": "Trucksandcars Multimarcas · Mercado Libre", "url": "https://vehiculo.mercadolibre.com.mx/MLM-5768883218-tractocamion-freightliner-cascadia-evolution-2023-_JM", "date": "2026-11-24", "status": "Verificado", "price": 1680000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2023, "km": 500000, "config": "", "cabType": "", "cabSize": null, "hp": 470, "motor": "Detroit DD15", "trans": "Detroit DT12 (automatizada)", "ratio": null, "diff": 46000, "rims": "24.5", "note": ""}, {"id": "qcv78jqa", "srcType": "Anuncio México", "srcName": "Mercado Libre (Ciénega de Flores, N.L.)", "url": "https://vehiculo.mercadolibre.com.mx/MLM-3472057513-freightliner-_JM", "date": "2026-11-24", "status": "Verificado", "price": 2100000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2023, "km": 150000, "config": "6x4", "cabType": "", "cabSize": null, "hp": null, "motor": "Detroit DD16", "trans": "Fuller manual 18 vel.", "ratio": null, "diff": null, "rims": "", "note": "Ficha con pocos datos."}, {"id": "z2dh3fyp", "srcType": "Distribuidor / seminuevo certificado", "srcName": "Tractos (Jalisco) · Observatorio 1.2", "url": "https://www.tractos.com/seminuevos/freightliner/new-cascadia-2022/FN-750585", "date": "2026-11-04", "status": "Verificado", "price": 1350000, "cur": "MXN", "ivaMode": "con", "w": null, "year": 2022, "km": 908678, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "Detroit DD13", "trans": "Detroit DT12 (automatizada)", "ratio": null, "diff": null, "rims": "", "note": "New Cascadia DD13 automatizada; dato del Observatorio 1.2 (catálogo en aplicación). Tractos publica 14 unidades similares de $1.29 a $1.35 M."}, {"id": "8x03sau8", "srcType": "Referencia EUA / extranjera", "srcName": "SelecTrucks of Georgia (EUA)", "url": "https://www.selectrucksofgeorgia.com/inventory/?%2Flistings%2Ffor-sale%2Ffreightliner%2Fcascadia-126%2Fsleeper-trucks%2F16045%2F%3Fdscompanyid=40114&settingscrmid=358725&Year=2024", "date": "2026-11-24", "status": "Por verificar", "price": 81900, "cur": "USD", "ivaMode": "mas", "w": null, "year": 2024, "km": 804672, "config": "", "cabType": "dorm", "cabSize": null, "hp": 455, "motor": "", "trans": "Detroit DT12 (automatizada)", "ratio": null, "diff": null, "rims": "", "note": "El listado muestra Cascadia 126 2024 con DT12 y 455 HP de 500,000 a 512,000 millas entre US$76,900 y US$81,900. Dato del resultado de búsqueda; precio EUA sin IVA mexicano."}, {"id": "y4agncuu", "srcType": "Precio de lista nuevo", "srcName": "Cotización de distribuidor", "url": "", "date": "2026-11-24", "status": "Captura manual", "price": 0, "cur": "MXN", "ivaMode": "con", "w": null, "year": null, "km": 0, "config": "", "cabType": "", "cabSize": null, "hp": null, "motor": "", "trans": "", "ratio": null, "diff": null, "rims": "", "note": "Precio de lista Cascadia 126 DD13 450 HP con DT12, dormitorio 72\": pedir cotización a un distribuidor Freightliner."}]}], "active": null}]};
+
+function migrateOld(old){
+  var MM={"Cummins ISX15 / X15":"Cummins X15 / ISX","Detroit DD15":"Detroit DD15","Detroit DD13":"Detroit DD13","Paccar MX-13":"Paccar MX-13","Volvo D13":"Volvo D13","Cummins ISM / ISC":"Cummins ISM / ISL","Navistar MaxxForce":"Navistar MaxxForce / N13","Otro":"Otro"};
+  var TT={"Manual (10, 13 o 18 vel.)":"Fuller manual 18 vel.","Automatizada (UltraShift, I-Shift, DT12)":"Eaton UltraShift / UltraShift PLUS","Automática (Allison)":"Allison (automática)"};
+  var HP={"Alto HP (450+), larga distancia":450,"HP medio (400-450)":420,"Bajo HP (menos de 400)":380,"Vocacional / pesado":450};
+  var SR={"Mercado Libre":"Anuncio México","Seminuevos":"Anuncio México","Facebook":"Redes sociales","Certificados (distribuidor)":"Distribuidor / seminuevo certificado","Mascus / Truck1":"Referencia EUA / extranjera","Subasta":"Subasta / remate","Otra":"Anuncio México"};
+  function conv(x, isComp){
+    var r = {motor:MM[x.motor]||"Otro", trans:TT[x.trans]||"", hp:HP[x.spec]||null, year:+x.year||null, km:+x.km||null};
+    if(isComp){ r.id=uid(); r.srcType=SR[x.src]||"Anuncio México"; r.srcName=x.src||""; r.price=+x.price||0; r.cur="MXN"; r.ivaMode="con"; r.status="Verificado"; r.w=null; r.url=""; r.date=""; r.note="Migrado de la versión anterior"; }
+    return r;
+  }
+  var p = blankProject("Kenworth (KW)"); p.client="Kenworth (KW)";
+  var u = Object.assign(blankUnit((old.unit&&old.unit.name)||"Unidad KW"), conv(old.unit||{}, false), {cond:(old.unit&&old.unit.cond)||"Bueno", id:uid()});
+  u.name = (old.unit&&old.unit.name)||"Unidad KW"; u.comps = (old.comps||[]).map(function(c){ return conv(c, true); });
+  u.cabType=""; u.cabSize=null; u.ratio=null; u.diff=null; u.rims=""; u.config="";
+  p.units=[u];
+  return p;
+}
+function load(){
+  try{ var s = localStorage.getItem(KEY); if(s) S = JSON.parse(s); }catch(e){}
+  if(S && S.projects) { S.cfg = mergeCfg(S.cfg); return; }
+  S = {v:2, cfg:clone(DEF), projects:[], active:null};
+  var old=null; try{ var o2=localStorage.getItem(OLD); if(o2) old=JSON.parse(o2); }catch(e){}
+  var kw;
+  if(old && old.unit){
+    kw = migrateOld(old);
+    if(old.cfg){ ["dep","km"].forEach(function(k){ if(old.cfg[k]!=null) S.cfg[k].f=+old.cfg[k]; }); var u0=kw.units[0]; if(old.cfg.margen!=null) u0.margen=+old.cfg.margen; if(old.cfg.recon!=null) u0.recon=+old.cfg.recon; if(old.cfg.trim===0) S.cfg.trim=0; }
+    kw.notes = "Migrado de la valuación guardada en este navegador ("+today()+").";
+  } else { kw = blankProject("Kenworth (KW)"); kw.client="Kenworth (KW)"; kw.units=[blankUnit("Unidad KW 1")]; }
+  S.projects.push(kw);
+  if(SEED && SEED.projects) SEED.projects.forEach(function(p){ S.projects.push(p); });
+  S.active = S.projects[S.projects.length-1].id;
+  save();
+}
+function mergeCfg(c){ var d=clone(DEF); if(!c) return d;
+  ["iva","fx","trim","margen","recon"].forEach(function(k){ if(c[k]!=null) d[k]=c[k]; });
+  ["dep","km","newDrop"].forEach(function(k){ if(c[k]) d[k]=Object.assign(d[k], c[k]); });
+  Object.keys(d.cats).forEach(function(k){ if(c.cats&&c.cats[k]) Object.keys(c.cats[k].opts||{}).forEach(function(n){ d.cats[k].opts[n]=Object.assign(d.cats[k].opts[n]||o(100,"",SUP), c.cats[k].opts[n]); }); });
+  Object.keys(c.srcTypes||{}).forEach(function(k){ d.srcTypes[k]=Object.assign(d.srcTypes[k]||{w:1,why:""}, c.srcTypes[k]); });
+  return d; }
+
+/* ---------- utilidades ---------- */
+function $(i){ return document.getElementById(i); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+function fm(n){ return (n==null||!isFinite(n))?"—":n.toLocaleString("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}); }
+function fk(n){ return n?(+n).toLocaleString("es-MX")+" km":"km s/d"; }
+function pc(x,d){ var v=(x-1)*100; return (v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(d==null?1:d)+" %"; }
+function cls(x){ return Math.abs(x-1)<0.0005?"zero":x>1?"pos":"neg"; }
+function opts(list, v, blank){ return (blank?'<option value="">'+blank+'</option>':"")+list.map(function(k){ return '<option'+(String(k)===String(v)?" selected":"")+'>'+esc(k)+'</option>'; }).join(""); }
+function proj(){ return S.projects.find(function(p){ return p.id===S.active; }) || S.projects[0]; }
+function unit(p){ p=p||proj(); var u=p.units.find(function(x){ return x.id===p.active; }); if(!u){ u=p.units[0]; if(u) p.active=u.id; } return u; }
+function cat(k){ return S.cfg.cats[k]; }
+function fac(k, kx){ var o2 = cat(k).opts[kx]; return o2 ? o2.f/100 : 1; }
+function ivaR(){ return S.cfg.iva/100; }
+function mg(u){ return (u.margen!=null&&u.margen!=="")?+u.margen:S.cfg.margen; }
+function rc(u){ return (u.recon!=null&&u.recon!=="")?+u.recon:S.cfg.recon; }
+
+/* ---------- valuación ---------- */
+function kmF(km){ return Math.max(.4, 1 - S.cfg.km.f/100*(+km||0)/1e5); }
+function compBase(c){ // precio con IVA, en MXN, antes de ajustes de especificación
+  var p = (+c.price||0) * (c.cur==="USD" ? S.cfg.fx : 1);
+  if(c.ivaMode==="mas") p *= 1+ivaR();
+  if(c.srcType==="Precio de lista nuevo") p *= 1 - S.cfg.newDrop.f/100;
+  return p;
+}
+function weight(c){ var t=S.cfg.srcTypes[c.srcType]; var w=(c.w!=null&&c.w!=="")?+c.w:(t?t.w:1); return Math.max(0,w); }
+function usable(c){ return c.status!=="Captura manual" && +c.price>0 && +c.year>0; }
+function ratios(u, c){ // factor por concepto: unidad / comparable (un dato faltante cuenta como igual)
+  var r = {}, dep = 1 - S.cfg.dep.f/100;
+  r.anio = Math.pow(dep, (+c.year) - (+u.year));
+  r.km = (c.km!=null && c.km!=="" && c.srcType!=="Precio de lista nuevo") ? kmF(u.km)/kmF(c.km) : (c.srcType==="Precio de lista nuevo" ? kmF(u.km)/kmF(0) : 1);
+  FACT.forEach(function(k){ var a=key(u,k), b=key(c,k); r[k] = (a && b) ? fac(k,a)/fac(k,b) : 1; });
+  return r;
+}
+function quant(xs, q){ if(!xs.length) return null; var s=xs.slice().sort(function(a,b){return a-b}), pos=(s.length-1)*q, lo=Math.floor(pos), hi=Math.ceil(pos); return s[lo]+(s[hi]-s[lo])*(pos-lo); }
+function valuate(u){
+  var R = {rows:[], inc:[], masIva:[]};
+  (u.comps||[]).forEach(function(c){
+    var row = {c:c, ok:usable(c)};
+    if(c.ivaMode==="mas") R.masIva.push(c);
+    if(row.ok){ row.base = compBase(c); row.r = ratios(u,c); row.adj = row.base; Object.keys(row.r).forEach(function(k){ row.adj *= row.r[k]; }); row.w = weight(c); }
+    R.rows.push(row);
+  });
+  var ok = R.rows.filter(function(x){ return x.ok && x.w>0; });
+  var m = quant(ok.map(function(x){ return x.adj; }), .5);
+  ok.forEach(function(x){ x.out = S.cfg.trim>0 && m && Math.abs(x.adj-m) > S.cfg.trim/100*m; if(!x.out) R.inc.push(x); });
+  R.median = m;
+  if(!R.inc.length) return R;
+  var W = R.inc.reduce(function(s,x){ return s+x.w; },0);
+  var mean = R.inc.reduce(function(s,x){ return s+x.w*x.adj; },0)/W;
+  var condF = fac("cond", u.cond||"Bueno");
+  var vals = R.inc.map(function(x){ return x.adj; });
+  R.W=W; R.condF=condF;
+  R.mid = mean*condF;
+  R.low = (R.inc.length>=4 ? quant(vals,.25) : Math.min.apply(null,vals))*condF;
+  R.high = (R.inc.length>=4 ? quant(vals,.75) : Math.max.apply(null,vals))*condF;
+  if(R.low>R.mid) R.low=R.mid; if(R.high<R.mid) R.high=R.mid;
+  var t=1+ivaR(); R.midS=R.mid/t; R.lowS=R.low/t; R.highS=R.high/t;
+  R.buyS = Math.max(0, R.midS*(1-mg(u)/100) - rc(u)); R.buy = R.buyS*t;
+  // cascada: base ponderada y efecto promedio de cada concepto
+  R.base = R.inc.reduce(function(s,x){ return s+x.w*x.base; },0)/W;
+  var run = R.base, steps=[];
+  ["anio","km"].concat(FACT).forEach(function(k){
+    var g = Math.exp(R.inc.reduce(function(s,x){ return s+x.w*Math.log(x.r[k]); },0)/W);
+    steps.push({k:k, f:g, from:run, to:run*g}); run*=g;
+  });
+  R.steps = steps; R.mix = mean/run; R.preCond = mean;
+  R.conf = confidence(u, R);
+  return R;
+}
+function confidence(u, R){
+  var inc=R.inc, n=inc.length, W=R.W, why=[];
+  var gap = inc.reduce(function(s,x){ return s + x.w*Math.abs((+x.c.year)-(+u.year)); },0)/W;
+  var attrs = ["motor","trans","hp","ratio","cab","config"], m=0, tot=0, sinDato=0;
+  inc.forEach(function(x){ attrs.forEach(function(k){ var a=key(u,k), b=key(x.c,k); if(!a) return; tot++; if(!b){ sinDato++; m+=.5; } else if(a===b) m++; }); });
+  var spec = tot? m/tot : 0;
+  var mx = inc.reduce(function(s,x){ return s + ((x.c.srcType==="Referencia EUA / extranjera"||x.c.srcType==="Precio de lista nuevo")?0:x.w); },0)/W;
+  var pts = (n>=6?2:n>=3?1:0) + (gap<=1?2:gap<=3?1:0) + (spec>=.7?2:spec>=.5?1:0) + (mx>=.7?2:mx>=.4?1:0);
+  var lvl = n<2 ? "baja" : pts>=7 ? "alta" : pts>=4 ? "media" : "baja";
+  why.push(n+" comparable"+(n===1?"":"s")+" usado"+(n===1?"":"s")+(R.rows.length-n?" ("+(R.rows.length-n)+" excluido"+(R.rows.length-n===1?"":"s")+" o sin precio)":""));
+  why.push("Diferencia media de año modelo: "+gap.toFixed(1)+" años");
+  why.push("Coincidencia de especificación: "+Math.round(spec*100)+" %"+(sinDato?" ("+sinDato+" datos sin informar)":""));
+  why.push("Peso de fuentes mexicanas: "+Math.round(mx*100)+" % (EUA y precio de lista pesan menos)");
+  return {lvl:lvl, why:why, gap:gap, spec:spec, mx:mx};
+}
+
+/* ---------- interfaz: subproyecto ---------- */
+function renderProj(){
+  $("pSel").innerHTML = S.projects.map(function(p){ return '<option value="'+p.id+'"'+(p.id===S.active?" selected":"")+'>'+esc(p.name)+(p.client&&p.client!==p.name?" · "+esc(p.client):"")+'</option>'; }).join("");
+  var p=proj(); $("pName").value=p.name||""; $("pClient").value=p.client||""; $("pDate").value=p.date||""; $("pNotes").value=p.notes||"";
+}
+["pName","pClient","pDate","pNotes"].forEach(function(id){ $(id).addEventListener("input", function(e){ var p=proj(); p[{pName:"name",pClient:"client",pDate:"date",pNotes:"notes"}[id]]=e.target.value; save(); if(id!=="pNotes") { var sel=$("pSel"); sel.options[sel.selectedIndex].text=p.name+(p.client&&p.client!==p.name?" · "+p.client:""); } if(cur==="book") renderBook(); }); });
+$("pSel").onchange=function(e){ S.active=e.target.value; save(); renderAll(); };
+$("pNew").onclick=function(){ var p=blankProject("Subproyecto "+(S.projects.length+1)); S.projects.push(p); S.active=p.id; save(); renderAll(); $("pName").focus(); };
+$("pDup").onclick=function(){ var p=clone(proj()); p.id=uid(); p.name=p.name+" (copia)"; p.units.forEach(function(u){ u.id=uid(); u.comps.forEach(function(c){ c.id=uid(); }); }); p.active=null; S.projects.push(p); S.active=p.id; save(); renderAll(); };
+$("pDel").onclick=function(){ var p=proj(); if(!confirm("¿Eliminar el subproyecto «"+p.name+"» y sus "+p.units.length+" unidades? Exporta un respaldo antes si lo necesitas.")) return; S.projects=S.projects.filter(function(x){ return x!==p; }); if(!S.projects.length) S.projects.push(blankProject()); S.active=S.projects[0].id; save(); renderAll(); };
+// En claude.ai la descarga pasa por la capacidad «downloads»; abierto como archivo local, por un enlace normal.
+var DL = (window.claude && window.claude.use) ? window.claude.use("downloads").catch(function(){ return null; }) : Promise.resolve(null);
+function saveFile(name, text){
+  return DL.then(function(dl){
+    if(dl) return dl.save({filename:name, data:text}).catch(function(err){ if(err && err.code!=="declined") alert("No se pudo guardar el archivo ("+(err.code||"error")+")."); });
+    var b=new Blob([text],{type:"application/json"}), a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+  });
+}
+$("pExp").onclick=function(){ var p=proj(); var data={tipo:"subproyecto-valuador", version:2, exportado:new Date().toISOString(), cfg:S.cfg, projects:[p]};
+  saveFile((p.name||"subproyecto").replace(/[^\wáéíóúñ -]/gi,"").trim().replace(/\s+/g,"-")+".json", JSON.stringify(data,null,1)); };
+$("pImp").onclick=function(){ $("pFile").click(); };
+$("pFile").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ var d=JSON.parse(r.result), ps=d.projects||(d.units?[d]:null); if(!ps) throw new Error("formato");
+    var useCfg = d.cfg && confirm("El archivo trae factores y justificaciones. ¿Reemplazar los actuales por los del archivo? (Cancelar = conservar los actuales)");
+    if(useCfg) S.cfg=mergeCfg(d.cfg);
+    ps.forEach(function(p){ p.id=uid(); (p.units||[]).forEach(function(u){ u.id=u.id||uid(); u.comps=u.comps||[]; }); if(S.projects.some(function(x){ return x.name===p.name; })) p.name+=" (importado)"; S.projects.push(p); S.active=p.id; });
+    save(); renderAll(); }catch(err){ alert("No se pudo importar: el archivo no es un respaldo válido del valuador."); } e.target.value=""; }; r.readAsText(f); };
+
+/* ---------- interfaz: unidades ---------- */
+function renderChips(){
+  var p=proj(), u=unit(p);
+  $("uChips").innerHTML = p.units.map(function(x){ var R=valuate(x); return '<button data-u="'+x.id+'" class="'+(u&&x.id===u.id?"on":"")+'">'+esc(x.name||"Unidad")+'<small>'+esc(x.year||"")+(R.mid?" · "+fm(R.mid):"")+'</small></button>'; }).join("") +
+    '<button id="uAdd">+ Unidad</button>'+(u?'<button id="uDup">Duplicar unidad</button><button id="uDel" class="x">Eliminar unidad</button>':"");
+}
+$("uChips").addEventListener("click", function(e){ var b=e.target.closest("button"); if(!b) return; var p=proj();
+  if(b.dataset.u){ p.active=b.dataset.u; save(); renderUnits(); return; }
+  if(b.id==="uAdd"){ var n=blankUnit("Unidad "+(p.units.length+1)); p.units.push(n); p.active=n.id; }
+  if(b.id==="uDup"){ var c=clone(unit(p)); c.id=uid(); c.name+=" (copia)"; c.comps.forEach(function(x){ x.id=uid(); }); p.units.push(c); p.active=c.id; }
+  if(b.id==="uDel"){ var u=unit(p); if(!confirm("¿Eliminar la unidad «"+u.name+"» con sus "+u.comps.length+" comparables?")) return; p.units=p.units.filter(function(x){ return x!==u; }); p.active=p.units[0]?p.units[0].id:null; }
+  save(); renderUnits(); });
+
+function unitForm(u){
+  var C=S.cfg.cats;
+  return '<section class="card"><h2>Unidad a valuar</h2><div class="g" id="uForm">'+
+  '<label style="grid-column:span 2">Marca / modelo<input data-u="name" value="'+esc(u.name)+'"></label>'+
+  '<label>Año modelo<input type="number" data-u="year" value="'+esc(u.year)+'"></label>'+
+  '<label>Kilómetros<input type="number" step="1000" data-u="km" value="'+esc(u.km)+'"></label>'+
+  '<label>Configuración<select data-u="config">'+opts(Object.keys(C.config.opts),u.config,"Sin dato")+'</select></label>'+
+  '<label>Cabina<select data-u="cabType"><option value="">Sin dato</option><option value="day"'+(u.cabType==="day"?" selected":"")+'>Day cab</option><option value="dorm"'+(u.cabType==="dorm"?" selected":"")+'>Dormitorio</option></select></label>'+
+  '<label>Dormitorio (pulgadas)<input type="number" data-u="cabSize" value="'+esc(u.cabSize)+'" placeholder="56, 72…"></label>'+
+  '<label>Motor<select data-u="motor">'+opts(Object.keys(C.motor.opts),u.motor,"Sin dato")+'</select></label>'+
+  '<label>Potencia (HP)<input type="number" data-u="hp" value="'+esc(u.hp)+'"></label>'+
+  '<label>Transmisión<select data-u="trans">'+opts(Object.keys(C.trans.opts),u.trans,"Sin dato")+'</select></label>'+
+  '<label>Relación de diferencial<input type="number" step="0.01" data-u="ratio" value="'+esc(u.ratio)+'"></label>'+
+  '<label>Capacidad del diferencial (lb)<input type="number" step="1000" data-u="diff" value="'+esc(u.diff)+'"></label>'+
+  '<label>Rines<select data-u="rims">'+opts(Object.keys(C.rims.opts),u.rims,"Sin dato")+'</select></label>'+
+  '<label>Estado general<select data-u="cond">'+opts(Object.keys(C.cond.opts),u.cond)+'</select></label>'+
+  '<label>Margen deseado (%)<input type="number" step="0.5" data-u="margen" value="'+esc(u.margen==null?"":u.margen)+'" placeholder="'+S.cfg.margen+' (general)"></label>'+
+  '<label>Reacondicionamiento (MXN sin IVA)<input type="number" step="1000" data-u="recon" value="'+esc(u.recon==null?"":u.recon)+'" placeholder="'+S.cfg.recon+' (general)"></label>'+
+  '<label style="grid-column:1/-1">Nota del año modelo<input data-u="yearNote" value="'+esc(u.yearNote)+'" placeholder="Ej. pendiente de confirmar con la factura"></label>'+
+  '<label style="grid-column:1/-1">Años de referencia usados y por qué<textarea data-u="refYears" rows="2">'+esc(u.refYears)+'</textarea></label>'+
+  '</div></section>';
+}
+function resultCard(u, R){
+  if(!R.mid) return '<section class="card"><h2>Resultado</h2><div class="empty">Agrega al menos un comparable con precio y año (que no esté en «captura manual») para ver el resultado.</div></section>';
+  var t=1+ivaR();
+  var mas = R.masIva.length ? '<p class="hint" style="margin-top:10px"><b>Publicados más IVA</b> (se sumó '+S.cfg.iva+' %): '+R.masIva.map(function(c){ return esc(c.srcName||c.srcType)+" "+esc(c.year||"")+(c.url?' (<a href="'+esc(c.url)+'" target="_blank" rel="noopener">liga</a>)':""); }).join(" · ")+'</p>' : "";
+  return '<section class="card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px"><h2 style="margin:0">Resultado · '+esc(u.name)+' '+esc(u.year)+'</h2><div><span class="badge '+R.conf.lvl+'">Confianza '+R.conf.lvl+'</span> <button id="prU">Imprimir hoja</button></div></div>'+
+  '<div class="kpi">'+
+   '<div class="k main"><div class="lb">Precio sugerido de compra</div><div class="v">'+fm(R.buy)+'</div><div class="s">con IVA · <b>'+fm(R.buyS)+'</b> sin IVA</div><div class="s">Margen '+mg(u)+' % y reacondicionamiento '+fm(rc(u))+' sin IVA</div></div>'+
+   '<div class="k"><div class="lb">Valor de mercado (medio)</div><div class="v">'+fm(R.mid)+'</div><div class="s">con IVA · <b>'+fm(R.midS)+'</b> sin IVA</div><div class="s">Mediana ajustada '+fm(R.median*R.condF)+' con IVA</div></div>'+
+   '<div class="k"><div class="lb">Rango de mercado</div><div class="rng"><div><small>Bajo</small><b>'+fm(R.low)+'</b><small>'+fm(R.lowS)+' s/IVA</small></div><div><small>Medio</small><b>'+fm(R.mid)+'</b><small>'+fm(R.midS)+' s/IVA</small></div><div><small>Alto</small><b>'+fm(R.high)+'</b><small>'+fm(R.highS)+' s/IVA</small></div></div><div class="s" style="margin-top:4px">'+R.inc.length+' de '+R.rows.filter(function(x){return x.ok;}).length+' comparables con precio (atípicos ±'+S.cfg.trim+' % fuera)</div></div>'+
+  '</div><ul class="reasons">'+R.conf.why.map(function(w){ return "<li>"+esc(w)+"</li>"; }).join("")+'</ul>'+mas+'</section>';
+}
+var NOMBRE = {anio:"Año modelo", km:"Kilometraje", motor:"Motor", trans:"Transmisión", hp:"Potencia", ratio:"Relación de diferencial", diff:"Capacidad del diferencial", rims:"Rines", cab:"Cabina", config:"Configuración"};
+function stepWhy(k){ if(k==="anio") return S.cfg.dep.why; if(k==="km") return S.cfg.km.why; return ""; }
+function unitWhy(u,k,R){
+  if(k==="anio"||k==="km") return stepWhy(k);
+  var kx=key(u,k), op=cat(k).opts[kx]; if(!op) return "Sin dato en la unidad: no se ajusta.";
+  var otros={}; (R&&R.inc||[]).forEach(function(x){ var b=key(x.c,k); if(b&&b!==kx) otros[b]=(otros[b]||0)+1; });
+  var l=Object.keys(otros).map(function(b){ return b+" ("+otros[b]+", "+(cat(k).opts[b]?cat(k).opts[b].f:100)+" %)"; });
+  return "Unidad: "+kx+" ("+op.f+" %). "+op.why+(l.length?" Comparables ajustados: "+l.join("; ")+".":"");
+}
+function waterfall(u, R, mode){
+  if(!R.mid) return "";
+  var t = mode==="sin" ? 1+ivaR() : 1;
+  var rows = [{l:"Precio base de comparables", s:"Promedio ponderado normalizado a precio con IVA", v:R.base/t, tot:true}];
+  R.steps.forEach(function(s){ if(Math.abs(s.f-1)<0.0005) return; rows.push({l:NOMBRE[s.k], s:pc(s.f)+" promedio", from:s.from/t, to:s.to/t, f:s.f, why:unitWhy(u,s.k,R)}); });
+  if(Math.abs(R.mix-1)>=0.0005){ var a=R.preCond/R.mix/t; rows.push({l:"Efecto de mezcla", s:"Diferencia entre promedio de productos y producto de promedios", from:a, to:R.preCond/t, f:R.mix, why:"Ajuste técnico por combinar varios comparables; no es premio ni penalización."}); }
+  if(Math.abs(R.condF-1)>=0.0005) rows.push({l:"Estado general", s:pc(R.condF)+" · "+u.cond, from:R.preCond/t, to:R.mid/t, f:R.condF, why:cat("cond").opts[u.cond]?cat("cond").opts[u.cond].why:""});
+  rows.push({l:"Valor de mercado", s:"Medio", v:R.mid/t, tot:true});
+  var marg = R.midS*mg(u)/100;
+  rows.push({l:"Margen "+mg(u)+" %", s:"Utilidad deseada", from:R.mid/t, to:(R.midS-marg)*(mode==="sin"?1:1+ivaR()), f:0, why:"Margen de reventa definido para la unidad."});
+  if(rc(u)) rows.push({l:"Reacondicionamiento", s:fm(rc(u))+" sin IVA", from:(R.midS-marg)*(mode==="sin"?1:1+ivaR()), to:(mode==="sin"?R.buyS:R.buy), f:0, why:"Costo estimado para dejar la unidad vendible."});
+  rows.push({l:"Precio sugerido de compra", s:mode==="sin"?"sin IVA":"con IVA", v:mode==="sin"?R.buyS:R.buy, tot:true, gold:true});
+  var all=[]; rows.forEach(function(r){ if(r.tot) all.push(r.v); else { all.push(r.from); all.push(r.to); } });
+  var mx=Math.max.apply(null,all), mn=Math.min.apply(null,all), lo=Math.max(0, mn - (mx-mn)*.6), sp=(mx-lo)||1;
+  var x=function(v){ return (v-lo)/sp*100; };
+  return rows.map(function(r){
+    var bar;
+    if(r.tot) bar='<i style="left:0;width:'+x(r.v)+'%;background:'+(r.gold?"var(--au)":"var(--ac)")+'"></i>';
+    else { var a=Math.min(r.from,r.to), b=Math.max(r.from,r.to), up=r.to>=r.from; bar='<i style="left:'+x(a)+'%;width:'+Math.max(.6,x(b)-x(a))+'%;background:'+(up?"var(--ok)":"var(--bad)")+'"></i>'; }
+    var val = r.tot ? fm(r.v) : '<span class="'+(r.to>=r.from?"pos":"neg")+'">'+(r.to>=r.from?"+":"−")+fm(Math.abs(r.to-r.from)).replace("-","")+'</span>';
+    return '<div class="r'+(r.tot?" tot":"")+'" title="'+esc(r.why||"")+'"><div class="t">'+esc(r.l)+'<small>'+esc(r.s||"")+'</small></div><div class="trk">'+bar+'</div><div class="vv">'+val+'</div>'+(r.why?'<div class="why">'+esc(r.why)+'</div>':"")+'</div>';
+  }).join("");
+}
+function factorTable(u, R){
+  var rows = [["anio","Año modelo", u.year+(u.yearNote?" · "+u.yearNote:""), Math.pow(1-S.cfg.dep.f/100, Math.max(0,YR-u.year)), S.cfg.dep.why, S.cfg.dep.src, "−"+S.cfg.dep.f+" % por año de antigüedad"],
+              ["km","Kilometraje", fk(u.km), kmF(u.km), S.cfg.km.why, S.cfg.km.src, "−"+S.cfg.km.f+" % por cada 100,000 km"]];
+  FACT.concat(["cond"]).forEach(function(k){ var kx = k==="cond" ? u.cond : key(u,k), op=cat(k).opts[kx];
+    rows.push([k, cat(k).lab, kx||"Sin dato", op?op.f/100:1, op?op.why:"Sin dato: no se ajusta.", op?op.src:"—", ""]); });
+  var eff = {}; if(R.steps) R.steps.forEach(function(s){ eff[s.k]=s.f; }); if(R.condF) eff.cond=R.condF;
+  return '<div class="sc"><table><thead><tr><th>Factor</th><th>Unidad</th><th class="n">Contra referencia</th><th class="n">Efecto vs. comparables</th><th>Justificación</th><th>Fuente o criterio</th></tr></thead><tbody>'+
+    rows.map(function(r){ var e=eff[r[0]]; return '<tr><td>'+r[1]+'</td><td>'+esc(r[2])+'</td><td class="n '+cls(r[3])+'">'+pc(r[3])+(r[6]?'<br><small>'+esc(r[6])+'</small>':"")+'</td><td class="n '+(e?cls(e):"zero")+'">'+(e?pc(e):"—")+'</td><td>'+esc(r[4])+'</td><td><small>'+esc(r[5])+'</small></td></tr>'; }).join("")+'</tbody></table></div>'+
+    '<p class="hint" style="margin-top:8px">«Contra referencia»: premio o penalización de la unidad frente a la especificación de referencia (100 %). «Efecto vs. comparables»: ajuste promedio que se aplicó a los comparables para llevarlos a esta unidad. Las justificaciones se editan en «Factores y justificaciones».</p>';
+}
+function compCard(u, row, i){
+  var c=row.c, C=S.cfg.cats, st=Object.keys(S.cfg.srcTypes);
+  var badges = [];
+  if(c.ivaMode==="mas") badges.push('<span class="pill w">Publicado más IVA: se sumó '+S.cfg.iva+' %</span>');
+  if(c.cur==="USD") badges.push('<span class="pill">USD × '+S.cfg.fx+'</span>');
+  if(c.srcType==="Precio de lista nuevo") badges.push('<span class="pill">Lista nuevo −'+S.cfg.newDrop.f+' %</span>');
+  if(c.status==="Captura manual") badges.push('<span class="pill w">Captura manual: no entra al cálculo</span>');
+  else if(c.status==="Por verificar") badges.push('<span class="pill w">Por verificar</span>');
+  if(row.out) badges.push('<span class="pill b">Excluido: atípico ±'+S.cfg.trim+' %</span>');
+  var adj = row.ok ? fm(row.adj)+' <small class="mut">ajustado · peso '+row.w.toFixed(2)+'</small>' : '<small class="mut">sin precio o año</small>';
+  return '<div class="comp'+(row.out?" out":"")+'" data-i="'+i+'"><div class="hd"><b>'+esc(c.srcName||c.srcType)+'</b><span class="mut">'+esc(c.year||"")+' · '+fk(c.km)+'</span>'+(c.url?'<a href="'+esc(c.url)+'" target="_blank" rel="noopener">ver liga</a>':"")+badges.join("")+'<span class="adj">'+adj+'</span><button class="l x" data-del="1">Quitar</button></div>'+
+  '<div class="g">'+
+   '<label>Tipo de fuente<select data-k="srcType">'+opts(st,c.srcType)+'</select></label>'+
+   '<label>Fuente / vendedor<input data-k="srcName" value="'+esc(c.srcName)+'"></label>'+
+   '<label style="grid-column:span 2">Liga<input data-k="url" value="'+esc(c.url)+'" placeholder="https://"></label>'+
+   '<label>Consulta<input type="date" data-k="date" value="'+esc(c.date)+'"></label>'+
+   '<label>Estado del dato<select data-k="status">'+opts(ESTADOS,c.status||"Verificado")+'</select></label>'+
+   '<label>Precio<input type="number" step="1000" data-k="price" value="'+esc(c.price||"")+'"></label>'+
+   '<label>Moneda<select data-k="cur">'+opts(["MXN","USD"],c.cur||"MXN")+'</select></label>'+
+   '<label>Precio publicado<select data-k="ivaMode"><option value="con"'+(c.ivaMode!=="mas"?" selected":"")+'>Con IVA</option><option value="mas"'+(c.ivaMode==="mas"?" selected":"")+'>Más IVA</option></select></label>'+
+   '<label>Peso<input type="number" step="0.1" min="0" data-k="w" value="'+esc(c.w==null?"":c.w)+'" placeholder="'+((S.cfg.srcTypes[c.srcType]||{}).w||1)+'"></label>'+
+   '<label>Año<input type="number" data-k="year" value="'+esc(c.year)+'"></label>'+
+   '<label>Km<input type="number" step="1000" data-k="km" value="'+esc(c.km==null?"":c.km)+'"></label>'+
+   '<label>Configuración<select data-k="config">'+opts(Object.keys(C.config.opts),c.config,"Sin dato")+'</select></label>'+
+   '<label>Cabina<select data-k="cabType"><option value="">Sin dato</option><option value="day"'+(c.cabType==="day"?" selected":"")+'>Day cab</option><option value="dorm"'+(c.cabType==="dorm"?" selected":"")+'>Dormitorio</option></select></label>'+
+   '<label>Dormitorio (pulg.)<input type="number" data-k="cabSize" value="'+esc(c.cabSize==null?"":c.cabSize)+'"></label>'+
+   '<label>Motor<select data-k="motor">'+opts(Object.keys(C.motor.opts),c.motor,"Sin dato")+'</select></label>'+
+   '<label>HP<input type="number" data-k="hp" value="'+esc(c.hp==null?"":c.hp)+'"></label>'+
+   '<label>Transmisión<select data-k="trans">'+opts(Object.keys(C.trans.opts),c.trans,"Sin dato")+'</select></label>'+
+   '<label>Relación<input type="number" step="0.01" data-k="ratio" value="'+esc(c.ratio==null?"":c.ratio)+'"></label>'+
+   '<label>Cap. diferencial (lb)<input type="number" step="1000" data-k="diff" value="'+esc(c.diff==null?"":c.diff)+'"></label>'+
+   '<label>Rines<select data-k="rims">'+opts(Object.keys(C.rims.opts),c.rims,"Sin dato")+'</select></label>'+
+   '<label style="grid-column:1/-1">Nota<input data-k="note" value="'+esc(c.note)+'"></label>'+
+  '</div></div>';
+}
+var wfMode = "con";
+function renderUnits(){
+  renderChips();
+  var p=proj(), u=unit(p);
+  if(!u){ $("uBody").innerHTML='<div class="empty">Este subproyecto no tiene unidades. Usa «+ Unidad» para capturar la primera.</div>'; return; }
+  var R=valuate(u);
+  $("uBody").innerHTML = unitForm(u) + '<div id="uRes">'+resultBlocks(u,R)+'</div>' +
+   '<section class="card"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center"><h2 style="margin:0">Comparables ('+u.comps.length+')</h2><div><button class="p" id="cAdd">+ Comparable</button> <button id="cList">+ Precio de lista nuevo</button></div></div>'+
+   '<p class="hint" style="margin-top:8px">Regla general: el precio publicado incluye IVA. Si la publicación dice «más IVA», «+ IVA» o «sin IVA», elige «Más IVA» y se suma el '+S.cfg.iva+' %. Los datos faltantes no se ajustan (se toman iguales a la unidad) y bajan la confianza.</p>'+
+   '<div id="cList2">'+R.rows.map(function(r,i){ return compCard(u,r,i); }).join("")+'</div></section>';
+}
+function resultBlocks(u,R){
+  return resultCard(u,R) + (R.mid ? '<section class="card"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center"><h2 style="margin:0">Del precio de los comparables al precio de compra</h2><div class="chips" style="margin:0" id="wfm"><button data-m="con" class="'+(wfMode==="con"?"on":"")+'">Con IVA</button><button data-m="sin" class="'+(wfMode==="sin"?"on":"")+'">Sin IVA</button></div></div><div class="wf">'+waterfall(u,R,wfMode)+'</div></section>' : "") +
+    '<section class="card"><h2>Premios y penalizaciones</h2>'+factorTable(u,R)+'</section>';
+}
+function refreshResults(){ var u=unit(); if(!u) return; var R=valuate(u); $("uRes").innerHTML=resultBlocks(u,R);
+  var cards=$("cList2").children; R.rows.forEach(function(r,i){ var el=cards[i]; if(!el) return; var tmp=document.createElement("div"); tmp.innerHTML=compCard(u,r,i); var nh=tmp.firstChild.querySelector(".hd"); el.querySelector(".hd").replaceWith(nh); el.classList.toggle("out", !!r.out); });
+  renderChips(); }
+$("uBody").addEventListener("input", function(e){ var t=e.target, u=unit(); if(!u) return;
+  var num = t.type==="number";
+  if(t.dataset.u){ var k=t.dataset.u, v=num?(t.value===""?null:+t.value):t.value; if((k==="margen"||k==="recon")&&t.value==="") v=null; u[k]=v; save(); refreshResults(); return; }
+  if(t.dataset.k){ var i=+t.closest(".comp").dataset.i, c=u.comps[i], k2=t.dataset.k; c[k2] = num ? (t.value===""?null:+t.value) : t.value; save(); refreshResults(); }
+});
+$("uBody").addEventListener("click", function(e){ var u=unit(); if(!u) return; var b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.del){ var i=+b.closest(".comp").dataset.i; u.comps.splice(i,1); save(); renderUnits(); }
+  else if(b.id==="cAdd"){ u.comps.push({id:uid(), srcType:"Anuncio México", srcName:"", url:"", date:today(), status:"Verificado", price:0, cur:"MXN", ivaMode:"con", w:null, year:u.year, km:u.km, config:u.config, cabType:u.cabType, cabSize:u.cabSize, hp:u.hp, motor:u.motor, trans:u.trans, ratio:u.ratio, diff:u.diff, rims:u.rims, note:""}); save(); renderUnits(); }
+  else if(b.id==="cList"){ u.comps.push({id:uid(), srcType:"Precio de lista nuevo", srcName:"Precio de lista distribuidor", url:"", date:today(), status:"Por verificar", price:0, cur:"MXN", ivaMode:"con", w:null, year:u.year, km:0, config:u.config, cabType:u.cabType, cabSize:u.cabSize, hp:u.hp, motor:u.motor, trans:u.trans, ratio:u.ratio, diff:u.diff, rims:u.rims, note:"Cotización de unidad nueva"}); save(); renderUnits(); }
+  else if(b.dataset.m){ wfMode=b.dataset.m; refreshResults(); }
+  else if(b.id==="prU"){ printSheets([u]); }
+});
+
+/* ---------- libro azul ---------- */
+var bookMode = "ambos";
+function specLine(u){ return [u.config, u.cabType==="day"?"day cab":(u.cabSize?"dormitorio "+u.cabSize+"\"":""), u.motor?(u.motor+(u.hp?" "+u.hp+" HP":"")):"", u.trans, u.ratio?"rel. "+u.ratio:"", u.diff?(+u.diff).toLocaleString("es-MX")+" lb":"", u.rims?"rines "+u.rims:""].filter(Boolean).join(" · "); }
+function money2(con, sin){ if(!con) return "—"; if(bookMode==="con") return "<b>"+fm(con)+"</b>"; if(bookMode==="sin") return "<b>"+fm(sin)+"</b>"; return "<b>"+fm(con)+"</b><br><small>"+fm(sin)+" s/IVA</small>"; }
+function bookTable(p, forPrint){
+  var rows = p.units.map(function(u){ var R=valuate(u); return {u:u,R:R}; });
+  return '<div class="sc"><table class="lib"><thead><tr><th>Unidad</th><th class="n">Año</th><th>Especificación clave</th><th class="n">Venta bajo</th><th class="n">Venta medio</th><th class="n">Venta alto</th><th class="n">Compra sugerida</th><th class="n">Comp.</th><th>Confianza</th></tr></thead><tbody>'+
+   rows.map(function(x){ var u=x.u, R=x.R; return '<tr><td><b>'+esc(u.name)+'</b>'+(u.yearNote?'<br><small>'+esc(u.yearNote)+'</small>':"")+'</td><td class="n">'+esc(u.year)+'</td><td><small>'+esc(specLine(u))+'<br>'+fk(u.km)+'</small></td><td class="n">'+money2(R.low,R.lowS)+'</td><td class="n">'+money2(R.mid,R.midS)+'</td><td class="n">'+money2(R.high,R.highS)+'</td><td class="n">'+money2(R.buy,R.buyS)+'</td><td class="n">'+(R.inc?R.inc.length:0)+'</td><td>'+(R.conf?'<span class="badge '+R.conf.lvl+'">'+R.conf.lvl+'</span>':'<span class="mut">sin datos</span>')+'</td></tr>'; }).join("")+'</tbody></table></div>';
+}
+function masIvaList(p){ var l=[]; p.units.forEach(function(u){ (u.comps||[]).forEach(function(c){ if(c.ivaMode==="mas") l.push('<li>'+esc(u.name)+': '+esc(c.srcName||c.srcType)+' '+esc(c.year||"")+' · '+(c.cur==="USD"?"US$ "+(+c.price).toLocaleString("es-MX"):fm(+c.price))+(c.url?' · <a href="'+esc(c.url)+'" target="_blank" rel="noopener">'+esc(c.url)+'</a>':"")+'</li>'); }); }); return l; }
+function renderBook(){
+  var p=proj(), l=masIvaList(p);
+  $("book").innerHTML = '<section class="card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><div><h2 style="margin:0">Libro azul · '+esc(p.name)+'</h2><span class="mut">Cliente: '+esc(p.client||"—")+' · Fecha: '+esc(p.date||"—")+'</span></div><div class="chips" style="margin:0" id="bkm"><button data-m="ambos" class="'+(bookMode==="ambos"?"on":"")+'">Con y sin IVA</button><button data-m="con" class="'+(bookMode==="con"?"on":"")+'">Con IVA</button><button data-m="sin" class="'+(bookMode==="sin"?"on":"")+'">Sin IVA</button><button id="prB">Imprimir libro azul</button></div></div>'+
+   '<p class="hint" style="margin-top:8px">Valores en MXN. «Con IVA» = precio de venta como lo publica el mercado; «sin IVA» = el mismo valor ÷ '+(1+ivaR()).toFixed(2)+'. Compra sugerida = valor medio sin IVA menos margen y reacondicionamiento.</p>'+bookTable(p)+'</section>'+
+   '<section class="card"><h2>Comparables publicados más IVA</h2>'+(l.length?'<ul class="reasons" style="color:var(--tx)">'+l.join("")+'</ul>':'<p class="hint">Ninguno.</p>')+'</section>';
+}
+$("book").addEventListener("click", function(e){ var b=e.target.closest("button"); if(!b) return; if(b.dataset.m){ bookMode=b.dataset.m; renderBook(); } if(b.id==="prB"){ printSheets(proj().units, true); } });
+
+/* ---------- impresión ---------- */
+function sourcesTable(u){
+  return '<table><thead><tr><th>Fuente</th><th>Tipo</th><th class="n">Año</th><th class="n">Km</th><th class="n">Precio publicado</th><th>IVA</th><th>Consulta</th><th>Liga</th></tr></thead><tbody>'+
+    (u.comps||[]).map(function(c){ return '<tr><td>'+esc(c.srcName||"—")+(c.status&&c.status!=="Verificado"?' <small>('+esc(c.status)+')</small>':"")+'</td><td>'+esc(c.srcType)+'</td><td class="n">'+esc(c.year||"")+'</td><td class="n">'+(c.km!=null&&c.km!==""?(+c.km).toLocaleString("es-MX"):"s/d")+'</td><td class="n">'+(+c.price? (c.cur==="USD"?"US$ "+(+c.price).toLocaleString("es-MX"):fm(+c.price)) : "—")+'</td><td>'+(c.ivaMode==="mas"?"Más IVA (+"+S.cfg.iva+" %)":"Con IVA")+'</td><td>'+esc(c.date||"")+'</td><td style="word-break:break-all"><small>'+esc(c.url||"")+'</small></td></tr>'; }).join("")+'</tbody></table>';
+}
+function printSheets(units, withBook){
+  var p=proj(), now=new Date().toLocaleDateString("es-MX",{year:"numeric",month:"long",day:"numeric"});
+  var head = function(t){ return '<h1>'+t+'</h1><p><b>Subproyecto:</b> '+esc(p.name)+' · <b>Cliente:</b> '+esc(p.client||"—")+' · <b>Fecha del subproyecto:</b> '+esc(p.date||"—")+' · <b>Emitido:</b> '+now+' · IVA '+S.cfg.iva+' % · TC '+S.cfg.fx+' MXN/USD</p>'; };
+  var h = "";
+  if(withBook){ var l=masIvaList(p);
+    var fu = p.units.map(function(u){ return '<li><b>'+esc(u.name)+' '+esc(u.year)+':</b> '+(u.comps||[]).filter(function(c){ return c.srcName||c.url; }).map(function(c){ return esc(c.srcName||c.srcType)+' '+esc(c.year||"")+(c.status&&c.status!=="Verificado"?' ('+esc(c.status.toLowerCase())+')':"")+(c.url?' — '+esc(c.url):""); }).join("; ")+'</li>'; }).join("");
+    h += '<div class="sheet">'+head("Libro azul de tractocamiones")+bookTable(p, true)+(l.length?'<h2>Comparables publicados más IVA</h2><ul>'+l.join("")+'</ul>':"")+'<h2>Fuentes por unidad</h2><ul style="font-size:9px;word-break:break-all">'+fu+'</ul>'+'<p style="font-size:10px;color:#555">Valores de referencia calculados con comparables publicados; no son una autorización de compra. Factores marcados «supuesto, calibrar» deben calibrarse con operaciones reales.</p></div>'; }
+  units.forEach(function(u){ var R=valuate(u), sv=wfMode; wfMode="con";
+    h += '<div class="sheet">'+head("Hoja de valuación · "+esc(u.name)+" "+esc(u.year))+'<p><b>Especificación:</b> '+esc(specLine(u))+' · '+fk(u.km)+' · estado '+esc(u.cond)+(u.yearNote?' · '+esc(u.yearNote):"")+'</p>'+(u.refYears?'<p><b>Años de referencia:</b> '+esc(u.refYears)+'</p>':"")+
+      resultCard(u,R).replace(/<button id="prU">Imprimir hoja<\/button>/,"")+(R.mid?'<h2>Cascada (con IVA)</h2><div class="wf">'+waterfall(u,R,"con")+'</div>':"")+'<h2>Premios y penalizaciones</h2>'+factorTable(u,R)+'<h2>Fuentes y comparables</h2>'+sourcesTable(u)+'</div>';
+    wfMode=sv; });
+  $("print").innerHTML = h;
+  setTimeout(function(){ window.print(); }, 50);
+}
+
+/* ---------- factores ---------- */
+function renderCfg(){
+  var c=S.cfg;
+  var gen = '<section class="card"><h2>Parámetros generales</h2><div class="g">'+
+    '<label>Tasa de IVA (%)<input type="number" step="0.5" data-g="iva" value="'+c.iva+'"></label>'+
+    '<label>Tipo de cambio (MXN por USD)<input type="number" step="0.1" data-g="fx" value="'+c.fx+'"></label>'+
+    '<label>Excluir atípicos (± % de la mediana; 0 = no)<input type="number" step="5" data-g="trim" value="'+c.trim+'"></label>'+
+    '<label>Margen general (%)<input type="number" step="0.5" data-g="margen" value="'+c.margen+'"></label>'+
+    '<label>Reacondicionamiento general (MXN sin IVA)<input type="number" step="1000" data-g="recon" value="'+c.recon+'"></label></div>'+
+    '<div class="sc"><table class="fx" style="margin-top:12px"><thead><tr><th>Concepto</th><th>Valor (%)</th><th>Justificación</th><th>Fuente o criterio</th></tr></thead><tbody>'+
+    [["dep","Depreciación por año modelo"],["km","Penalización por cada 100,000 km"],["newDrop","Pérdida inicial sobre precio de lista nuevo"]].map(function(r){ var x=c[r[0]]; return '<tr><td>'+r[1]+'</td><td><input type="number" step="0.5" data-p="'+r[0]+'" data-f="f" value="'+x.f+'"></td><td><textarea data-p="'+r[0]+'" data-f="why">'+esc(x.why)+'</textarea></td><td><input data-p="'+r[0]+'" data-f="src" value="'+esc(x.src)+'"></td></tr>'; }).join("")+'</tbody></table></div></section>';
+  var cats = Object.keys(c.cats).map(function(k){ var C=c.cats[k];
+    return '<section class="card"><h2>'+C.lab+' <span class="mut" style="font-weight:400">(100 % = referencia; menos penaliza, más premia)</span></h2><div class="sc"><table class="fx"><thead><tr><th>Opción</th><th>Factor (%)</th><th>Justificación</th><th>Fuente o criterio</th></tr></thead><tbody>'+
+      Object.keys(C.opts).map(function(n){ var x=C.opts[n]; return '<tr><td>'+esc(n)+'</td><td><input type="number" step="0.5" data-c="'+k+'" data-n="'+esc(n)+'" data-f="f" value="'+x.f+'"></td><td><textarea data-c="'+k+'" data-n="'+esc(n)+'" data-f="why">'+esc(x.why)+'</textarea></td><td><input data-c="'+k+'" data-n="'+esc(n)+'" data-f="src" value="'+esc(x.src)+'"></td></tr>'; }).join("")+'</tbody></table></div></section>'; }).join("");
+  var st = '<section class="card"><h2>Tipos de fuente y peso</h2><p class="hint">El peso multiplica la participación del comparable en el promedio. Se puede cambiar por comparable.</p><div class="sc"><table class="fx"><thead><tr><th>Tipo</th><th>Peso</th><th>Criterio</th></tr></thead><tbody>'+
+    Object.keys(c.srcTypes).map(function(n){ var x=c.srcTypes[n]; return '<tr><td>'+esc(n)+'</td><td><input type="number" step="0.1" min="0" data-s="'+esc(n)+'" data-f="w" value="'+x.w+'"></td><td><textarea data-s="'+esc(n)+'" data-f="why">'+esc(x.why)+'</textarea></td></tr>'; }).join("")+'</tbody></table></div></section>';
+  $("cfg").innerHTML = '<p class="hint">Valores iniciales de referencia, no datos oficiales: todos son «supuesto, calibrar» hasta contrastarlos con compras y ventas reales. Los cambios se aplican a todos los subproyectos y se guardan en este navegador.</p>'+gen+cats+st+'<p><button id="cfgReset">Restablecer factores y justificaciones</button></p>';
+}
+$("cfg").addEventListener("input", function(e){ var t=e.target, d=t.dataset, v = d.f==="f"||d.f==="w"||t.type==="number" ? +t.value : t.value;
+  if(d.g) S.cfg[d.g]=+t.value; else if(d.p) S.cfg[d.p][d.f]=v; else if(d.c) S.cfg.cats[d.c].opts[d.n][d.f]=v; else if(d.s) S.cfg.srcTypes[d.s][d.f]=v; else return; save(); });
+$("cfg").addEventListener("click", function(e){ if(e.target.id==="cfgReset" && confirm("¿Restablecer todos los factores, pesos y justificaciones a los valores iniciales?")){ S.cfg=clone(DEF); save(); renderCfg(); } });
+
+/* ---------- fuentes ---------- */
+var FUENTES = [{"grupo": "Portales en México", "nombre": "Mercado Libre México · camiones", "url": "https://vehiculos.mercadolibre.com.mx/camiones/", "tipo": "Anuncio México", "estado": "Lectura automática", "nota": "Mayor volumen de anuncios; distribuidores como Zapata publican aquí sus lotes."}, {"grupo": "Portales en México", "nombre": "Seminuevos.com", "url": "https://www.seminuevos.com/usados/-/camiones", "tipo": "Anuncio México", "estado": "Captura manual", "nota": "Activo, pero bloquea la lectura automática; también publica una guía de precios por modelo y año."}, {"grupo": "Portales en México", "nombre": "Todo Camión", "url": "https://www.todocamion.mx/", "tipo": "Anuncio México", "estado": "Captura manual", "nota": "Activo; sin LT ni Cascadia recientes al corte."}, {"grupo": "Portales en México", "nombre": "Marketbook México", "url": "https://www.marketbook.mx/", "tipo": "Anuncio México", "estado": "Captura manual", "nota": "Activo; bloquea la lectura automática. Muchos precios en USD."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "SelecTrucks Zapata (programa SelecTrucks de Freightliner)", "url": "https://www.selectruckszapata.com/catalogo", "tipo": "Distribuidor / seminuevo certificado", "estado": "Lectura automática", "nota": "Fichas con VIN; precio de contado con IVA incluido."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "Go On Zapata", "url": "https://www.zapataseminuevos.mx/camiones", "tipo": "Distribuidor / seminuevo certificado", "estado": "Lectura automática", "nota": "Repite unidades de SelecTrucks Zapata con otro precio: se cuenta una vez por VIN."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "Quality Trucks (International, Querétaro)", "url": "https://qualitytrucks.com.mx/seminuevos/", "tipo": "Distribuidor / seminuevo certificado", "estado": "Lectura automática", "nota": "Fichas con motor, transmisión, ejes y llantas."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "Panamotors", "url": "https://panamotors.com/tractocamiones", "tipo": "Distribuidor / seminuevo certificado", "estado": "Lectura automática", "nota": "Publica grupos de unidades con precio «desde»."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "NASTRAC", "url": "https://www.nastracseminuevos.com/", "tipo": "Distribuidor / seminuevo certificado", "estado": "Lectura automática", "nota": "Sin LT ni Cascadia recientes al corte."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "Scania Seminuevos (multimarca)", "url": "https://seminuevos.scania.com/", "tipo": "Distribuidor / seminuevo certificado", "estado": "Lectura automática", "nota": "Publica precios más IVA."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "Tractos (catálogo y outlet)", "url": "https://www.tractos.com/seminuevos", "tipo": "Distribuidor / seminuevo certificado", "estado": "Captura manual", "nota": "Catálogo en aplicación; datos tomados del Observatorio 1.2."}, {"grupo": "Distribuidores y seminuevos de marca en México", "nombre": "Truck Sales del Norte", "url": "https://trucksalesdelnortemx.com/", "tipo": "Distribuidor / seminuevo certificado", "estado": "Captura manual", "nota": "Activo; revisar inventario a mano."}, {"grupo": "Redes sociales", "nombre": "Facebook Marketplace", "url": "https://www.facebook.com/marketplace/", "tipo": "Redes sociales", "estado": "Captura manual", "nota": "Requiere iniciar sesión."}, {"grupo": "Redes sociales", "nombre": "Grupos de Facebook de compraventa de tractocamiones", "url": "https://www.facebook.com/groups/", "tipo": "Redes sociales", "estado": "Captura manual", "nota": "Requiere sesión; ahí se anuncian lotes y flotillas."}, {"grupo": "Redes sociales", "nombre": "Instagram", "url": "https://www.instagram.com/", "tipo": "Redes sociales", "estado": "Captura manual", "nota": "Requiere sesión; cuentas de distribuidores y loteros."}, {"grupo": "Redes sociales", "nombre": "TikTok", "url": "https://www.tiktok.com/", "tipo": "Redes sociales", "estado": "Captura manual", "nota": "Videos de lotes; rara vez incluyen precio."}, {"grupo": "Redes sociales", "nombre": "YouTube", "url": "https://www.youtube.com/", "tipo": "Redes sociales", "estado": "Captura manual", "nota": "Recorridos de lotes y flotillas; sin precio estructurado."}, {"grupo": "Subastas, remates y flotillas", "nombre": "Ritchie Bros. México", "url": "https://www.rbauction.com.mx/", "tipo": "Subasta / remate", "estado": "Captura manual", "nota": "Bloquea la lectura automática; los montos de adjudicación requieren cuenta."}, {"grupo": "Subastas, remates y flotillas", "nombre": "TIP México · subastas", "url": "https://subastas.tipmexico.com/", "tipo": "Subasta / remate", "estado": "Captura manual", "nota": "Activo; remates de unidades de arrendamiento."}, {"grupo": "Subastas, remates y flotillas", "nombre": "Lotes de flotilla en distribuidores", "url": "https://www.selectruckszapata.com/catalogo", "tipo": "Venta de flotilla", "estado": "Lectura automática", "nota": "Al corte: 11 LT Hi Rise 2022 y más de 20 Cascadia 2023 DT12 de un mismo origen."}, {"grupo": "Referencias de Estados Unidos (peso menor, tipo de cambio editable)", "nombre": "TruckPaper", "url": "https://www.truckpaper.com/", "tipo": "Referencia EUA / extranjera", "estado": "Captura manual", "nota": "Activo; bloquea la lectura automática."}, {"grupo": "Referencias de Estados Unidos (peso menor, tipo de cambio editable)", "nombre": "Commercial Truck Trader", "url": "https://www.commercialtrucktrader.com/", "tipo": "Referencia EUA / extranjera", "estado": "Captura manual", "nota": "Activo; bloquea la lectura automática."}, {"grupo": "Referencias de Estados Unidos (peso menor, tipo de cambio editable)", "nombre": "SelecTrucks (EUA)", "url": "https://www.selectrucks.com/trucks", "tipo": "Referencia EUA / extranjera", "estado": "Captura manual", "nota": "Activo; inventario en aplicación."}, {"grupo": "Referencias de Estados Unidos (peso menor, tipo de cambio editable)", "nombre": "International Used Trucks (EUA)", "url": "https://www.internationalusedtrucks.com/", "tipo": "Referencia EUA / extranjera", "estado": "Captura manual", "nota": "Activo según buscador; fichas de LT625 con precio."}, {"grupo": "Referencias de Estados Unidos (peso menor, tipo de cambio editable)", "nombre": "Ritchie Bros. (EUA)", "url": "https://www.rbauction.com/", "tipo": "Referencia EUA / extranjera", "estado": "Captura manual", "nota": "Activo; bloquea la lectura automática."}];
+function renderSrc(){
+  var g={}; FUENTES.forEach(function(f){ (g[f.grupo]=g[f.grupo]||[]).push(f); });
+  $("srcs").innerHTML = '<p class="hint">Fuentes confirmadas como existentes y activas a la fecha de revisión. «Lectura automática» = se consultaron precios en esta revisión; «captura manual» = el sitio pide sesión o bloquea la lectura automática: los precios se capturan a mano y no se inventan.</p>'+
+    Object.keys(g).map(function(k){ return '<section class="card"><h2>'+esc(k)+'</h2><ul class="src" style="padding-left:18px;margin:0">'+g[k].map(function(f){ return '<li><a href="'+esc(f.url)+'" target="_blank" rel="noopener">'+esc(f.nombre)+'</a> <span class="pill '+(f.estado==="Lectura automática"?"o":"w")+' st">'+esc(f.estado)+'</span> <span class="pill st">'+esc(f.tipo)+' · peso '+((S.cfg.srcTypes[f.tipo]||{}).w||"—")+'</span><br><span class="mut">'+esc(f.nota||"")+'</span></li>'; }).join("")+'</ul></section>'; }).join("");
+}
+
+/* ---------- pestañas ---------- */
+var cur="units";
+$("tabs").addEventListener("click", function(e){ var b=e.target.closest("button"); if(!b) return; cur=b.dataset.t;
+  document.querySelectorAll("#tabs button").forEach(function(x){ x.classList.toggle("on", x===b); });
+  document.querySelectorAll(".pane").forEach(function(x){ x.classList.toggle("on", x.id==="t-"+cur); });
+  if(cur==="units") renderUnits(); if(cur==="book") renderBook(); if(cur==="cfg") renderCfg(); if(cur==="src") renderSrc(); });
+window.addEventListener("afterprint", function(){ $("print").innerHTML=""; });
+function renderAll(){ renderProj(); if(cur==="units") renderUnits(); if(cur==="book") renderBook(); if(cur==="cfg") renderCfg(); if(cur==="src") renderSrc(); }
+
+load(); renderAll();
+})();
+</script></body></html>

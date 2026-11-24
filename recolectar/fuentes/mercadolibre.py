@@ -2,6 +2,8 @@
 import json, re
 from ..comun import get, numero, iva_de_texto, motor_normalizado, transmision_tipo, producto, HOY
 
+ANIO_MIN, ANIO_MAX = 2021, 2025  # años que se guardan para Cascadia e International LT
+
 BUSQUEDAS = [
     "https://vehiculos.mercadolibre.com.mx/camiones/kenworth/t680/",
     "https://vehiculos.mercadolibre.com.mx/camiones/freightliner/cascadia/2022/",
@@ -72,7 +74,7 @@ def leer(log=print):
         prod = producto(marca or marca_modelo, (modelo + " " + marca_modelo))
         if not prod: continue
         anio = numero(_atributo(h, "Año")) or a["anio"]
-        if prod != "kenworth-t680" and not (anio and 2021 <= anio <= 2025): continue
+        if prod != "kenworth-t680" and not (anio and ANIO_MIN <= anio <= ANIO_MAX): continue
         dm = re.search(r'"id":"description","type":"description","state":"VISIBLE","title":"Descripción","content":"((?:[^"\\]|\\.)*)"', h)
         desc = json.loads('"' + dm.group(1) + '"') if dm else ""
         vend = re.search(r'"seller_name":\{"title":\{"text":"([^"]*)"[^}]*\},"label":\{"text":"([^"]*)"', h)
